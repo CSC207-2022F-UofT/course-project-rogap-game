@@ -34,8 +34,6 @@ public class Player extends Creature {
 	// The player's Max Health displayed on the health bar at top left of the screen
 	private int maxHealthWidth = (int) (108 * Game.SCALE);
 	private int maxHealthHeight = (int) (32 * Game.SCALE);
-	// The current health's position
-	private int maxHealthXStart = (int) (32 * Game.SCALE);
 	private int maxHealthYStart = 0;
 
 	// The player's current health displayed on the health bar at top left of the screen
@@ -113,7 +111,7 @@ public class Player extends Creature {
 	 * Updates the player's max health displayed on the health bar
 	 */
 	private void updateMaxHealth() {
-		currentHealthWidth = (int) ((currentHealth / (float) maxHealth) * currentHealthWidth);
+		currentHealthWidth = (int) (maxHealth * Game.SCALE);
 	}
 
 	public void render(Graphics g, int lvlOffset) {
@@ -134,11 +132,13 @@ public class Player extends Creature {
 
 	/**
 	 * Draws the health bar at the top left of the screen
-	 * @param g
+	 * @param g Object that allows us to draw the UI
 	 */
 	private void drawHealthBar(Graphics g) {
 		g.drawImage(heartIcon, heartIconX, heartIconY, heartIconWidth, heartIconHeight, null);
 		g.setColor(Color.darkGray);
+		// The current health's position
+		int maxHealthXStart = (int) (32 * Game.SCALE);
 		g.fillRect(maxHealthXStart + heartIconX, maxHealthYStart + heartIconY,
 				maxHealthWidth, maxHealthHeight);
 		g.setColor(Color.red);
@@ -227,16 +227,13 @@ public class Player extends Creature {
 		}
 
 	}
-
-  	private void updateYPos(float ySpeed) {
+	private void updateYPos(float ySpeed) {
 		if (CanMoveHere(hitRadius.x, hitRadius.y + ySpeed, hitRadius.width, hitRadius.height, lvlData)) {
 			hitRadius.y += ySpeed;
 		} else {
 			hitRadius.y = GetEntityYPosUnderRoofOrAboveFloor(hitRadius, ySpeed);
 		}
-
 	}
-  
 	public void changeCurrentHealth(int value) {
 		currentHealth += value;
 

@@ -33,4 +33,37 @@ public class Player extends Creature{
     public void die() {
 
     }
+
+
+
+    public void dash() {
+
+    }
+
+    public void move() {
+
+    }
+
+    public void setInventoryh() {
+
+    }
+
+    public void getInventory() {
+
+    }
+
+    public void addItem() {
+
+    }
+
+    public void attackRadius() {
+
+    }
+
+    public void getCurrentLocation() {
+
+    }
+
+
+
 }

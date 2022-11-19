@@ -10,4 +10,6 @@ public  abstract class Creature {
     public abstract void reduceHealth();
 
     public abstract void die();
+
+    abstract UserRegisterResponseModel create();
 }

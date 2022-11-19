@@ -94,7 +94,7 @@ public class Player extends Creature{
     }
 
     private void loadAnimations() {
-        InputStream is = getClass().getClassLoader().getResourceAsStream("/sprite.png");
+        InputStream is = getClass().getResourceAsStream("/sprite.png");
 
         try {
             BufferedImage img = ImageIO.read(is);

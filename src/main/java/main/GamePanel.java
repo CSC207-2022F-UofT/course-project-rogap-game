@@ -116,7 +116,7 @@ public class GamePanel extends JPanel{
 
 
         // player VISUAL goes here
-        g.drawImage(player.getCurrentImage(), 615, 325, 50,69, null);
+        g.drawImage(player.getCurrentImage(), 615, 325, 48,48, null);
 
         //Enemy visual goes here
         g.drawImage(player.getCurrentImage(), enemyOne.getxEnemy(), enemyOne.getyEnemy(), null);

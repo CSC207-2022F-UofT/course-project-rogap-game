@@ -16,11 +16,12 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel{
     public Player player;
+    private JLabel timerGui;
+
     private int xDelta = -2546, yDelta = -2132;
     private boolean isPaused = false;
     private boolean showMinimap = false;
     private ArrayList<Leaf> leafList = new ArrayList<>();
-
 
     private BufferedImage map;
     private BufferedImage minimap;
@@ -29,14 +30,13 @@ public class GamePanel extends JPanel{
     private BufferedImage leaf;
 
 
-
-
     public MeleeEnemy enemyOne;
     // Has access to keyboard and mouse inputs
     public GamePanel(){
         // Adding leaves
         leafList.add(new Leaf());
         leafList.add(new Leaf());
+        setTimerGui();
 
         // Initializing methods
         player = new Player(this, xDelta, yDelta);
@@ -45,6 +45,22 @@ public class GamePanel extends JPanel{
         addKeyListener(new KeyboardInputs(this));
         addMouseListener(new MouseInputs(this));
         this.setBackground(new Color(0, 0, 0));
+    }
+
+    private void setTimerGui(){
+        timerGui = new JLabel(String.valueOf(300));
+        timerGui.setBounds(640, 20, 100, 100);
+        timerGui.setFont(new Font("Onyx", Font.PLAIN, 35));
+        timerGui.setForeground(new Color(150, 203, 187));
+        add(timerGui);
+    }
+    private void changeTimerGui(){
+        if (Game.getGameTimerSeconds() % 2 == 0){
+            timerGui.setForeground(new Color(150, 203, 187));
+        }else{
+            timerGui.setForeground(new Color(224, 68, 78));
+        }
+        timerGui.setText(String.valueOf(300 - Game.getGameTimerSeconds()));
     }
 
     private void importImage() {
@@ -121,16 +137,12 @@ public class GamePanel extends JPanel{
         //Enemy visual goes here
         g.drawImage(player.getCurrentImage(), enemyOne.getxEnemy(), enemyOne.getyEnemy(), null);
 
-        //TODO Move to health bar file
-        // Health bar goes here
-        //g.setColor(new Color(0, 0, 0, 194));
-        //g.fillRect(618, 312, 45, 13);
+        // TODO: Add health bar and animation
 
-        // TODO: Scale the green bar according to health
-        // TODO: Change color of health bar based on current health
-        //g.setColor(new Color(46, 175, 127, 255));
-        // g.fillRect(620, 314, 41, 9);
+        // Timer GUi Goes here
+        changeTimerGui();
 
+        animateLeaf(g, leafList);
 
         // Pause menu
         if (getIsPaused()){
@@ -138,10 +150,6 @@ public class GamePanel extends JPanel{
             g.fillRect(0, 0, 1280, 720);
             if (!showMinimap){
                 g.drawImage(pauseIcon, 500, 295, null);
-            }
-        }else{
-            if(!showMinimap){
-                animateLeaf(g, leafList);
             }
         }
 

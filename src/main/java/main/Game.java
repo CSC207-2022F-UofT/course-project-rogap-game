@@ -7,6 +7,13 @@ public class Game implements Runnable{
     private final int FPS_SET = 144;
     private final int UPS_SET = 144;
 
+    // TIMER COMPLETION
+    private static long startTime = System.currentTimeMillis();
+
+    // Game Timer Variables
+    private static long gameTimerSeconds = 0;
+    private static long pauseTime = 0;
+
 
     public Game(){
         gamePanel = new GamePanel();
@@ -27,6 +34,10 @@ public class Game implements Runnable{
         gameThread = new Thread(this);
         gameThread.start();
     }
+
+    public static int getGameTimerSeconds(){
+        return (int) ((int)(gameTimerSeconds - startTime) / 1000F);}
+
 
     // Main game loop
     @Override
@@ -50,10 +61,14 @@ public class Game implements Runnable{
             deltaF += (currentTime - previousTime) / timePerFrame;
             previousTime = currentTime;
 
+
             if (deltaU >= 1){
                 // Only update if the game is not paused
                 if (!gamePanel.getIsPaused()){
                     update();
+                    gameTimerSeconds = System.currentTimeMillis() - pauseTime;
+                }else{
+                    pauseTime = System.currentTimeMillis() - gameTimerSeconds;
                 }
                 update++;
                 deltaU--;

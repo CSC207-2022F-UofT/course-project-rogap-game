@@ -54,12 +54,17 @@ public class KeyboardInputs implements KeyListener {
             case KeyEvent.VK_W, KeyEvent.VK_S -> {
                 gamePanel.player.setVelY(0);
                 gamePanel.player.setMoving();
+
             }
-            case KeyEvent.VK_D, KeyEvent.VK_A -> {
+            case KeyEvent.VK_D -> {
                 gamePanel.player.setVelX(0);
                 gamePanel.player.setMoving();
+                gamePanel.player.setIdleDirection(1);}
+            case KeyEvent.VK_A -> {
+                gamePanel.player.setVelX(0);
+                gamePanel.player.setMoving();
+                gamePanel.player.setIdleDirection(0);
             }
-
         }
     }
 }

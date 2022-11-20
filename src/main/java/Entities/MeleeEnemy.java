@@ -1,4 +1,4 @@
-package Entities;
+package Entity;
 
 import main.GamePanel;
 
@@ -22,15 +22,14 @@ public class MeleeEnemy {
         enemyMovement();
     }
     private void enemyMovement() { //In order to update current enemy location must update absXenemy.
-        distance = Math.sqrt((Math.pow((gamePanel.player.getAbsXPlayer() + 615 - xEnemy - spawnX),2) + Math.pow((gamePanel.player.getAbsYPlayer()+ 325 - yEnemy -spawnY), 2)));
+        distance = Math.sqrt((Math.pow((gamePanel.player.getAbsXPlayer() + 615 - xEnemy - spawnX + 1280 + 24),2) + Math.pow((gamePanel.player.getAbsYPlayer()+ 325 - yEnemy -spawnY + 720 + 24), 2)));
         if (distance < 600 & distance > 10) {
-            velX = enemyMoveHelper(xEnemy - 615 ,gamePanel.player.getAbsXPlayer()- spawnX);
-            velY = enemyMoveHelper(yEnemy -325,gamePanel.player.getAbsYPlayer() -spawnY);
+            velX = enemyMoveHelper(xEnemy - 615 - 1280,gamePanel.player.getAbsXPlayer()- spawnX + 24);
+            velY = enemyMoveHelper(yEnemy - 325 - 720,gamePanel.player.getAbsYPlayer() - spawnY + 24);
             xEnemy -= velX;
             spawnX -= velX;
             yEnemy -= velY;
             spawnY -= velY;
-
         } else {
             velX = 0;
             velY = 0;

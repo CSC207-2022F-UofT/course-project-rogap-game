@@ -1,4 +1,4 @@
-package Entities;
+package Entity;
 
 import main.GamePanel;
 
@@ -6,16 +6,20 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     private GamePanel gamePanel;
-    private BufferedImage sprites;
+    private BufferedImage leftIdle, rightIdle, rightMovement, leftMovement;
+    private BufferedImage[] sprites = new BufferedImage[4];
     public BufferedImage[][] animations;
+    private int idleDir = 0;
 
     private int velX = 0, velY = 0;
     private int absXPlayer = 1882, absYPlayer = 1738;
 
-    private int aniTick, aniIndex, aniSpeed= 25;
+    private int aniTick, aniIndex, aniSpeed= 10;
     private int playerAction = 0;
     private boolean moving = false;
     public Player(GamePanel gamePanel, int xDelta, int yDelta) {
@@ -25,22 +29,26 @@ public class Player {
 
     }
     public void update() {
+/*        if (movable(absXPlayer, absYPlayer, )) {
+            work in progress
+          }*/
         gamePanel.changeXDelta(velX);
         gamePanel.changeYDelta(velY);
-
-
         this.absXPlayer -= velX;
         this.absYPlayer -= velY;
         updateAnimationTick();
         setAnimation();
     }
 
+/*    public boolean movable(int x, int y, int targetX, int targetY) {
+        work in progress
+    }*/
+
     //Helper methods
     public int getAbsXPlayer() {return this.absXPlayer;}
     public int getAbsYPlayer() {return this.absYPlayer;}
 
     //Handles all of player movement
-
     public void setVelX(int x) {
         velX = x;
     }
@@ -52,53 +60,72 @@ public class Player {
             moving = true;
         } else {moving = false;}
     }
-
     //All the functions that control player animations
     private void importImage() {
-        InputStream ps = getClass().getResourceAsStream("/Sprites.png");
+        InputStream lI = getClass().getResourceAsStream("/leftIdle.png");
+        InputStream rI = getClass().getResourceAsStream("/rightIdle.png");
+        InputStream lM = getClass().getResourceAsStream("/leftMovement.png");
+        InputStream rM = getClass().getResourceAsStream("/rightMovement.png");
         try {
-            assert ps != null;
-            sprites = ImageIO.read(ps);
-
+            assert lI != null & rI != null & lM != null & rM != null;
+            sprites[0] = ImageIO.read(lI);
+            sprites[1] = ImageIO.read(rI);
+            sprites[2] = ImageIO.read(lM);
+            sprites[3] = ImageIO.read(rM);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                ps.close();
+                lI.close();
+                rM.close();
+                rI.close();
+                lM.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+
     private void loadAnimation() {
-        animations = new BufferedImage[4][12];
+        animations = new BufferedImage[4][6];
         for (int j = 0; j < animations.length; j++){
             for (int i = 0; i < animations[j].length; i++) {
-                animations[j][i] = sprites.getSubimage(i*50, j*69,50,69);
+                if (j <= 1) {
+                    animations[j][i] = sprites[j].getSubimage(i*32, 0,32,32);
+                } else if (j >= 2 & i <= 4) {
+                    animations[j][i] = sprites[j].getSubimage(i*32, 0,32,32);
+                }
             }
         }
     }
-
     private void setAnimation() {
         if (moving) {
-            if ((velX == -2 & velY == -2) || (velX == -2 & velY == 2) || (velX == -2)) { //Left and up or left and down or left
-                playerAction = 2;
-            } else if ((velX == 2 & velY == -2) || (velX == 2 & velY == 2)|| (velX == 2)) { //Right and up or right and down or right
-                playerAction = 1;
-            } else if (velY == -2){ //Down
-                playerAction = 0;
-            } else if (velY == 2) { //UP
+            if ((velX == -2 & velY == -2) || (velX == -2 & velY == 2) || (velX == -2)) { //Left movement
                 playerAction = 3;
+            } else if ((velX == 2 & velY == -2) || (velX == 2 & velY == 2)|| (velX == 2)) { //Right movement
+                playerAction = 2;
+            } //Needs testing for up and down
+        } else {
+            if (idleDir == 0) { //Left idle animation
+                playerAction = 0;
+            } else {
+                playerAction = 1;
             }
         }
+    }
+    public void setIdleDirection(int dir) {
+        this.idleDir = dir;
     }
     private int getSpriteAmount(int playerAction) {
         switch (playerAction) {
+            case -1:
+
             case 0:
             case 1:
+                return 6;
             case 2:
             case 3:
-                return 3;
+                return 5;
             default:
                 return 1;
         }
@@ -116,5 +143,4 @@ public class Player {
     public BufferedImage getCurrentImage () {
         return this.animations[playerAction][aniIndex];
     }
-
 }

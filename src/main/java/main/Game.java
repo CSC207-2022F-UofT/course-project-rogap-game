@@ -18,8 +18,8 @@ public class Game implements Runnable{
     }
     public void update(){
         // Everything that needs to me updated, gets updated here :)
-        gamePanel.player.update();
         gamePanel.enemyOne.update();
+        gamePanel.player.update();
         gamePanel.updateGame();
     }
 

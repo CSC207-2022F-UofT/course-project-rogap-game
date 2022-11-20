@@ -24,19 +24,32 @@ public class Player {
     private int playerAction = 0;
     private boolean moving = false;
     public Rectangle hitBox;
+    public Rectangle hitBoxCheck;
     public Player(GamePanel gamePanel, int xDelta, int yDelta) {
         this.gamePanel = gamePanel;
         importImage();
         loadAnimation();
+        hitBoxCheck = new Rectangle(absXPlayer+ 6, absYPlayer+ 6, 36, 36);
     }
     public void update() {
-        gamePanel.changeXDelta(velX);
-        gamePanel.changeYDelta(velY);
-        this.absXPlayer -= velX;
-        this.absYPlayer -= velY;
+        hitBoxCheck = new Rectangle(absXPlayer+ 6, absYPlayer+ 6, 36, 36);
+        int checkX = absXPlayer - velX;
+        int checkY = absYPlayer - velY;
+        if (movable(checkX, checkY)) {
+            gamePanel.changeXDelta(velX);
+            gamePanel.changeYDelta(velY);
+            this.absXPlayer -= velX;
+            this.absYPlayer -= velY;
+        }
         updateAnimationTick();
         setAnimation();
-        hitBox = new Rectangle(absXPlayer, absYPlayer, 36, 36);
+    }
+
+    private boolean movable(int targetX, int targetY) {
+        hitBox = new Rectangle(targetX + 6, targetY + 6, 36, 36);
+        if (!hitBox.intersects(gamePanel.enemyOne.hitBox)) {
+            return true;
+        } else {return false;}
     }
 
     //Helper methods

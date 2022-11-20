@@ -1,4 +1,4 @@
-package Entity;
+package Entities;
 
 import main.GamePanel;
 
@@ -11,8 +11,7 @@ public class MeleeEnemy {
     private double distance;
     private double velX = 0, velY = 0;
     private int spawnX, spawnY;
-    public Rectangle hitbox;
-    public Rectangle playerHitBox;
+    public Rectangle hitBox;
     public MeleeEnemy(GamePanel gamePanel, int x, int y, int spawnX, int spawnY) {
         this.gamePanel = gamePanel;
         this.spawnY = spawnY;
@@ -23,21 +22,19 @@ public class MeleeEnemy {
 
     public void update() {
 
-        hitbox = new Rectangle(spawnX - 1280 + 4, spawnY -720 + 4, 24, 24);
-        System.out.println(spawnX);
-        System.out.println(spawnY);
-/*
-        if (!hitbox.contains(gamePanel.player.hitbox)){
-        enemyMovement();}
-*/
-        enemyMovement();
+        hitBox = new Rectangle(spawnX - 1280, spawnY -720, 24, 24);
+
+        if (!hitBox.intersects(gamePanel.player.hitBox)){
+            enemyMovement();
+        }
+
     }
 
     private void enemyMovement() { //In order to update current enemy location must update absXenemy.
-        distance = Math.sqrt((Math.pow((gamePanel.player.getAbsXPlayer() + 615 - xEnemy - spawnX + 1280 + 24),2) + Math.pow((gamePanel.player.getAbsYPlayer()+ 325 - yEnemy -spawnY + 720 + 24), 2)));
-        if (distance < 600 & distance > 1) {
-            velX = enemyMoveHelper(xEnemy - 615 - 1280,gamePanel.player.getAbsXPlayer()- spawnX + 24);
-            velY = enemyMoveHelper(yEnemy - 325 - 720,gamePanel.player.getAbsYPlayer() - spawnY + 24);
+        distance = Math.sqrt((Math.pow((gamePanel.player.getAbsXPlayer() + 615 - xEnemy - spawnX + 1280),2) + Math.pow((gamePanel.player.getAbsYPlayer()+ 325 - yEnemy -spawnY + 720), 2)));
+        if (distance < 600) {
+            velX = enemyMoveHelper(xEnemy - 615 - 1280,gamePanel.player.getAbsXPlayer() - spawnX);
+            velY = enemyMoveHelper(yEnemy - 325 - 720,gamePanel.player.getAbsYPlayer() - spawnY);
             xEnemy -= velX;
             spawnX -= velX;
             yEnemy -= velY;

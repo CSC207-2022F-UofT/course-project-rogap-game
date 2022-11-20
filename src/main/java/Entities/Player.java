@@ -1,4 +1,4 @@
-package Entity;
+package Entities;
 
 import main.GamePanel;
 
@@ -23,6 +23,7 @@ public class Player {
     private int aniTick, aniIndex, aniSpeed= 10;
     private int playerAction = 0;
     private boolean moving = false;
+    public Rectangle hitBox;
     public Player(GamePanel gamePanel, int xDelta, int yDelta) {
         this.gamePanel = gamePanel;
         importImage();
@@ -35,9 +36,7 @@ public class Player {
         this.absYPlayer -= velY;
         updateAnimationTick();
         setAnimation();
-        System.out.println("x = " + this.absXPlayer);
-        System.out.println("y = " + this.absYPlayer);
-
+        hitBox = new Rectangle(absXPlayer, absYPlayer, 36, 36);
     }
 
     //Helper methods

@@ -1,6 +1,6 @@
 package main;
 
-import Entities.MeleeEnemy;
+import Entities.MeleeMonster;
 import Entities.Player;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
@@ -30,7 +30,7 @@ public class GamePanel extends JPanel{
     private BufferedImage leaf;
 
 
-    public MeleeEnemy enemyOne;
+    public MeleeMonster enemyOne;
     // Has access to keyboard and mouse inputs
     public GamePanel(){
         // Adding leaves
@@ -40,7 +40,7 @@ public class GamePanel extends JPanel{
 
         // Initializing methods
         player = new Player(this, xDelta, yDelta);
-        enemyOne = new MeleeEnemy(this, xDelta, yDelta, 3780, 3220);
+        enemyOne = new MeleeMonster(this, xDelta, yDelta, 3780, 3220);
         importImage();
         addKeyListener(new KeyboardInputs(this));
         addMouseListener(new MouseInputs(this));

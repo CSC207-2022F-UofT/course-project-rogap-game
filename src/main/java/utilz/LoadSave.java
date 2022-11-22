@@ -18,7 +18,10 @@ public class LoadSave {
 
 	public static final String PLAYER_ATLAS = "player_sprites.png";
 	public static final String LEVEL_ATLAS = "outside_sprites.png"; // need to update this to the actual floor sprite
-	public static final String LEVEL_ONE_DATA = "level_one_data_long.png";
+	public static final String LEVEL_ONE_DATA = "level_one_data_long.png"; // might need to update this depending on how we implement the floor
+	// this is basically the floor data. Each pixel/tile on this file corresponds to the same pixel/tile on the screen.
+	// this is used to specify where the tiles of outside_sprites should go, and also where the monsters spawn.
+
 	public static final String MENU_BUTTONS = "button_atlas.png";
 	public static final String MENU_BACKGROUND = "menu_background.png";
 	public static final String PAUSE_BACKGROUND = "pause_menu.png";

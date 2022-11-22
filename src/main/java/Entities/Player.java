@@ -12,7 +12,6 @@ import java.util.List;
 
 public class Player {
     private GamePanel gamePanel;
-    private BufferedImage leftIdle, rightIdle, rightMovement, leftMovement;
     private BufferedImage[] sprites = new BufferedImage[4];
     public BufferedImage[][] animations;
     private int idleDir = 0;
@@ -23,16 +22,12 @@ public class Player {
     private int aniTick, aniIndex, aniSpeed= 10;
     private int playerAction = 0;
     private boolean moving = false;
-    public Rectangle hitBox;
-    public Rectangle hitBoxCheck;
     public Player(GamePanel gamePanel, int xDelta, int yDelta) {
         this.gamePanel = gamePanel;
         importImage();
         loadAnimation();
-        hitBoxCheck = new Rectangle(absXPlayer+ 6, absYPlayer+ 6, 36, 36);
     }
     public void update() {
-        hitBoxCheck = new Rectangle(absXPlayer+ 6, absYPlayer+ 6, 36, 36);
         int checkX = absXPlayer - velX;
         int checkY = absYPlayer - velY;
         if (movable(checkX, checkY)) {
@@ -44,13 +39,25 @@ public class Player {
         updateAnimationTick();
         setAnimation();
     }
-
-    private boolean movable(int targetX, int targetY) {
-        hitBox = new Rectangle(targetX + 6, targetY + 6, 36, 36);
-        if (!hitBox.intersects(gamePanel.enemyOne.hitBox)) {
-            return true;
-        } else {return false;}
+    public Rectangle getHitBox() {
+        Rectangle hitBox = new Rectangle(absXPlayer + 6, absYPlayer + 6, 36, 36);
+        return hitBox;
     }
+    private boolean movable(int targetX, int targetY) {
+        Rectangle hitBox = new Rectangle(targetX + 6, targetY + 6, 36, 36);
+        boolean move = true;
+        for (MeleeEnemy enemy : gamePanel.getEnemyList()) {
+            if (hitBox.intersects(enemy.hitBox)) {
+                move = false;
+            }
+        }
+        return move;
+    }
+
+/*    private boolean movableWall(int targetX, int targetY) {
+        boolean move = true;
+
+    }*/
 
     //Helper methods
     public int getAbsXPlayer() {return this.absXPlayer;}

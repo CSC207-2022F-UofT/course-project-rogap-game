@@ -50,7 +50,7 @@ public class Playing extends State implements Statemethods {
 			smallCloudsPos[i] = (int) (90 * Game.SCALE) + rnd.nextInt((int) (100 * Game.SCALE));
 	}
 
-	private void initClasses() {
+	private void initClasses() { // initialize all classes required to run the game
 		levelManager = new LevelManager(game);
 		enemyManager = new EnemyManager(this);
 		player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE), this);

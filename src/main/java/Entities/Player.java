@@ -62,7 +62,6 @@ public class Player extends Creature {
 		this.playing = playing;
 		loadAnimations();
 		initHitRadius(x, y, (int) (30 * Game.SCALE), (int) (30 * Game.SCALE));
-		initHitbox(x, y, (int) (20 * Game.SCALE), (int) (27 * Game.SCALE)); // only used for checkEnemyHit();
 		initAttackBox();
 
 	}
@@ -111,7 +110,7 @@ public class Player extends Creature {
 				(int) (hitRadius.x - xDrawOffset) - lvlOffset + flipX,
 				(int) (hitRadius.y - yDrawOffset), width * flipW, height, null);
 		drawHitRadius(g, lvlOffset);
-		drawHitbox(g, lvlOffset);
+//		drawHitbox(g, lvlOffset);
 
 		drawAttackRadius(g, lvlOffset);
 		drawUI(g);

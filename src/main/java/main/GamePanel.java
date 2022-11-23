@@ -16,11 +16,12 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel{
     public Player player;
+    private JLabel timerGui;
+
     private int xDelta = -2546, yDelta = -2132;
     private boolean isPaused = false;
     private boolean showMinimap = false;
     private ArrayList<Leaf> leafList = new ArrayList<>();
-
 
     private BufferedImage map;
     private BufferedImage minimap;
@@ -28,7 +29,7 @@ public class GamePanel extends JPanel{
     private BufferedImage pauseIcon;
     private BufferedImage leaf;
 
-
+    private BufferedImage bushes;
 
 
     public MeleeEnemy enemyOne;
@@ -37,6 +38,7 @@ public class GamePanel extends JPanel{
         // Adding leaves
         leafList.add(new Leaf());
         leafList.add(new Leaf());
+        setTimerGui();
 
         // Initializing methods
         player = new Player(this, xDelta, yDelta);
@@ -47,12 +49,35 @@ public class GamePanel extends JPanel{
         this.setBackground(new Color(0, 0, 0));
     }
 
+    private void setTimerGui(){
+        timerGui = new JLabel(String.valueOf(0));
+        timerGui.setBounds(640, 20, 100, 100);
+        timerGui.setFont(new Font("Onyx", Font.PLAIN, 35));
+        timerGui.setForeground(new Color(150, 203, 187));
+        add(timerGui);
+    }
+    private void changeTimerGui(){
+//        if (Game.getGameTimerSeconds() % 2 == 0){
+//            timerGui.setForeground(new Color(150, 203, 187));
+//        }else{
+//            timerGui.setForeground(new Color(224, 68, 78));
+//        }
+        if (Game.getGameTimerMinutes()>0){
+            String timerText = Game.getGameTimerMinutes() + ":" + Game.getGameTimerSeconds();
+            timerGui.setText(timerText);
+        }else{
+            timerGui.setText(String.valueOf(Game.getGameTimerSeconds()));
+        }
+
+    }
+
     private void importImage() {
         InputStream is = getClass().getResourceAsStream("/Floor1.png");
         InputStream mc = getClass().getResourceAsStream("/MapCursor.png");
         InputStream mm = getClass().getResourceAsStream("/Minimap.png");
         InputStream pi = getClass().getResourceAsStream("/Paused.png");
         InputStream lf = getClass().getResourceAsStream("/Leaf.png");
+        InputStream bt = getClass().getResourceAsStream("/Bushes.png");
 
         try {
             assert is != null;
@@ -61,6 +86,8 @@ public class GamePanel extends JPanel{
             minimap = ImageIO.read(mm);
             pauseIcon = ImageIO.read(pi);
             leaf = ImageIO.read(lf);
+            bushes = ImageIO.read(bt);
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -71,6 +98,7 @@ public class GamePanel extends JPanel{
                 mm.close();
                 pi.close();
                 lf.close();
+                bt.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -111,7 +139,7 @@ public class GamePanel extends JPanel{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
 
-        //Image image = img.getScaledInstance(1280, 720, Image.SCALE_DEFAULT);
+        //Drawing the basic map
         g.drawImage(map, xDelta, yDelta, null);
 
 
@@ -121,16 +149,15 @@ public class GamePanel extends JPanel{
         //Enemy visual goes here
         g.drawImage(player.getCurrentImage(), enemyOne.getxEnemy(), enemyOne.getyEnemy(), null);
 
-        //TODO Move to health bar file
-        // Health bar goes here
-        //g.setColor(new Color(0, 0, 0, 194));
-        //g.fillRect(618, 312, 45, 13);
+        //Drawing the bushes
+        g.drawImage(bushes, xDelta, yDelta, null);
 
-        // TODO: Scale the green bar according to health
-        // TODO: Change color of health bar based on current health
-        //g.setColor(new Color(46, 175, 127, 255));
-        // g.fillRect(620, 314, 41, 9);
+        // TODO: Add health bar and animation
 
+        // Timer GUi Goes here
+        changeTimerGui();
+
+        animateLeaf(g, leafList);
 
         // Pause menu
         if (getIsPaused()){
@@ -138,10 +165,6 @@ public class GamePanel extends JPanel{
             g.fillRect(0, 0, 1280, 720);
             if (!showMinimap){
                 g.drawImage(pauseIcon, 500, 295, null);
-            }
-        }else{
-            if(!showMinimap){
-                animateLeaf(g, leafList);
             }
         }
 

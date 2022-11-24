@@ -21,7 +21,9 @@ public class Player {
     private int aniTick, aniIndex, aniSpeed= 10;
     private int playerAction = 0;
     private boolean moving = false;
-    private WallCollision wallCollision = new WallCollision();
+    private int[][] verticalWalls = {{0,1,1},{0,4,1},{1,1,0},{1,2,1},{1,3,1},{1,4,0},{2,0,1},{2,1,0},{2,2,1},{2,3,0},{2,4,1},{3,0,1},{3,1,1},{3,3,1}};
+    private int[][] horizontalWalls = {{2,0,1},{0,1,1},{1,1,1},{2,1,0},{0,2,1},{1,2,0},{2,2,1},{1,3,0},{2,3,1},{1,4,0},{0,4,1},{2,4,1},{0,5,1},{1,5,1}};
+    private WallCollision wallCollision = new WallCollision(verticalWalls, horizontalWalls);
     public Player(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         importImage();
@@ -41,6 +43,7 @@ public class Player {
         setAnimation();
     }
 
+    //Player collisions with enemy and walls.
     public void updateWalls() {wallCollision.createWallLayout(gamePanel.getXDelta() + velX, gamePanel.getYDelta() + velY);}
     public WallCollision getWallCollision() {return this.wallCollision;}
     public Rectangle getHitBox() {
@@ -156,4 +159,5 @@ public class Player {
     public BufferedImage getCurrentImage () {
         return this.animations[playerAction][aniIndex];
     }
+
 }

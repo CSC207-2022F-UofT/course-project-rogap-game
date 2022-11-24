@@ -125,8 +125,8 @@ public class GamePanel extends JPanel{
         g.drawImage(player.getCurrentImage(), 616, 326, 48,48, null);
 
         //Enemy visual goes here
-        g.drawImage(player.getCurrentImage(), enemyOne.getxEnemy(), enemyOne.getyEnemy(), null);
-        g.drawImage(player.getCurrentImage(), enemyTwo.getxEnemy(), enemyTwo.getyEnemy(), null);
+        g.drawImage(player.getCurrentImage(), enemyOne.getXEnemy(), enemyOne.getYEnemy(), null);
+        g.drawImage(player.getCurrentImage(), enemyTwo.getXEnemy(), enemyTwo.getYEnemy(), null);
 
         //TODO Move to health bar file
         // Health bar goes here

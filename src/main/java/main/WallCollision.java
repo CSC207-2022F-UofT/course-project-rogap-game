@@ -4,10 +4,11 @@ import java.awt.*;
 
 public class WallCollision {
     public Rectangle[] wallLayout = new Rectangle[60];
-    public int[][] vWalls = {{0,1,1},{0,4,1},{1,1,0},{1,2,1},{1,3,1},{1,4,0},{2,0,1},{2,1,0},{2,2,1},{2,3,0},{2,4,1},{3,0,1},{3,1,1},{3,3,1}};
-    public int[][] hWalls = {{2,0,1},{0,1,1},{1,1,1},{2,1,0},{0,2,1},{1,2,0},{2,2,1},{1,3,0},{2,3,1},{1,4,0},{0,4,1},{2,4,1},{0,5,1},{1,5,1}};
-    public WallCollision(){
-
+    public int[][] vWalls;
+    public int[][] hWalls;
+    public WallCollision(int[][] vWalls, int[][] hWalls){
+        this.vWalls = vWalls;
+        this.hWalls = hWalls;
     }
     public void createWallLayout(int xDelta, int yDelta) {
         int zeroX = xDelta + 2546 - 1265;

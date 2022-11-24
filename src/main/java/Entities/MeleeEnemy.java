@@ -1,7 +1,6 @@
 package Entities;
 
 import main.GamePanel;
-import main.WallCollision;
 
 import java.awt.*;
 public class MeleeEnemy {
@@ -25,12 +24,10 @@ public class MeleeEnemy {
             enemyMovement();
         }
     }
-
     public Rectangle getHitBox() {
         hitBox = new Rectangle(spawnX - 1280 + 4, spawnY -720 + 4, 24, 24);
         return hitBox;
     }
-
     private void enemyMovement() { //In order to update current enemy location must update absXenemy.
         distance = Math.sqrt((Math.pow((gamePanel.player.getAbsXPlayer() + 616 - xEnemy - spawnX + 1280),2) + Math.pow((gamePanel.player.getAbsYPlayer()+ 326 - yEnemy -spawnY + 720), 2)));
         if (distance < 600 & distance > 110) {
@@ -57,8 +54,9 @@ public class MeleeEnemy {
         }
     }
 
-    public int getxEnemy() {return this.xEnemy;}
-    public int getyEnemy() {return this.yEnemy;}
+    public int getXEnemy() {return this.xEnemy;}
+    public int getYEnemy() {return this.yEnemy;}
     public void changeXEnemy(int x) {this.xEnemy += x;}
     public void changeYEnemy(int y) {this.yEnemy += y;}
+
 }

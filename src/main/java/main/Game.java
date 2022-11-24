@@ -1,5 +1,7 @@
 package main;
 
+import Use_Cases.ShopSystem;
+
 public class Game implements Runnable{
     private GameWindow gameWindow;
     private GamePanel gamePanel;
@@ -7,14 +9,11 @@ public class Game implements Runnable{
     private final int FPS_SET = 144;
     private final int UPS_SET = 144;
 
-    // TIMER COMPLETION
-    private static long startTime = System.currentTimeMillis();
 
     // Game Timer Variables
+    private static long startTime = System.currentTimeMillis();
     private static long gameTimerSeconds = 0;
-    private static long gameTimerMinutes = 0;
-    private static long pauseTime = 0;
-
+    private long pauseTime = 0;
 
 
     public Game(){
@@ -25,6 +24,7 @@ public class Game implements Runnable{
         gamePanel.requestFocus();
         startGameLoop();
     }
+
     public void update(){
         // Everything that needs to me updated, gets updated here :)
         gamePanel.player.update();
@@ -39,18 +39,6 @@ public class Game implements Runnable{
 
     public static int getGameTimerSeconds(){
         return (int) ((int)(gameTimerSeconds - startTime) / 1000F);}
-    public static long getGameTimerMinutes(){return gameTimerMinutes;}
-    private static void setGameTimerSeconds(long time){
-        gameTimerSeconds = time;
-    }
-    public static void updateGameTimerMinutes(){
-        if (getGameTimerSeconds() >= 60){
-            gameTimerMinutes++;
-            startTime = gameTimerSeconds;
-            setGameTimerSeconds(0);
-            pauseTime = 0;
-        }
-    }
 
     // Main game loop
     @Override
@@ -80,7 +68,6 @@ public class Game implements Runnable{
                 if (!gamePanel.getIsPaused()){
                     update();
                     gameTimerSeconds = System.currentTimeMillis() - pauseTime;
-                    updateGameTimerMinutes();
                 }else{
                     pauseTime = System.currentTimeMillis() - gameTimerSeconds;
                 }
@@ -101,7 +88,7 @@ public class Game implements Runnable{
             // Display Stats
             if (System.currentTimeMillis() - lastCheck >= 1000){
                 lastCheck = System.currentTimeMillis();
-                System.out.println("FPS: " + frames + " | UPS: " + update);
+                //System.out.println("FPS: " + frames + " | UPS: " + update);
                 frames= 0;
                 update = 0;
             }

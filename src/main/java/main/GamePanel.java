@@ -4,6 +4,7 @@ import Entities.MeleeEnemy;
 import Entities.Player;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
+import Use_Cases.ShopSystem;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,9 +17,12 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel{
     public Player player;
+    private ShopSystem gameShop;
     private JLabel timerGui;
 
+    // Needs to be public
     private int xDelta = -2546, yDelta = -2132;
+
     private boolean isPaused = false;
     private boolean showMinimap = false;
     private ArrayList<Leaf> leafList = new ArrayList<>();
@@ -31,9 +35,12 @@ public class GamePanel extends JPanel{
 
     private BufferedImage bushes;
 
+    // Variables for shop system GUI
+    private BufferedImage shopKeeper;
+    private BufferedImage healthPotion;
 
     public MeleeEnemy enemyOne;
-    // Has access to keyboard and mouse inputs
+    // Has access to keyboard and mouse inputsd
     public GamePanel(){
         // Adding leaves
         leafList.add(new Leaf());
@@ -43,14 +50,16 @@ public class GamePanel extends JPanel{
         // Initializing methods
         player = new Player(this, xDelta, yDelta);
         enemyOne = new MeleeEnemy(this, xDelta, yDelta, 3780, 3220);
+        // Creates shop instance
+        gameShop = new ShopSystem(player);
+
         importImage();
         addKeyListener(new KeyboardInputs(this));
         addMouseListener(new MouseInputs(this));
         this.setBackground(new Color(0, 0, 0));
     }
-
     private void setTimerGui(){
-        timerGui = new JLabel(String.valueOf(0));
+        timerGui = new JLabel(String.valueOf(120));
         timerGui.setBounds(640, 20, 100, 100);
         timerGui.setFont(new Font("Onyx", Font.PLAIN, 35));
         timerGui.setForeground(new Color(150, 203, 187));
@@ -62,12 +71,12 @@ public class GamePanel extends JPanel{
 //        }else{
 //            timerGui.setForeground(new Color(224, 68, 78));
 //        }
-        if (Game.getGameTimerMinutes()>0){
-            String timerText = Game.getGameTimerMinutes() + ":" + Game.getGameTimerSeconds();
-            timerGui.setText(timerText);
+        if (Game.getGameTimerSeconds() % 2 == 0){
+            timerGui.setForeground(new Color(150, 203, 187));
         }else{
-            timerGui.setText(String.valueOf(Game.getGameTimerSeconds()));
+            timerGui.setForeground(new Color(255, 81, 81, 194));
         }
+        timerGui.setText(String.valueOf(120 - Game.getGameTimerSeconds()));
 
     }
 
@@ -78,6 +87,8 @@ public class GamePanel extends JPanel{
         InputStream pi = getClass().getResourceAsStream("/Paused.png");
         InputStream lf = getClass().getResourceAsStream("/Leaf.png");
         InputStream bt = getClass().getResourceAsStream("/Bushes.png");
+        InputStream sk = getClass().getResourceAsStream("/ShopKeeper.png");
+        InputStream hp = getClass().getResourceAsStream("/HealthPotion.png");
 
         try {
             assert is != null;
@@ -87,6 +98,8 @@ public class GamePanel extends JPanel{
             pauseIcon = ImageIO.read(pi);
             leaf = ImageIO.read(lf);
             bushes = ImageIO.read(bt);
+            shopKeeper = ImageIO.read(sk);
+            healthPotion = ImageIO.read(hp);
 
 
         } catch (IOException e) {
@@ -99,6 +112,8 @@ public class GamePanel extends JPanel{
                 pi.close();
                 lf.close();
                 bt.close();
+                sk.close();
+                hp.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -143,11 +158,15 @@ public class GamePanel extends JPanel{
         g.drawImage(map, xDelta, yDelta, null);
 
 
-        // player VISUAL goes here
+        // TODO: Character visuals go here
         g.drawImage(player.getCurrentImage(), 615, 325, 48,48, null);
-
-        //Enemy visual goes here
         g.drawImage(player.getCurrentImage(), enemyOne.getxEnemy(), enemyOne.getyEnemy(), null);
+
+        // SHOP VISUAL GOES HERE
+        g.drawImage(shopKeeper, xDelta + 1857, yDelta + 1676, null);
+        if (gameShop.getItemList().contains("Health Potion")){
+            g.drawImage(healthPotion, xDelta + 1857, yDelta + 1726, null);
+        }
 
         //Drawing the bushes
         g.drawImage(bushes, xDelta, yDelta, null);
@@ -173,6 +192,8 @@ public class GamePanel extends JPanel{
             g.drawImage(minimap, -52 + xDelta/7, -130 + yDelta/6, null);
             g.drawImage(minimapCursor, 598, 284, null);
         }
+
+        gameShop.checkLocation();
 
     }
 

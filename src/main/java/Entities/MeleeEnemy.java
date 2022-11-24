@@ -1,11 +1,9 @@
 package Entities;
 
 import main.GamePanel;
+import main.WallCollision;
 
 import java.awt.*;
-import java.awt.geom.CubicCurve2D;
-import java.awt.geom.RoundRectangle2D;
-
 public class MeleeEnemy {
     private GamePanel gamePanel;
     private int xEnemy;
@@ -20,8 +18,8 @@ public class MeleeEnemy {
         this.spawnX = spawnX;
         this.xEnemy = x + this.spawnX;
         this.yEnemy = y + this.spawnY;
-    }
 
+    }
     public void update() {
         if (!getHitBox().intersects(gamePanel.player.getHitBox())){
             enemyMovement();
@@ -38,16 +36,17 @@ public class MeleeEnemy {
         if (distance < 600 & distance > 110) {
             velX = enemyMoveHelper(xEnemy - 616 - 1280,gamePanel.player.getAbsXPlayer() - spawnX);
             velY = enemyMoveHelper(yEnemy - 326 - 720,gamePanel.player.getAbsYPlayer() - spawnY);
-            xEnemy -= velX;
-            spawnX -= velX;
-            yEnemy -= velY;
-            spawnY -= velY;
+            if (gamePanel.player.getWallCollision().movableWall(xEnemy + 4, yEnemy + 4, 24, 24)) {
+                xEnemy -= velX;
+                spawnX -= velX;
+                yEnemy -= velY;
+                spawnY -= velY;
+            }
         } else {
             velX = 0;
             velY = 0;
         }
     }
-
     private int enemyMoveHelper(int c, int targetC) {
         if (c < targetC) {
             return -1;
@@ -57,6 +56,7 @@ public class MeleeEnemy {
             return 1;
         }
     }
+
     public int getxEnemy() {return this.xEnemy;}
     public int getyEnemy() {return this.yEnemy;}
     public void changeXEnemy(int x) {this.xEnemy += x;}

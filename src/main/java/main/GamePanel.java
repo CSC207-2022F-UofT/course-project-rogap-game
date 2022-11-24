@@ -20,15 +20,12 @@ public class GamePanel extends JPanel{
     private boolean isPaused = false;
     private boolean showMinimap = false;
     private ArrayList<Leaf> leafList = new ArrayList<>();
-
-
     private BufferedImage map;
     private BufferedImage minimap;
     private BufferedImage minimapCursor;
     private BufferedImage pauseIcon;
     private BufferedImage leaf;
     private MeleeEnemy[] enemyList;
-    private Rectangle[] wallLayout = new Rectangle[4];
     public MeleeEnemy enemyOne;
     public MeleeEnemy enemyTwo;
     // Has access to keyboard and mouse inputs
@@ -37,9 +34,8 @@ public class GamePanel extends JPanel{
         enemyList = new MeleeEnemy[2];
         leafList.add(new Leaf());
         leafList.add(new Leaf());
-
         // Initializing methods
-        player = new Player(this, xDelta, yDelta);
+        player = new Player(this);
         enemyOne = new MeleeEnemy(this, xDelta, yDelta, 3780, 3220);
         enemyTwo = new MeleeEnemy(this, xDelta, yDelta, 4000, 4000);
         enemyList[0] = enemyOne;
@@ -89,8 +85,10 @@ public class GamePanel extends JPanel{
         this.yDelta = y;
     }
     public void updateGame(){
-    }
 
+    }
+    public int getXDelta () {return this.xDelta;}
+    public int getYDelta () {return this.yDelta;}
     public void changeXDelta(int x) {this.xDelta += x; this.enemyOne.changeXEnemy(x);this.enemyTwo.changeXEnemy(x);
     }
     public void changeYDelta(int y) {this.yDelta += y; this.enemyOne.changeYEnemy(y);this.enemyTwo.changeYEnemy(y);
@@ -115,33 +113,6 @@ public class GamePanel extends JPanel{
             curr.positionChange();
         }
     }
-    public void createWallLayout(int[][] verticalWallHelper, int[][] horizontalWallHelper) {
-        int zeroX = xDelta + 2546 - 1265;
-        int zeroY = yDelta + 2132 - 1410;
-        int i = 0;
-        for (int[] wall : verticalWallHelper) {
-                if (wall[2] == 0) {
-                    wallLayout[i] = new Rectangle(zeroX + (wall[0] * 1265), zeroY + (wall[1] * 705), 15, 250);
-                    i += 1;
-                    wallLayout[i] = new Rectangle(zeroX + (wall[0] * 1265), zeroY + (wall[1] * 705) + 470, 15, 250);
-                    i += 1;
-                } else {
-                    wallLayout[i] = new Rectangle(zeroX + (wall[0] * 1265), zeroY + (wall[1] * 705) , 15, 720);
-                    i += 1;
-                }
-            }
-        for (int[] wall: horizontalWallHelper) {
-            if (wall[2] == 0) {
-                wallLayout[i] = new Rectangle(zeroX + (wall[0] * 1265), zeroY+ (wall[1] * 705), 490, 15);
-                i += 1;
-                wallLayout[i] = new Rectangle(zeroX + 770 + (wall[0] * 1265), zeroY + (wall[1] * 705), 510, 15);
-                i += 1;
-            } else {
-                wallLayout[i] = new Rectangle(zeroX+ (wall[0] * 1265), zeroY + (wall[1] * 705), 1280, 15);
-                i += 1;
-            }
-        }
-        }
 
     // This is for drawing stuff
     public void paintComponent(Graphics g){
@@ -157,23 +128,6 @@ public class GamePanel extends JPanel{
         g.drawImage(player.getCurrentImage(), enemyOne.getxEnemy(), enemyOne.getyEnemy(), null);
         g.drawImage(player.getCurrentImage(), enemyTwo.getxEnemy(), enemyTwo.getyEnemy(), null);
 
-        //Walls
-        g.setColor(Color.pink);
-        int[][] testingVER = new int[2][3];
-        int[][] testingHOR = new int[2][3];
-        int[] cord1 = {0,0,1};
-        int[] cord2 = {0,0,1};
-        int[] cord3 = {1,2,1};
-        int[] cord4 = {1,2,1};
-        testingVER[0] = cord1;
-        testingVER[1] = cord3;
-
-        testingHOR[0] = cord2;
-        testingHOR[1] = cord4;
-        this.createWallLayout(testingVER, testingHOR);
-        for (Rectangle wall: wallLayout) {
-            g.drawRect(wall.x, wall.y, wall.width, wall.height);
-        }
         //TODO Move to health bar file
         // Health bar goes here
         //g.setColor(new Color(0, 0, 0, 194));
@@ -197,7 +151,6 @@ public class GamePanel extends JPanel{
                 animateLeaf(g, leafList);
             }
         }
-
         //Showing Minimap
         if (showMinimap){
             g.drawImage(minimap, -52 + xDelta/7, -130 + yDelta/6, null);

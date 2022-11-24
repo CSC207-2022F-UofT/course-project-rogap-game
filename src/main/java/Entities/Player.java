@@ -1,14 +1,13 @@
 package Entities;
 
 import main.GamePanel;
+import main.WallCollision;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Player {
     private GamePanel gamePanel;
@@ -22,7 +21,8 @@ public class Player {
     private int aniTick, aniIndex, aniSpeed= 10;
     private int playerAction = 0;
     private boolean moving = false;
-    public Player(GamePanel gamePanel, int xDelta, int yDelta) {
+    private WallCollision wallCollision = new WallCollision();
+    public Player(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         importImage();
         loadAnimation();
@@ -30,7 +30,8 @@ public class Player {
     public void update() {
         int checkX = absXPlayer - velX;
         int checkY = absYPlayer - velY;
-        if (movable(checkX, checkY)) {
+        updateWalls();
+        if (movable(checkX, checkY) & wallCollision.movableWall(622, 332, 36, 36)) {
             gamePanel.changeXDelta(velX);
             gamePanel.changeYDelta(velY);
             this.absXPlayer -= velX;
@@ -39,6 +40,9 @@ public class Player {
         updateAnimationTick();
         setAnimation();
     }
+
+    public void updateWalls() {wallCollision.createWallLayout(gamePanel.getXDelta() + velX, gamePanel.getYDelta() + velY);}
+    public WallCollision getWallCollision() {return this.wallCollision;}
     public Rectangle getHitBox() {
         Rectangle hitBox = new Rectangle(absXPlayer + 6, absYPlayer + 6, 36, 36);
         return hitBox;
@@ -53,11 +57,6 @@ public class Player {
         }
         return move;
     }
-
-/*    private boolean movableWall(int targetX, int targetY) {
-        boolean move = true;
-
-    }*/
 
     //Helper methods
     public int getAbsXPlayer() {return this.absXPlayer;}

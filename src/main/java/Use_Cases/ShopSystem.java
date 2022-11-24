@@ -1,16 +1,13 @@
 package Use_Cases;
-
 import Entities.Player;
-import main.GamePanel;
-
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Set;
 
 public class ShopSystem{
-    private HashMap<String, Integer> itemList = new HashMap<String, Integer>();
-    private ArrayList<int[]> itemLocation = new ArrayList<>();
-    private Player player;
+    private final HashMap<String, Integer> itemList = new HashMap<>();
+    private final ArrayList<int[]> itemLocation = new ArrayList<>();
+    private final Player player;
 
     public ShopSystem(Player player){
         this.player = player;
@@ -41,7 +38,7 @@ public class ShopSystem{
         if (player.getGold() >= itemList.get(itemName)){
             player.removeGold(itemList.get(itemName));
             player.addHealth(20);
-            itemList.remove("Health Potion");
+            itemList.remove(itemName);
 
             System.out.println("Thank you for your purchase!");
             System.out.println("Balance: " + player.getGold());

@@ -16,18 +16,11 @@ public class Player extends Creature {
 	private int aniTick, aniIndex, aniSpeed = 25;
 	private int playerAction = IDLE;
 	private boolean moving = false, attacking = false, hit = false;
-	private boolean left, up, right, down, jump;
+	private boolean left, up, right, down;
 	private float playerSpeed = 1.0f * Game.SCALE;
 	private int[][] lvlData;
-	private float xDrawOffset = 21 * Game.SCALE;
-	private float yDrawOffset = 4 * Game.SCALE;
-
-	// Jumping / Gravity
-	private float airSpeed = 0f;
-	private float gravity = 0.04f * Game.SCALE;
-	private float jumpSpeed = -2.25f * Game.SCALE;
-	private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
-	private boolean inAir = false;
+	private float xDrawOffset = 17 * Game.SCALE;
+	private float yDrawOffset = 16 * Game.SCALE;
 
 	// StatusBarUI
 	private BufferedImage statusBarImg;
@@ -80,7 +73,7 @@ public class Player extends Creature {
 		}
 
 		updateAttackBox();
-		
+
 		updatePos();
 		if (attacking)
 			checkAttack();
@@ -110,7 +103,6 @@ public class Player extends Creature {
 				(int) (hitRadius.x - xDrawOffset) - lvlOffset + flipX,
 				(int) (hitRadius.y - yDrawOffset), width * flipW, height, null);
 		drawHitRadius(g, lvlOffset);
-//		drawHitbox(g, lvlOffset);
 
 		drawAttackRadius(g, lvlOffset);
 		drawUI(g);
@@ -148,24 +140,20 @@ public class Player extends Creature {
 	private void setAnimation() {
 		int startAni = playerAction;
 
-		if (moving)
+		if (moving) {
 			playerAction = RUNNING;
-		else if (hit) {
-			playerAction = HIT;
-		}
-		else
+		} else {
 			playerAction = IDLE;
-
-		if (inAir) {
-			if (airSpeed < 0)
-				playerAction = JUMP;
-			else
-				playerAction = FALLING;
 		}
 
 		if (attacking) {
 			playerAction = ATTACK;
 		}
+
+		if (hit) {
+			playerAction = HIT;
+		}
+
 		if (startAni != playerAction)
 			resetAniTick();
 	}
@@ -178,59 +166,31 @@ public class Player extends Creature {
 	private void updatePos() {
 		moving = false;
 
-		if (jump)
-			jump();
-
-		if (!inAir)
-			if ((!left && !right) || (right && left))
-				return;
-
 		float xSpeed = 0;
+		float ySpeed = 0;
 
 		if (left) {
 			xSpeed -= playerSpeed;
 			flipX = width;
 			flipW = -1;
-		}
-		if (right) {
+			moving = true;
+		}else if (right) {
 			xSpeed += playerSpeed;
 			flipX = 0;
 			flipW = 1;
+			moving = true;
 		}
-		if (!inAir)
-			if (!IsEntityOnFloor(hitRadius, lvlData))
-				inAir = true;
+		if (up) {
+			ySpeed -= playerSpeed;
+			moving = true;
+		} else if (down) {
+			ySpeed += playerSpeed;
+			moving = true;
+		}
 
-		if (inAir) {
-			if (CanMoveHere(hitRadius.x, hitRadius.y + airSpeed, hitRadius.width, hitRadius.height, lvlData)) {
-				hitRadius.y += airSpeed;
-				airSpeed += gravity;
-				updateXPos(xSpeed);
-			} else {
-				hitRadius.y = GetEntityYPosUnderRoofOrAboveFloor(hitRadius, airSpeed);
-				if (airSpeed > 0)
-					resetInAir();
-				else
-					airSpeed = fallSpeedAfterCollision;
-				updateXPos(xSpeed);
-			}
+		updateXPos(xSpeed);
+		updateYPos(ySpeed);
 
-		} else
-			updateXPos(xSpeed);
-		moving = true;
-	}
-
-	private void jump() {
-		if (inAir)
-			return;
-		inAir = true;
-		airSpeed = jumpSpeed;
-
-	}
-
-	private void resetInAir() {
-		inAir = false;
-		airSpeed = 0;
 
 	}
 
@@ -239,6 +199,15 @@ public class Player extends Creature {
 			hitRadius.x += xSpeed;
 		} else {
 			hitRadius.x = GetEntityXPosNextToWall(hitRadius, xSpeed);
+		}
+
+	}
+
+	private void updateYPos(float ySpeed) {
+		if (CanMoveHere(hitRadius.x, hitRadius.y + ySpeed, hitRadius.width, hitRadius.height, lvlData)) {
+			hitRadius.y += ySpeed;
+		} else {
+			hitRadius.y = GetEntityYPosUnderRoofOrAboveFloor(hitRadius, ySpeed);
 		}
 
 	}
@@ -273,8 +242,6 @@ public class Player extends Creature {
 
 	public void loadLvlData(int[][] lvlData) {
 		this.lvlData = lvlData;
-		if (!IsEntityOnFloor(hitRadius, lvlData))
-			inAir = true;
 
 	}
 
@@ -321,13 +288,9 @@ public class Player extends Creature {
 		this.down = down;
 	}
 
-	public void setJump(boolean jump) {
-		this.jump = jump;
-	}
-
 	public void resetAll() {
 		resetDirBooleans();
-		inAir = false;
+		resetAniTick();
 		attacking = false;
 		moving = false;
 		playerAction = IDLE;
@@ -335,8 +298,5 @@ public class Player extends Creature {
 
 		hitRadius.x = x;
 		hitRadius.y = y;
-
-		if (!IsEntityOnFloor(hitRadius, lvlData))
-			inAir = true;
 	}
 }

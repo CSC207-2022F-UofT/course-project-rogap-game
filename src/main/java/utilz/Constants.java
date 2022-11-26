@@ -1,6 +1,6 @@
 package utilz;
 
-import main.Game;
+import Interface_Adapters.Game;
 
 public class Constants {
 

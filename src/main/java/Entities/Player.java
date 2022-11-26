@@ -1,209 +1,302 @@
 package Entities;
 
-import main.Game;
-import main.GamePanel;
+import Interface_Adapters.Game;
+import gamestates.Playing;
+import utilz.LoadSave;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+
+import static utilz.Constants.PlayerConstants.*;
+import static utilz.HelpMethods.*;
 
 public class Player extends Creature {
-    private GamePanel gamePanel;
-    private BufferedImage leftIdle, rightIdle, rightMovement, leftMovement;
-    private BufferedImage[] sprites = new BufferedImage[5];
-    public BufferedImage[][] animations;
-    private int idleDir = 0;
+	private BufferedImage[][] animations;
+	private int aniTick, aniIndex, aniSpeed = 25;
+	private int playerAction = IDLE;
+	private boolean moving = false, attacking = false, hit = false;
+	private boolean left, up, right, down;
+	private float playerSpeed = 1.0f * Game.SCALE;
+	private int[][] lvlData;
+	private float xDrawOffset = 21 * Game.SCALE;
+	private float yDrawOffset = 4 * Game.SCALE;
 
-    private int velX = 0, velY = 0;
-    private int absXPlayer = 1882, absYPlayer = 1738;
+	// StatusBarUI
+	private BufferedImage statusBarImg;
 
-    private int aniTick, aniIndex, aniSpeed= 10;
-    private int playerAction = 0;
-    private boolean moving = false, attacking = false;
+	private int statusBarWidth = (int) (192 * Game.SCALE);
+	private int statusBarHeight = (int) (58 * Game.SCALE);
+	private int statusBarX = (int) (10 * Game.SCALE);
+	private int statusBarY = (int) (10 * Game.SCALE);
 
-    // for attack methods
-    protected Ellipse2D.Float hitbox;
-    private Ellipse2D.Float attackRadius;
-    private boolean attackChecked;
+	private int healthBarWidth = (int) (150 * Game.SCALE);
+	private int healthBarHeight = (int) (4 * Game.SCALE);
+	private int healthBarXStart = (int) (34 * Game.SCALE);
+	private int healthBarYStart = (int) (14 * Game.SCALE);
 
-    // for health
-    private int maxHealth = 100;
-    private int currentHealth = maxHealth;
+	private int maxHealth = 100;
+	private int currentHealth = maxHealth;
+	private int healthWidth = healthBarWidth;
 
-    private static final int PLAYER_WIDTH_DEFAULT = 32;
-    private static final int PLAYER_HEIGHT_DEFAULT = 32;
+	// AttackBox
+	private Ellipse2D.Float attackRadius;
+	private int attackRadiusOffset;
 
-    public static final int PLAYER_WIDTH = (int) (PLAYER_WIDTH_DEFAULT * Game.SCALE);
-    public static final int PLAYER_HEIGHT = (int) (PLAYER_HEIGHT_DEFAULT * Game.SCALE);
+	private int flipX = 0;
+	private int flipW = 1;
 
-    public Player(GamePanel gamePanel, int xDelta, int yDelta) {
-        super(xDelta, yDelta, PLAYER_WIDTH, PLAYER_HEIGHT);
-        this.gamePanel = gamePanel;
-        importImage();
-        loadAnimation();
-        initHitbox(xDelta, yDelta, 64, 64);
+	private boolean attackChecked;
 
-    }
-    public void update() {
-/*        if (movable(absXPlayer, absYPlayer, )) {
-            work in progress
-          }*/
-        gamePanel.changeXDelta(velX);
-        gamePanel.changeYDelta(velY);
-        this.absXPlayer -= velX;
-        this.absYPlayer -= velY;
+	private Playing playing;
 
-        if (attacking)
-            checkAttack();
+	public Player(float x, float y, int width, int height, Playing playing) {
+		super(x, y, width, height);
+		this.playing = playing;
+		loadAnimations();
+		initHitRadius(x, y, (int) (30 * Game.SCALE), (int) (30 * Game.SCALE));
+		initAttackBox();
 
-        updateAnimationTick();
-        setAnimation();
-    }
+	}
 
-    private void checkAttack() {
-        if (attackChecked || aniIndex != 1)
-            return;
-        attackChecked = true;
-        Game.checkEnemiesHit(attackRadius);
-    }
+	private void initAttackBox() {
+		attackRadius = new Ellipse2D.Float(x, y, (int) (55 * Game.SCALE), (int) (55 * Game.SCALE)); //35 is width of player; 30 is the height
+		attackRadiusOffset = (int) (Game.SCALE * 13);
+	}
 
-    protected void drawHitbox(Graphics g) {
-        // For debugging the hitbox
-        g.setColor(Color.PINK);
-        g.drawRect((int) hitbox.x, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
-    }
-    protected void initHitbox(float x, float y, int width, int height) { // creating radius of attack
-        hitbox = new Ellipse2D.Float(x, y, width, height);
-    }
-    public Ellipse2D.Float getHitbox() {
-        return hitbox;
-    }
+	public void update() {
+		updateHealthBar();
+
+		if (currentHealth <= 0) {
+			playing.setGameOver(true);
+			return;
+		}
+
+		updateAttackBox();
+		
+		updatePos();
+		if (attacking)
+			checkAttack();
+		updateAnimationTick();
+		setAnimation();
+	}
+
+	private void checkAttack() {
+		if (attackChecked || aniIndex != 1)
+			return;
+		attackChecked = true;
+		playing.checkEnemyHit(attackRadius);
+	}
+
+	private void updateAttackBox() {
+		attackRadius.x = hitRadius.x - attackRadiusOffset;
+		attackRadius.y = hitRadius.y - attackRadiusOffset;
+	}
+
+	private void updateHealthBar() {
+		healthWidth = (int) ((currentHealth / (float) maxHealth) * healthBarWidth);
+
+	}
+
+	public void render(Graphics g, int lvlOffset) {
+		g.drawImage(animations[playerAction][aniIndex],
+				(int) (hitRadius.x - xDrawOffset) - lvlOffset + flipX,
+				(int) (hitRadius.y - yDrawOffset), width * flipW, height, null);
+		drawHitRadius(g, lvlOffset);
+
+		drawAttackRadius(g, lvlOffset);
+		drawUI(g);
+	}
+
+	private void drawAttackRadius(Graphics g, int lvlOffsetX) {
+		g.setColor(Color.red);
+		g.drawOval((int) attackRadius.x - lvlOffsetX, (int) attackRadius.y, (int) attackRadius.width, (int) attackRadius.height);
+		// can remove lvlOffsetX after
+	}
+
+	private void drawUI(Graphics g) {
+		g.drawImage(statusBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
+		g.setColor(Color.red);
+		g.fillRect(healthBarXStart + statusBarX, healthBarYStart + statusBarY, healthWidth, healthBarHeight);
+
+	}
+
+	private void updateAnimationTick() {
+		aniTick++;
+		if (aniTick >= aniSpeed) {
+			aniTick = 0;
+			aniIndex++;
+			if (aniIndex >= GetSpriteAmount(playerAction)) {
+				aniIndex = 0;
+				attacking = false;
+				hit = false;   // after the attacking/hit animation, return to idle or running animation
+				attackChecked = false;
+			}
+
+		}
+
+	}
+
+	private void setAnimation() {
+		int startAni = playerAction;
+
+		if (moving) {
+			playerAction = RUNNING;
+		} else {
+			playerAction = IDLE;
+		}
+
+		if (attacking) {
+			playerAction = ATTACK;
+		}
+
+		if (hit) {
+			playerAction = HIT;
+		}
+
+		if (startAni != playerAction)
+			resetAniTick();
+	}
+
+	private void resetAniTick() {
+		aniTick = 0;
+		aniIndex = 0;
+	}
+
+	private void updatePos() {
+		moving = false;
+
+		float xSpeed = 0;
+		float ySpeed = 0;
+
+		if (left) {
+			xSpeed -= playerSpeed;
+			flipX = width;
+			flipW = -1;
+			moving = true;
+		}else if (right) {
+			xSpeed += playerSpeed;
+			flipX = 0;
+			flipW = 1;
+			moving = true;
+		}
+		if (up) {
+			ySpeed -= playerSpeed;
+			moving = true;
+		} else if (down) {
+			ySpeed += playerSpeed;
+			moving = true;
+		}
+
+		updateXPos(xSpeed);
+		updateYPos(ySpeed);
 
 
-/*    public boolean movable(int x, int y, int targetX, int targetY) {
-        work in progress
-    }*/
+	}
 
-    //Helper methods
-    public int getAbsXPlayer() {return this.absXPlayer;}
-    public int getAbsYPlayer() {return this.absYPlayer;}
+	private void updateXPos(float xSpeed) {
+		if (CanMoveHere(hitRadius.x + xSpeed, hitRadius.y, hitRadius.width, hitRadius.height, lvlData)) {
+			hitRadius.x += xSpeed;
+		} else {
+			hitRadius.x = GetEntityXPosNextToWall(hitRadius, xSpeed);
+		}
 
-    //Handles all of player movement
-    public void setVelX(int x) {
-        velX = x;
-    }
-    public void setVelY(int y) {
-        velY = y;
-    }
-    public void setMoving () {
-        if (velX != 0 || velY != 0) {
-            moving = true;
-        } else {moving = false;}
-    }
-    //All the functions that control player animations
-    private void importImage() {
-        InputStream lI = getClass().getResourceAsStream("/leftIdle.png");
-        InputStream rI = getClass().getResourceAsStream("/rightIdle.png");
-        InputStream lM = getClass().getResourceAsStream("/leftMovement.png");
-        InputStream rM = getClass().getResourceAsStream("/rightMovement.png");
-        InputStream pAttack = getClass().getResourceAsStream("/player_attack.png");
-        try {
-            assert lI != null & rI != null & lM != null & rM != null & pAttack != null;
-            sprites[0] = ImageIO.read(lI);
-            sprites[1] = ImageIO.read(rI);
-            sprites[2] = ImageIO.read(lM);
-            sprites[3] = ImageIO.read(rM);
-            sprites[4] = ImageIO.read(pAttack);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                lI.close();
-                rM.close();
-                rI.close();
-                lM.close();
-                pAttack.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+	}
 
-    private void loadAnimation() {
-        animations = new BufferedImage[5][6];
-        for (int j = 0; j < animations.length; j++){
-            for (int i = 0; i < animations[j].length; i++) {
-                if (j <= 1) {
-                    animations[j][i] = sprites[j].getSubimage(i*32, 0,32,32);
-                } else if (j >= 2 & i <= 4) {
-                    animations[j][i] = sprites[j].getSubimage(i*32, 0,32,32);
-                }
-            }
-        }
-    }
-    private void setAnimation() {
-        if (moving) {
-            if ((velX == -2 & velY == -2) || (velX == -2 & velY == 2) || (velX == -2)) { //Left movement
-                playerAction = 3;
-            } else if ((velX == 2 & velY == -2) || (velX == 2 & velY == 2) || (velX == 2)) { //Right movement
-                playerAction = 2;
-            } //Needs testing for up and down
-        } else if (attacking) { // if player is attacking, set animation for attack
-            playerAction = 4;
-        } else {
-            if (idleDir == 0) { //Left idle animation
-                playerAction = 0;
-            } else {
-                playerAction = 1;
-            }
-        }
-    }
-    public void setIdleDirection(int dir) {
-        this.idleDir = dir;
-    }
-    private int getSpriteAmount(int playerAction) {
-        switch (playerAction) {
-            case -1:
-            case 0:
-            case 1:
-                return 6;
-            case 2:
-            case 3:
-            case 4:
-                return 5;
-            default:
-                return 1;
-        }
-    }
-    private void updateAnimationTick() {
-        aniTick ++;
-        if (aniTick >= aniSpeed) {
-            aniTick = 0;
-            aniIndex++;
-            if (aniIndex >= getSpriteAmount(playerAction)) {
-                aniIndex = 0;
-            }
-        }
-    }
-    public BufferedImage getCurrentImage () {
-        return this.animations[playerAction][aniIndex];
-    }
+	private void updateYPos(float ySpeed) {
+		if (CanMoveHere(hitRadius.x, hitRadius.y + ySpeed, hitRadius.width, hitRadius.height, lvlData)) {
+			hitRadius.y += ySpeed;
+		} else {
+			hitRadius.y = GetEntityYPosUnderRoofOrAboveFloor(hitRadius, ySpeed);
+		}
 
-    public void attack() {
-        playerAction = 4;
-        attacking = true;
+	}
 
-    }
-//    public void render(Graphics g, int lvlOffset) {
-//        g.drawImage(animations[playerAction][aniIndex],
-//                (int) (hitbox.x) - lvlOffset,
-//                (int) (hitbox.y), width, height, null);
-//
-//        drawHitbox(g, lvlOffset);
-//    }
+	public void changeHealth(int value) {
+		currentHealth += value;
+
+		if (currentHealth <= 0) {
+			currentHealth = 0;
+			// game over
+		} else if (currentHealth >= maxHealth) {
+			currentHealth = 100; // max health
+		}
+	}
+
+	public void setHit(boolean value) {
+		this.hit = value;
+	}
+
+	private void loadAnimations() {
+
+		BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
+
+		animations = new BufferedImage[5][6];
+		for (int j = 0; j < animations.length; j++)
+			for (int i = 0; i < animations[j].length; i++)
+				animations[j][i] = img.getSubimage(i * 64, j * 64, 64, 64);
+
+		statusBarImg = LoadSave.GetSpriteAtlas(LoadSave.STATUS_BAR);
+
+	}
+
+	public void loadLvlData(int[][] lvlData) {
+		this.lvlData = lvlData;
+
+	}
+
+	public void resetDirBooleans() {
+		left = false;
+		right = false;
+		up = false;
+		down = false;
+	}
+
+	public void setAttacking(boolean attacking) {
+		this.attacking = attacking;
+	}
+
+	public boolean isLeft() {
+		return left;
+	}
+
+	public void setLeft(boolean left) {
+		this.left = left;
+	}
+
+	public boolean isUp() {
+		return up;
+	}
+
+	public void setUp(boolean up) {
+		this.up = up;
+	}
+
+	public boolean isRight() {
+		return right;
+	}
+
+	public void setRight(boolean right) {
+		this.right = right;
+	}
+
+	public boolean isDown() {
+		return down;
+	}
+
+	public void setDown(boolean down) {
+		this.down = down;
+	}
+
+	public void resetAll() {
+		resetDirBooleans();
+		resetAniTick();
+		attacking = false;
+		moving = false;
+		playerAction = IDLE;
+		currentHealth = maxHealth;
+
+		hitRadius.x = x;
+		hitRadius.y = y;
+	}
 }

@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class ShopSystem{
+    // == Class Variables ==
     private final HashMap<String, Integer> itemList = new HashMap<>();
     private final ArrayList<int[]> itemLocation = new ArrayList<>();
     private final Player player;
 
+    // == Constructor ==
     public ShopSystem(Player player){
         this.player = player;
-        itemList.put("Health Potion",100);
+        itemList.put("Health Potion",50);
+        itemList.put("Key", 50);
         itemLocation.add(new int[] {567, 1003});
     }
 

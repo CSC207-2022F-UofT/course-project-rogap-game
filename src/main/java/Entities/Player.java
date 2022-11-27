@@ -33,7 +33,6 @@ public class Player {
         this.gamePanel = gamePanel;
         importImage();
         loadAnimation();
-
     }
     public void update() {
 /*        if (movable(absXPlayer, absYPlayer, )) {
@@ -165,6 +164,7 @@ public class Player {
         if (aniTick >= aniSpeed) {
             aniTick = 0;
             aniIndex++;
+            // resets the animation cycle?
             if (aniIndex >= getSpriteAmount(playerAction)) {
                 aniIndex = 0;
             }

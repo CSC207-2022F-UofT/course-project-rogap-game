@@ -14,8 +14,10 @@ public class ShopSystem{
     public ShopSystem(Player player){
         this.player = player;
         itemList.put("Health Potion",50);
+        itemLocation.add(new int[] {559, 1007});
+
         itemList.put("Key", 50);
-        itemLocation.add(new int[] {567, 1003});
+        itemLocation.add(new int[] {674, 1011});
     }
 
     public void checkLocation(){

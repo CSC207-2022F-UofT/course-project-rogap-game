@@ -116,7 +116,7 @@ public abstract class Monster extends Entities.Creature {
         enemyAttackArea.intersect(new Area(player.hitRadius)); // find intersection between enemy attackbox and player hitradius
         if (!enemyAttackArea.isEmpty()) { // if they intersect, execute following lines
             player.setHit(true);
-            player.changeHealth(-GetEnemyDmg(enemyType));
+            player.changeCurrentHealth(-GetEnemyDmg(enemyType));
         }
         attackChecked = true;
     }

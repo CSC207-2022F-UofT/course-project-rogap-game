@@ -14,7 +14,6 @@ public class Game implements Runnable {
 	private final int UPS_SET = 200;
 
 	private Playing playing;
-	private Menu menu;
 
 	public final static int TILES_DEFAULT_SIZE = 32;
 	public final static float SCALE = 1.5f;
@@ -36,7 +35,6 @@ public class Game implements Runnable {
 	}
 
 	private void initClasses() {
-		menu = new Menu(this);
 		playing = new Playing(this);
 	}
 
@@ -47,9 +45,6 @@ public class Game implements Runnable {
 
 	public void update() {
 		switch (Gamestate.state) {
-			case MENU:
-				menu.update();
-				break;
 			case PLAYING:
 				playing.update();
 				break;
@@ -64,9 +59,6 @@ public class Game implements Runnable {
 
 	public void render(Graphics g) {
 		switch (Gamestate.state) {
-			case MENU:
-				menu.draw(g);
-				break;
 			case PLAYING:
 				playing.draw(g);
 				break;
@@ -123,10 +115,6 @@ public class Game implements Runnable {
 	public void windowFocusLost() {
 		if (Gamestate.state == Gamestate.PLAYING)
 			playing.getPlayer().resetDirBooleans();
-	}
-
-	public Menu getMenu() {
-		return menu;
 	}
 
 	public Playing getPlaying() {

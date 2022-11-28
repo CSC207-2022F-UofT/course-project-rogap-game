@@ -43,6 +43,7 @@ public class GamePanel extends JPanel{
 
     private BufferedImage statsBar;
     private BufferedImage healthBar;
+    private BufferedImage timerPill;
 
     public MeleeEnemy enemyOne;
     // Has access to keyboard and mouse inputsd
@@ -65,17 +66,14 @@ public class GamePanel extends JPanel{
     }
     private void setTimerGui(){
         timerGui = new JLabel(String.valueOf(120));
-        timerGui.setBounds(640, 20, 100, 100);
+        timerGui.setBounds(607, -19, 100, 100);
         timerGui.setFont(new Font("Onyx", Font.PLAIN, 35));
         timerGui.setForeground(new Color(150, 203, 187));
         add(timerGui);
     }
     private void changeTimerGui(){
-//        if (Game.getGameTimerSeconds() % 2 == 0){
-//            timerGui.setForeground(new Color(150, 203, 187));
-//        }else{
-//            timerGui.setForeground(new Color(224, 68, 78));
-//        }
+        timerGui.setBounds(607, -19, 100, 100);
+        timerGui.setHorizontalAlignment(0);
         if (Game.getGameTimerSeconds() % 2 == 0){
             timerGui.setForeground(new Color(150, 203, 187));
         }else{
@@ -96,6 +94,7 @@ public class GamePanel extends JPanel{
         InputStream hp = getClass().getResourceAsStream("/HealthPotion.png");
         InputStream sb = getClass().getResourceAsStream("/StatsBar.png");
         InputStream hb = getClass().getResourceAsStream("/HealthBar.png");
+        InputStream tp = getClass().getResourceAsStream("/TimerPill.png");
 
         try {
             assert is != null;
@@ -109,6 +108,7 @@ public class GamePanel extends JPanel{
             healthPotion = ImageIO.read(hp);
             statsBar = ImageIO.read(sb);
             healthBar = ImageIO.read(hb);
+            timerPill = ImageIO.read(tp);
 
 
         } catch (IOException e) {
@@ -125,6 +125,7 @@ public class GamePanel extends JPanel{
                 hp.close();
                 sb.close();
                 hb.close();
+                tp.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -190,6 +191,7 @@ public class GamePanel extends JPanel{
         // TODO: Add health bar and animation
 
         // Timer GUi Goes here
+        g.drawImage(timerPill, 607, 5, null);
         changeTimerGui();
 
         //HealthBar and Stats stuff go here

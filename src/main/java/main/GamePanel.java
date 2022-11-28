@@ -25,6 +25,8 @@ public class GamePanel extends JPanel{
 
     private boolean isPaused = false;
     private boolean showMinimap = false;
+
+    private boolean showStatBar = false;
     private ArrayList<Leaf> leafList = new ArrayList<>();
 
     private BufferedImage map;
@@ -38,6 +40,9 @@ public class GamePanel extends JPanel{
     // Variables for shop system GUI
     private BufferedImage shopKeeper;
     private BufferedImage healthPotion;
+
+    private BufferedImage statsBar;
+    private BufferedImage healthBar;
 
     public MeleeEnemy enemyOne;
     // Has access to keyboard and mouse inputsd
@@ -89,6 +94,8 @@ public class GamePanel extends JPanel{
         InputStream bt = getClass().getResourceAsStream("/Bushes.png");
         InputStream sk = getClass().getResourceAsStream("/ShopKeeper.png");
         InputStream hp = getClass().getResourceAsStream("/HealthPotion.png");
+        InputStream sb = getClass().getResourceAsStream("/StatsBar.png");
+        InputStream hb = getClass().getResourceAsStream("/HealthBar.png");
 
         try {
             assert is != null;
@@ -100,6 +107,8 @@ public class GamePanel extends JPanel{
             bushes = ImageIO.read(bt);
             shopKeeper = ImageIO.read(sk);
             healthPotion = ImageIO.read(hp);
+            statsBar = ImageIO.read(sb);
+            healthBar = ImageIO.read(hb);
 
 
         } catch (IOException e) {
@@ -114,6 +123,8 @@ public class GamePanel extends JPanel{
                 bt.close();
                 sk.close();
                 hp.close();
+                sb.close();
+                hb.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -131,6 +142,9 @@ public class GamePanel extends JPanel{
     public void changeYDelta(int y) {this.yDelta += y; this.enemyOne.changeYEnemy(y);}
     public boolean getIsPaused(){return this.isPaused;
     }
+    public boolean getMinimapVisible(){
+        return this.showMinimap;
+    }
     public void setIsPaused(boolean set){
         this.isPaused = set;
     }
@@ -139,9 +153,11 @@ public class GamePanel extends JPanel{
         this.showMinimap = set;
     }
 
-    public boolean getMinimapVisible(){
-        return this.showMinimap;
+    public void changeStatsBarVisible(){
+        this.showStatBar = !this.showStatBar;
     }
+
+
 
     public void animateLeaf(Graphics g, ArrayList<Leaf> alist){
         for (Leaf curr : alist ){
@@ -175,6 +191,15 @@ public class GamePanel extends JPanel{
 
         // Timer GUi Goes here
         changeTimerGui();
+
+        //HealthBar and Stats stuff go here
+        if (!showMinimap && !isPaused){
+            g.drawImage(healthBar, 17, 27, null);
+            if (showStatBar){
+                g.drawImage(statsBar, 13, 190, null);
+            }
+        }
+
 
         animateLeaf(g, leafList);
 

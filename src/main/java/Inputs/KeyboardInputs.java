@@ -45,6 +45,10 @@ public class KeyboardInputs implements KeyListener {
                 gamePanel.setIsPaused(!gamePanel.getIsPaused());
                 gamePanel.repaint();
             }
+            case KeyEvent.VK_O-> {
+                gamePanel.changeStatsBarVisible();
+            }
+
         }
     }
 

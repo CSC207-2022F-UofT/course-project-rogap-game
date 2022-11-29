@@ -32,7 +32,7 @@ public class LoadSave {
 	public static final String PLAYING_BG_IMG = "Floor1.png";
 	public static final String MELEE_MONSTER_SPRITE = "melee_sprite.png";
 	public static final String RANGED_MONSTER_SPRITE = "ranged_sprite.png";
-	public static final String STATUS_BAR = "health_power_bar.png";
+	public static final String STATUS_BAR = "health_bar_heart.png";
 
 	public static BufferedImage GetSpriteAtlas(String fileName) {
 		BufferedImage img = null;

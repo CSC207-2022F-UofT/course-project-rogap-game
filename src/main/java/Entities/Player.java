@@ -22,22 +22,29 @@ public class Player extends Creature {
 	private float xDrawOffset = 17 * Game.SCALE;
 	private float yDrawOffset = 16 * Game.SCALE;
 
-	// StatusBarUI
-	private BufferedImage statusBarImg;
+	// Health Bar UI
+	// The Heart Icon on the left of the health bar
+	private BufferedImage heartIcon;
+	private int heartIconWidth = (int) (32 * Game.SCALE);
+	private int heartIconHeight = (int) (32 * Game.SCALE);
+	// The Heart Icon's x and y position in the UI
+	private int heartIconX = (int) (10 * Game.SCALE);
+	private int heartIconY = (int) (10 * Game.SCALE);
 
-	private int statusBarWidth = (int) (192 * Game.SCALE);
-	private int statusBarHeight = (int) (58 * Game.SCALE);
-	private int statusBarX = (int) (10 * Game.SCALE);
-	private int statusBarY = (int) (10 * Game.SCALE);
+	// The player's Max Health displayed on the health bar at top left of the screen
+	private int maxHealthWidth = (int) (108 * Game.SCALE);
+	private int maxHealthHeight = (int) (32 * Game.SCALE);
+	private int maxHealthYStart = 0;
 
-	private int healthBarWidth = (int) (150 * Game.SCALE);
-	private int healthBarHeight = (int) (4 * Game.SCALE);
-	private int healthBarXStart = (int) (34 * Game.SCALE);
-	private int healthBarYStart = (int) (14 * Game.SCALE);
+	// The player's current health displayed on the health bar at top left of the screen
+	private int currentHealthWidth = (int) (100 * Game.SCALE);
+	private int currentHealthHeight = (int) (16 * Game.SCALE);
+	// The current health's position
+	private int currentHealthXStart = (int) (32 * Game.SCALE);
+	private int currentHealthYStart = (int) (8 * Game.SCALE);
 
 	private int maxHealth = 100;
 	private int currentHealth = maxHealth;
-	private int healthWidth = healthBarWidth;
 
 	// AttackBox
 	private Ellipse2D.Float attackRadius;
@@ -65,7 +72,7 @@ public class Player extends Creature {
 	}
 
 	public void update() {
-		updateHealthBar();
+		updateCurrentHealth();
 
 		if (currentHealth <= 0) {
 			playing.setGameOver(true);
@@ -93,9 +100,18 @@ public class Player extends Creature {
 		attackRadius.y = hitRadius.y - attackRadiusOffset;
 	}
 
-	private void updateHealthBar() {
-		healthWidth = (int) ((currentHealth / (float) maxHealth) * healthBarWidth);
+	/**
+	 * Updates the player's current health displayed on the health bar
+	 */
+	private void updateCurrentHealth() {
+		currentHealthWidth = (int) (currentHealth * Game.SCALE);
+	}
 
+	/**
+	 * Updates the player's max health displayed on the health bar
+	 */
+	private void updateMaxHealth() {
+		currentHealthWidth = (int) (maxHealth * Game.SCALE);
 	}
 
 	public void render(Graphics g, int lvlOffset) {
@@ -105,7 +121,7 @@ public class Player extends Creature {
 		drawHitRadius(g, lvlOffset);
 
 		drawAttackRadius(g, lvlOffset);
-		drawUI(g);
+		drawHealthBar(g);
 	}
 
 	private void drawAttackRadius(Graphics g, int lvlOffsetX) {
@@ -114,11 +130,20 @@ public class Player extends Creature {
 		// can remove lvlOffsetX after
 	}
 
-	private void drawUI(Graphics g) {
-		g.drawImage(statusBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
+	/**
+	 * Draws the health bar at the top left of the screen
+	 * @param g Object that allows us to draw the UI
+	 */
+	private void drawHealthBar(Graphics g) {
+		g.drawImage(heartIcon, heartIconX, heartIconY, heartIconWidth, heartIconHeight, null);
+		g.setColor(Color.darkGray);
+		// The current health's position
+		int maxHealthXStart = (int) (32 * Game.SCALE);
+		g.fillRect(maxHealthXStart + heartIconX, maxHealthYStart + heartIconY,
+				maxHealthWidth, maxHealthHeight);
 		g.setColor(Color.red);
-		g.fillRect(healthBarXStart + statusBarX, healthBarYStart + statusBarY, healthWidth, healthBarHeight);
-
+		g.fillRect(currentHealthXStart + heartIconX, currentHealthYStart + heartIconY,
+				currentHealthWidth, currentHealthHeight);
 	}
 
 	private void updateAnimationTick() {
@@ -202,17 +227,14 @@ public class Player extends Creature {
 		}
 
 	}
-
 	private void updateYPos(float ySpeed) {
 		if (CanMoveHere(hitRadius.x, hitRadius.y + ySpeed, hitRadius.width, hitRadius.height, lvlData)) {
 			hitRadius.y += ySpeed;
 		} else {
 			hitRadius.y = GetEntityYPosUnderRoofOrAboveFloor(hitRadius, ySpeed);
 		}
-
 	}
-
-	public void changeHealth(int value) {
+	public void changeCurrentHealth(int value) {
 		currentHealth += value;
 
 		if (currentHealth <= 0) {
@@ -236,7 +258,7 @@ public class Player extends Creature {
 			for (int i = 0; i < animations[j].length; i++)
 				animations[j][i] = img.getSubimage(i * 64, j * 64, 64, 64);
 
-		statusBarImg = LoadSave.GetSpriteAtlas(LoadSave.STATUS_BAR);
+		heartIcon = LoadSave.GetSpriteAtlas(LoadSave.STATUS_BAR);
 
 	}
 

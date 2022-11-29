@@ -1,4 +1,4 @@
-package inputs;
+package Inputs;
 
 import gamestates.Gamestate;
 import Interface_Adapters.GamePanel;

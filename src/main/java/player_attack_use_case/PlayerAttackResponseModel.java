@@ -44,8 +44,4 @@ public class PlayerAttackResponseModel {
         this.meleeMonsters = meleeMonsters;
     }
 
-
-
-
-
 }

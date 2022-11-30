@@ -25,7 +25,7 @@ public class MeleeMonster extends Monster {
         attackBoxOffset = (int) (Game.SCALE * 1);
     }
 
-    protected Rectangle2D.Float getAttackBox() {
+    public Rectangle2D.Float getAttackBox() {
         return attackBox;
     }
 
@@ -44,28 +44,32 @@ public class MeleeMonster extends Monster {
         if (firstUpdate)
             firstUpdateCheck(lvlData);
 
-        switch (enemyState) {
-            case IDLE:
-                newState(RUNNING);
-                break;
-            case RUNNING:
-                if (canSeePlayer(lvlData, player))
-                    turnTowardsPlayer(player);
-                if (isPlayerCloseForAttack(player))
-                    newState(ATTACK);
+        if (inAir)
+            updateInAir(lvlData);
+        else {
+            switch (enemyState) {
+                case IDLE:
+                    newState(RUNNING);
+                    break;
+                case RUNNING:
+                    if (canSeePlayer(lvlData, player))
+                        turnTowardsPlayer(player);
+                    if (isPlayerCloseForAttack(player))
+                        newState(ATTACK);
 
-                move(lvlData);
-                break;
-            case ATTACK:
-                if (aniIndex == 0)
-                    attackChecked = false; // ensures that whenever animation restarts, the attack checked resets so that enemy attacks again
+                    move(lvlData);
+                    break;
+                case ATTACK:
+                    if (aniIndex == 0)
+                        attackChecked = false; // ensures that whenever animation restarts, the attack checked resets so that enemy attacks again
 
-                if (aniIndex == 3 && !attackChecked) // player is attacked at sprite #3
-                    // attackChecked makes sure we only do one check per animation
-                    checkEnemyHit(attackBox, player);
-                break;
-            case HIT:
-                break;
+                    if (aniIndex == 3 && !attackChecked) // player is attacked at sprite #3
+                        // attackChecked makes sure we only do one check per animation
+                        checkEnemyHit(attackBox, player);
+                    break;
+                case HIT:
+                    break;
+            }
         }
 
     }

@@ -28,6 +28,10 @@ public class RangedMonster extends Monster {
         return attackBox;
     }
 
+    public Rectangle2D.Float getAttackBox() {
+        return attackBox;
+    }
+
     public void update(int[][] lvlData, Player player) {
         updateBehavior(lvlData, player);
         updateAnimationTick();

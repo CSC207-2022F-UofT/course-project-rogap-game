@@ -9,13 +9,6 @@ public class Game implements Runnable{
     private final int FPS_SET = 144;
     private final int UPS_SET = 144;
 
-    // TIMER COMPLETION
-    private static long startTime = System.currentTimeMillis();
-
-    // Game Timer Variables
-    private static long gameTimerSeconds = 0;
-    private static long pauseTime = 0;
-
 
     // Game Timer Variables
     private static long startTime = System.currentTimeMillis();

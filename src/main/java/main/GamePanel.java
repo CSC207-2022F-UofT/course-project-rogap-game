@@ -81,13 +81,13 @@ public class GamePanel extends JPanel{
     }
     private void setTimerGui(){
         timerGui = new JLabel(String.valueOf(120));
-        timerGui.setBounds(607, -19, 100, 100);
-        timerGui.setFont(new Font("Onyx", Font.PLAIN, 35));
+        timerGui.setBounds(605, -19, 100, 100);
+        timerGui.setFont(new Font("Arial", Font.PLAIN, 35));
         timerGui.setForeground(new Color(150, 203, 187));
         add(timerGui);
     }
     private void changeTimerGui(){
-        timerGui.setBounds(607, -19, 100, 100);
+        timerGui.setBounds(605, -19, 100, 100);
         timerGui.setHorizontalAlignment(0);
         if (Game.getGameTimerSeconds() % 2 == 0){
             timerGui.setForeground(new Color(150, 203, 187));
@@ -96,22 +96,6 @@ public class GamePanel extends JPanel{
         }
         timerGui.setText(String.valueOf(120 - Game.getGameTimerSeconds()));
 
-    }
-
-    private void setTimerGui(){
-        timerGui = new JLabel(String.valueOf(300));
-        timerGui.setBounds(640, 20, 100, 100);
-        timerGui.setFont(new Font("Onyx", Font.PLAIN, 35));
-        timerGui.setForeground(new Color(150, 203, 187));
-        add(timerGui);
-    }
-    private void changeTimerGui(){
-        if (Game.getGameTimerSeconds() % 2 == 0){
-            timerGui.setForeground(new Color(150, 203, 187));
-        }else{
-            timerGui.setForeground(new Color(224, 68, 78));
-        }
-        timerGui.setText(String.valueOf(300 - Game.getGameTimerSeconds()));
     }
 
     public MeleeEnemy[] getEnemyList() {

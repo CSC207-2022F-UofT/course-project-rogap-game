@@ -17,18 +17,20 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel{
     public Player player;
+
     private ShopSystem gameShop;
     private JLabel timerGui;
 
     // Needs to be public
+
     private int xDelta = -2546, yDelta = -2132;
 
     private boolean isPaused = false;
     private boolean showMinimap = false;
 
+
     private boolean showStatBar = false;
     private ArrayList<Leaf> leafList = new ArrayList<>();
-
     private BufferedImage map;
     private BufferedImage minimap;
     private BufferedImage minimapCursor;
@@ -82,6 +84,22 @@ public class GamePanel extends JPanel{
         }
         timerGui.setText(String.valueOf(120 - Game.getGameTimerSeconds()));
 
+    }
+
+    private void setTimerGui(){
+        timerGui = new JLabel(String.valueOf(300));
+        timerGui.setBounds(640, 20, 100, 100);
+        timerGui.setFont(new Font("Onyx", Font.PLAIN, 35));
+        timerGui.setForeground(new Color(150, 203, 187));
+        add(timerGui);
+    }
+    private void changeTimerGui(){
+        if (Game.getGameTimerSeconds() % 2 == 0){
+            timerGui.setForeground(new Color(150, 203, 187));
+        }else{
+            timerGui.setForeground(new Color(224, 68, 78));
+        }
+        timerGui.setText(String.valueOf(300 - Game.getGameTimerSeconds()));
     }
 
     private void importImage() {
@@ -206,7 +224,6 @@ public class GamePanel extends JPanel{
                 g.drawImage(statsBar, 9, 109, null);
             }
         }
-
 
         animateLeaf(g, leafList);
 

@@ -1,7 +1,7 @@
 package gamestates;
 
-import Entities.EnemyManager;
-import Entities.Player;
+import Gabi_attack_method_code.EnemyManager;
+import Gabi_attack_method_code.Player;
 import Interface_Adapters.Game;
 import levels.LevelManager;
 import ui.GameOverOverlay;

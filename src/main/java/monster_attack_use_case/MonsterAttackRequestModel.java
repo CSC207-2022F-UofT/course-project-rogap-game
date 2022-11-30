@@ -1,9 +1,9 @@
 package monster_attack_use_case;
 
-import Entities.MeleeMonster;
-import Entities.Monster;
-import Entities.Player;
-import Entities.RangedMonster;
+import Gabi_attack_method_code.MeleeMonster;
+import Gabi_attack_method_code.Monster;
+import Gabi_attack_method_code.Player;
+import Gabi_attack_method_code.RangedMonster;
 
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;

@@ -1,7 +1,7 @@
 package utilz;
 
-import Entities.MeleeMonster;
-import Entities.RangedMonster;
+import Gabi_attack_method_code.MeleeMonster;
+import Gabi_attack_method_code.RangedMonster;
 import Interface_Adapters.Game;
 
 import javax.imageio.ImageIO;

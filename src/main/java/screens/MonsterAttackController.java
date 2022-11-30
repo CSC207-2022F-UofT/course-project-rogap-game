@@ -1,7 +1,7 @@
 package screens;
 
-import Entities.Monster;
-import Entities.Player;
+import Gabi_attack_method_code.Monster;
+import Gabi_attack_method_code.Player;
 import monster_attack_use_case.MonsterAttackInputBoundary;
 import monster_attack_use_case.MonsterAttackRequestModel;
 import monster_attack_use_case.MonsterAttackResponseModel;

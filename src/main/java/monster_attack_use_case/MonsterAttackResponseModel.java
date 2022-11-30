@@ -2,8 +2,8 @@ package monster_attack_use_case;
 
 // use case layer
 
-import Entities.Monster;
-import Entities.Player;
+import Gabi_attack_method_code.Monster;
+import Gabi_attack_method_code.Player;
 
 public class MonsterAttackResponseModel {
 

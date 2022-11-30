@@ -1,4 +1,4 @@
-package Entities;
+package Gabi_attack_method_code;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;

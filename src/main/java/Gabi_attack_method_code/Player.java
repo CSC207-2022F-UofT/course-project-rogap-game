@@ -1,4 +1,4 @@
-package Entities;
+package Gabi_attack_method_code;
 
 import Interface_Adapters.Game;
 import gamestates.Playing;

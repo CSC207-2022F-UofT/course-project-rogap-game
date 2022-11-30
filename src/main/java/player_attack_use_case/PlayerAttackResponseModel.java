@@ -2,9 +2,9 @@ package player_attack_use_case;
 
 // use case layer
 
-import Entities.MeleeMonster;
-import Entities.Player;
-import Entities.RangedMonster;
+import Gabi_attack_method_code.MeleeMonster;
+import Gabi_attack_method_code.Player;
+import Gabi_attack_method_code.RangedMonster;
 
 public class PlayerAttackResponseModel {
 

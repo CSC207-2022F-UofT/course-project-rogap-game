@@ -1,7 +1,7 @@
 package player_attack_use_case;
 
-import Entities.MeleeMonster;
-import Entities.RangedMonster;
+import Gabi_attack_method_code.MeleeMonster;
+import Gabi_attack_method_code.RangedMonster;
 
 import static utilz.Constants.EnemyConstants.HIT;
 

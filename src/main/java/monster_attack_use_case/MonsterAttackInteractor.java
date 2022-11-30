@@ -1,12 +1,9 @@
 package monster_attack_use_case;
 
-import Entities.MeleeMonster;
-import Entities.Monster;
-import Entities.Player;
-import Entities.RangedMonster;
+import Gabi_attack_method_code.Monster;
+import Gabi_attack_method_code.Player;
 
 import static utilz.Constants.EnemyConstants.ATTACK;
-import static utilz.Constants.EnemyConstants.HIT;
 
 public class MonsterAttackInteractor implements MonsterAttackInputBoundary {
 

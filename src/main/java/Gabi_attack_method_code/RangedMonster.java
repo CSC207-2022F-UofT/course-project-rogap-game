@@ -1,4 +1,4 @@
-package Entities;
+package Gabi_attack_method_code;
 
 import Interface_Adapters.Game;
 
@@ -8,23 +8,22 @@ import java.awt.geom.Rectangle2D;
 import static utilz.Constants.Directions.LEFT;
 import static utilz.Constants.EnemyConstants.*;
 
-public class MeleeMonster extends Monster {
+public class RangedMonster extends Monster {
 
     // AttackBox
     private Rectangle2D.Float attackBox;
-    private int attackBoxOffset;
+    protected int attackBoxOffsetX = (int) (6 * Game.SCALE);
 
-    public MeleeMonster(int x, int y) {
+    public RangedMonster(int x, int y) {
         super(x, y, MONSTER_WIDTH, MONSTER_HEIGHT, RANGED_MONSTER);
         initHitbox(x, y, (int) (13 * Game.SCALE), (int) (17 * Game.SCALE)); //13 is width of monster; 17 is the height
         initAttackBox();
     }
 
-    private void initAttackBox() {
-        attackBox = new Rectangle2D.Float(x , y,(int) (14 * Game.SCALE), (int) (18 * Game.SCALE));
-        attackBoxOffset = (int) (Game.SCALE * 1);
+    private void initAttackBox() { // need to change values depending on monster sprite
+        attackBox = new Rectangle2D.Float(x , y,(int) (25 * Game.SCALE), (int) (26 * Game.SCALE));
+        attackBoxOffsetX = (int) (Game.SCALE * 29);
     }
-
     public Rectangle2D.Float getAttackBox() {
         return attackBox;
     }
@@ -36,8 +35,8 @@ public class MeleeMonster extends Monster {
     }
 
     private void updateAttackBox() {
-        attackBox.x = hitbox.x - attackBoxOffset; // used to center the attackbox around the hitbox
-        attackBox.y = hitbox.y - attackBoxOffset;
+        attackBox.x = hitbox.x - (int) (Game.SCALE * 7); // (int)(Game.SCALE * n) is used to center the attackbox around the hitbox
+        attackBox.y = hitbox.y - (int) (Game.SCALE * 6);
     }
 
     private void updateBehavior(int[][] lvlData, Player player) {

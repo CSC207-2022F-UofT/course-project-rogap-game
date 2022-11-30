@@ -44,6 +44,7 @@ public class GamePanel extends JPanel{
     private BufferedImage statsBar;
     private BufferedImage healthBar;
     private BufferedImage timerPill;
+    private BufferedImage buffbar;
 
     public MeleeEnemy enemyOne;
     // Has access to keyboard and mouse inputsd
@@ -95,6 +96,7 @@ public class GamePanel extends JPanel{
         InputStream sb = getClass().getResourceAsStream("/StatsBar.png");
         InputStream hb = getClass().getResourceAsStream("/HealthBar.png");
         InputStream tp = getClass().getResourceAsStream("/TimerPill.png");
+        InputStream bb = getClass().getResourceAsStream("/Buffbar.png");
 
         try {
             assert is != null;
@@ -109,6 +111,7 @@ public class GamePanel extends JPanel{
             statsBar = ImageIO.read(sb);
             healthBar = ImageIO.read(hb);
             timerPill = ImageIO.read(tp);
+            buffbar = ImageIO.read(bb);
 
 
         } catch (IOException e) {
@@ -126,6 +129,7 @@ public class GamePanel extends JPanel{
                 sb.close();
                 hb.close();
                 tp.close();
+                bb.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -196,9 +200,10 @@ public class GamePanel extends JPanel{
 
         //HealthBar and Stats stuff go here
         if (!showMinimap && !isPaused){
-            g.drawImage(healthBar, 17, 27, null);
+            g.drawImage(healthBar, 17, 14, null);
+            g.drawImage(buffbar, 495, 619, null);
             if (showStatBar){
-                g.drawImage(statsBar, 13, 190, null);
+                g.drawImage(statsBar, 9, 109, null);
             }
         }
 

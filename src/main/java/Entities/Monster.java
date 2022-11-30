@@ -23,6 +23,8 @@ public abstract class Monster extends Creature {
     protected boolean active = true; // alive
     protected boolean attackChecked;
 
+    protected int PLAYER_ATTACK_DAMAGE = 10;
+
     public Monster(float x, float y, int width, int height, int enemyType) {
         super(x, y, width, height);
         this.enemyType = enemyType;
@@ -88,8 +90,8 @@ public abstract class Monster extends Creature {
         aniIndex = 0; // when new state, reset the tick and index to show state animation from the start
     }
 
-    public void hurt(int amount) {
-        currentHealth -= amount;
+    public void hurt() {
+        currentHealth -= PLAYER_ATTACK_DAMAGE;
         if (currentHealth <= 0) {
             newState(DEAD);
         } else {

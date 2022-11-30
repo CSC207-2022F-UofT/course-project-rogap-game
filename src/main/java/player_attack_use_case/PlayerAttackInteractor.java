@@ -41,7 +41,7 @@ public class PlayerAttackInteractor implements PlayerAttackInputBoundary{
                 if (requestModel.getPlayerAttackRadius().intersects(r.getHitbox())) {
                     // if player's attack radius intersects with a ranged monster's hitbox:
                     r.newState(HIT);
-                    r.hurt(10); // reduce health
+                    r.hurt(); // reduce health
                 }
             }
         }
@@ -50,7 +50,7 @@ public class PlayerAttackInteractor implements PlayerAttackInputBoundary{
                 if (requestModel.getPlayerAttackRadius().intersects(m.getHitbox())) {
                     // if player's attack radius intersects with a melee monster's hitbox:
                     m.newState(HIT);
-                    m.hurt(10); // reduce health
+                    m.hurt(); // reduce health
                 }
             }
         }

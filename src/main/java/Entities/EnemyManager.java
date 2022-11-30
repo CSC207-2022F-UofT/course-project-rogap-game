@@ -71,14 +71,14 @@ public class EnemyManager {
         for (RangedMonster r : rangedMonsters)
             if (r.isActive()){
                 if (attackRadius.intersects(r.getHitbox())) {
-                    r.hurt(10);
+                    r.hurt();
                     return;
                 }
             }
         for (MeleeMonster m : meleeMonsters)
             if (m.isActive()){
                 if (attackRadius.intersects(m.getHitbox())) {
-                    m.hurt(10);
+                    m.hurt();
                     return;
                 }
             }

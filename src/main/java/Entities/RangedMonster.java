@@ -24,10 +24,6 @@ public class RangedMonster extends Monster {
         attackBox = new Rectangle2D.Float(x , y,(int) (25 * Game.SCALE), (int) (26 * Game.SCALE));
         attackBoxOffsetX = (int) (Game.SCALE * 29);
     }
-    protected Rectangle2D.Float getAttackBox() {
-        return attackBox;
-    }
-
     public Rectangle2D.Float getAttackBox() {
         return attackBox;
     }

@@ -42,7 +42,7 @@ public abstract class Creature {
         return hitbox;
     }
 
-    public Ellipse2D.Float getAttackRadius() {
+    public Ellipse2D.Float getHitRadius() {
         return hitRadius;
     }
 

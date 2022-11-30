@@ -4,10 +4,10 @@ package player_attack_use_case;
 
 public interface PlayerAttackPresenter {
 
-    PlayerAttackResponseModel preparePlayerAttackView(PlayerAttackResponseModel player);
+    PlayerAttackResponseModel preparePlayerAttackView(PlayerAttackResponseModel playerAttackResponseModel);
 
-    PlayerAttackResponseModel prepareRangedHitView(PlayerAttackResponseModel player);
+    PlayerAttackResponseModel prepareRangedHitView(PlayerAttackResponseModel playerAttackResponseModel);
 
-    PlayerAttackResponseModel prepareMeleeHitView(PlayerAttackResponseModel player);
+    PlayerAttackResponseModel prepareMeleeHitView(PlayerAttackResponseModel playerAttackResponseModel);
 
 }

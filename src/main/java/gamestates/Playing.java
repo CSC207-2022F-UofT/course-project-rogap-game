@@ -70,7 +70,7 @@ public class Playing extends State implements Statemethods {
 	}
 
 	private void checkCloseToBorder() {
-		int playerX = (int) player.getHitRadius().x;
+		int playerX = (int) player.getAttackRadius().x;
 		int diff = playerX - xLvlOffset;
 
 		if (diff > rightBorder)

@@ -30,8 +30,8 @@ public class PlayerAttackRequestModel {
         this.player = player;
     }
 
-    Ellipse2D.Float getPlayerHitRadius() {
-        return player.getHitRadius();
+    Ellipse2D.Float getPlayerAttackRadius() {
+        return player.getAttackRadius();
     }
 
     RangedMonster[] getRangedMonsters() {

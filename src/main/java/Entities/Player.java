@@ -64,6 +64,10 @@ public class Player extends Creature {
 		attackRadiusOffset = (int) (Game.SCALE * 13);
 	}
 
+	public Ellipse2D.Float getAttackRadius() {
+		return attackRadius;
+	}
+
 	public void update() {
 		updateHealthBar();
 

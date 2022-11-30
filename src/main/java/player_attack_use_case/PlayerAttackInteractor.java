@@ -38,7 +38,7 @@ public class PlayerAttackInteractor implements PlayerAttackInputBoundary{
 
         for (RangedMonster r : requestModel.getRangedMonsters()) { // search through ranged monsters
             if (r.isActive()) {
-                if (requestModel.getPlayerHitRadius().intersects(r.getHitbox())) {
+                if (requestModel.getPlayerAttackRadius().intersects(r.getHitbox())) {
                     // if player's attack radius intersects with a ranged monster's hitbox:
                     r.newState(HIT);
                     r.hurt(10); // reduce health
@@ -47,7 +47,7 @@ public class PlayerAttackInteractor implements PlayerAttackInputBoundary{
         }
         for (MeleeMonster m : requestModel.getMeleeMonsters()) { // search through melee monsters
             if (m.isActive()) {
-                if (requestModel.getPlayerHitRadius().intersects(m.getHitbox())) {
+                if (requestModel.getPlayerAttackRadius().intersects(m.getHitbox())) {
                     // if player's attack radius intersects with a melee monster's hitbox:
                     m.newState(HIT);
                     m.hurt(10); // reduce health

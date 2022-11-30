@@ -61,7 +61,7 @@ public abstract class Monster extends Creature {
     }
 
     protected boolean canSeePlayer(int[][] lvlData, Player player) {
-        int playerTileY = (int) (player.getHitRadius().y / Game.TILES_SIZE);
+        int playerTileY = (int) (player.getAttackRadius().y / Game.TILES_SIZE);
         if (playerTileY == tileY)
             if (isPlayerInRange(player)) {
                 if (IsSightClear(lvlData, hitbox, player.hitRadius, tileY))

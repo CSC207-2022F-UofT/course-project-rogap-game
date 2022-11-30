@@ -25,6 +25,10 @@ public class MeleeMonster extends Monster {
         attackBoxOffset = (int) (Game.SCALE * 1);
     }
 
+    protected Rectangle2D.Float getAttackBox() {
+        return attackBox;
+    }
+
     public void update(int[][] lvlData, Player player) {
         updateBehavior(lvlData, player);
         updateAnimationTick();

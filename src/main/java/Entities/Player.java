@@ -1,5 +1,7 @@
 package Entities;
 
+import Use_Cases.ShopSystem;
+import main.Game;
 import main.GamePanel;
 import main.WallCollision;
 
@@ -22,9 +24,15 @@ public class Player {
     private int aniTick, aniIndex, aniSpeed= 10;
     private int playerAction = 0;
     private boolean moving = false;
+    
+    // VARIABLES FOR SHOP SYSTEM
+    private int gold = 100;
+    private int health = 10;
+
     private int[][] verticalWalls = {{0,1,1},{0,4,1},{1,1,0},{1,2,1},{1,3,1},{1,4,0},{2,0,1},{2,1,0},{2,2,1},{2,3,0},{2,4,1},{3,0,1},{3,1,1},{3,3,1}};
     private int[][] horizontalWalls = {{2,0,1},{0,1,1},{1,1,1},{2,1,0},{0,2,1},{1,2,0},{2,2,1},{1,3,0},{2,3,1},{1,4,0},{0,4,1},{2,4,1},{0,5,1},{1,5,1}};
     private WallCollision wallCollision = new WallCollision(verticalWalls, horizontalWalls);
+    
 
     public Player(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -50,7 +58,6 @@ public class Player {
         updateAnimationTick();
         setAnimation();
     }
-
     private ArrayList currMoveCollision(int x, int y) {
         return this.getWallCollision().moveAbleWall(616 + 12, 326 + 12,
                 x, y, 24, 24);
@@ -76,6 +83,30 @@ public class Player {
         }
         return move;
     }
+    public int getHealth() {
+        return this.health;
+    }
+
+    public void addHealth(int amount){
+        System.out.println("Health Before: " + getHealth());
+        this.health += amount;
+        if (getHealth() > 100){
+            this.health = 100;
+        }
+        System.out.println("Health After: " + getHealth());
+    }
+
+    public int getGold(){
+        return this.gold;
+    }
+    public void addGold(int gold){
+        this.gold += gold;
+    }
+
+    public void removeGold(int amount){
+        this.gold -= amount;
+    }
+    
     //Helper methods
     public int getAbsXPlayer() {return this.absXPlayer;}
     public int getAbsYPlayer() {return this.absYPlayer;}

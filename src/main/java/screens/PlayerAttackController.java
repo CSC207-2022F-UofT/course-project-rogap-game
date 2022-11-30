@@ -7,20 +7,20 @@ import player_attack_use_case.PlayerAttackInputBoundary;
 import player_attack_use_case.PlayerAttackRequestModel;
 import player_attack_use_case.PlayerAttackResponseModel;
 
-public class GameplayController {
+public class PlayerAttackController {
 
-    final PlayerAttackInputBoundary attackInput;
+    final PlayerAttackInputBoundary playerAttackInput;
 
 
-    public GameplayController(PlayerAttackInputBoundary keyboardInput) {
-        this.attackInput = keyboardInput;
+    public PlayerAttackController(PlayerAttackInputBoundary keyboardInput) {
+        this.playerAttackInput = keyboardInput;
     }
 
     PlayerAttackResponseModel attack(Player player, RangedMonster[] rangedMonsters, MeleeMonster[] meleeMonsters) {
         PlayerAttackRequestModel requestModel =
                 new PlayerAttackRequestModel(player, rangedMonsters, meleeMonsters);
 
-        return attackInput.attack(requestModel);
+        return playerAttackInput.attack(requestModel);
     }
 
 

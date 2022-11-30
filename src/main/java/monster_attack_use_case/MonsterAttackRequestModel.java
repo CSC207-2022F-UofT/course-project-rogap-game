@@ -13,9 +13,9 @@ public class MonsterAttackRequestModel {
     private Player player;   // player
     private Monster monster; // the monster that attacks
 
-    public MonsterAttackRequestModel(Player player, Monster monster) {
-        this.player = player;
+    public MonsterAttackRequestModel(Monster monster, Player player) {
         this.monster = monster;
+        this.player = player;
     }
 
     Monster getMonster() {

@@ -1,5 +1,7 @@
 package Entities;
 
+import Use_Cases.ShopSystem;
+import main.Game;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -22,6 +24,11 @@ public class Player {
     private int aniTick, aniIndex, aniSpeed= 10;
     private int playerAction = 0;
     private boolean moving = false;
+
+    // VARIABLES FOR SHOP SYSTEM
+    private int gold = 100;
+    private int health = 10;
+
     public Player(GamePanel gamePanel, int xDelta, int yDelta) {
         this.gamePanel = gamePanel;
         importImage();
@@ -40,6 +47,29 @@ public class Player {
         setAnimation();
     }
 
+    public int getHealth() {
+        return this.health;
+    }
+
+    public void addHealth(int amount){
+        System.out.println("Health Before: " + getHealth());
+        this.health += amount;
+        if (getHealth() > 100){
+            this.health = 100;
+        }
+        System.out.println("Health After: " + getHealth());
+    }
+
+    public int getGold(){
+        return this.gold;
+    }
+    public void addGold(int gold){
+        this.gold += gold;
+    }
+
+    public void removeGold(int amount){
+        this.gold -= amount;
+    }
 /*    public boolean movable(int x, int y, int targetX, int targetY) {
         work in progress
     }*/

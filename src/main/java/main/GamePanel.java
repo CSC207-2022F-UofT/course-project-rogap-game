@@ -28,14 +28,20 @@ public class GamePanel extends JPanel{
     private boolean isPaused = false;
     private boolean showMinimap = false;
 
-
     private boolean showStatBar = false;
+
     private ArrayList<Leaf> leafList = new ArrayList<>();
     private BufferedImage map;
     private BufferedImage minimap;
     private BufferedImage minimapCursor;
     private BufferedImage pauseIcon;
     private BufferedImage leaf;
+
+    private MeleeEnemy[] enemyList;
+    public MeleeEnemy enemyOne;
+    public MeleeEnemy enemyTwo;
+    // Has access to keyboard and mouse inputs
+
 
     private BufferedImage bushes;
 
@@ -48,19 +54,25 @@ public class GamePanel extends JPanel{
     private BufferedImage timerPill;
     private BufferedImage buffbar;
 
-    public MeleeEnemy enemyOne;
     // Has access to keyboard and mouse inputsd
+
     public GamePanel(){
         // Adding leaves
+        enemyList = new MeleeEnemy[2];
         leafList.add(new Leaf());
         leafList.add(new Leaf());
         setTimerGui();
 
         // Initializing methods
-        player = new Player(this, xDelta, yDelta);
+        player = new Player(this);
         enemyOne = new MeleeEnemy(this, xDelta, yDelta, 3780, 3220);
+        enemyTwo = new MeleeEnemy(this, xDelta, yDelta, 4000, 4000);
+        enemyList[0] = enemyOne;
+        enemyList[1] = enemyTwo;
+
         // Creates shop instance
         gameShop = new ShopSystem(player);
+
 
         importImage();
         addKeyListener(new KeyboardInputs(this));
@@ -100,6 +112,10 @@ public class GamePanel extends JPanel{
             timerGui.setForeground(new Color(224, 68, 78));
         }
         timerGui.setText(String.valueOf(300 - Game.getGameTimerSeconds()));
+    }
+
+    public MeleeEnemy[] getEnemyList() {
+        return this.enemyList;
     }
 
     private void importImage() {
@@ -159,10 +175,14 @@ public class GamePanel extends JPanel{
         this.yDelta = y;
     }
     public void updateGame(){
+
     }
-    public void changeXDelta(int x) {this.xDelta += x; this.enemyOne.changeXEnemy(x);
+    public int getXDelta () {return this.xDelta;}
+    public int getYDelta () {return this.yDelta;}
+    public void changeXDelta(int x) {this.xDelta += x; this.enemyOne.changeXEnemy(x); this.enemyTwo.changeXEnemy(x);
     }
-    public void changeYDelta(int y) {this.yDelta += y; this.enemyOne.changeYEnemy(y);}
+    public void changeYDelta(int y) {this.yDelta += y; this.enemyOne.changeYEnemy(y); this.enemyTwo.changeYEnemy(y);
+    }
     public boolean getIsPaused(){return this.isPaused;
     }
     public boolean getMinimapVisible(){
@@ -196,10 +216,13 @@ public class GamePanel extends JPanel{
         //Drawing the basic map
         g.drawImage(map, xDelta, yDelta, null);
 
+        // player VISUAL goes here
+        g.drawImage(player.getCurrentImage(), 616, 326, 48,48, null);
 
-        // TODO: Character visuals go here
-        g.drawImage(player.getCurrentImage(), 615, 325, 48,48, null);
-        g.drawImage(player.getCurrentImage(), enemyOne.getxEnemy(), enemyOne.getyEnemy(), null);
+        //Enemy visual goes here
+        g.drawImage(player.getCurrentImage(), enemyOne.getXEnemy(), enemyOne.getYEnemy(), null);
+        g.drawImage(player.getCurrentImage(), enemyTwo.getXEnemy(), enemyTwo.getYEnemy(), null);
+
 
         // SHOP VISUAL GOES HERE
         g.drawImage(shopKeeper, xDelta + 1857, yDelta + 1676, null);
@@ -235,7 +258,6 @@ public class GamePanel extends JPanel{
                 g.drawImage(pauseIcon, 500, 295, null);
             }
         }
-
         //Showing Minimap
         if (showMinimap){
             g.drawImage(minimap, -52 + xDelta/7, -130 + yDelta/6, null);

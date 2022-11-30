@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class WallCollision {
     private Rectangle[] wallLayout = new Rectangle[60];
@@ -37,26 +38,34 @@ public class WallCollision {
             }
         }
     }
-    public String[] enemyMovableWall(int currX, int currY, int changeX, int changeY, int width, int height) {
-        String move = "true";
+    public ArrayList moveAbleWall(int currX, int currY, int changeX, int changeY, int width, int height) {
+        boolean move = true;
         boolean helper = true;
         Rectangle hitBoxX = new Rectangle(currX + changeX, currY, width, height);
         Rectangle hitBoxY = new Rectangle(currX, currY + changeY, width, height);
         Rectangle[] wallsToCheck = this.wallLayout;
         int i = 0;
+        int counter = 0;
+        ArrayList information = new ArrayList(3);
         String invalid = "-";
-        while (move.equals("true") & helper) {
-            if (wallsToCheck[i] != null) {
-                if (hitBoxX.intersects(wallsToCheck[i])) {
-                    move = "false";
-                    invalid = "x";
-                } else if (hitBoxY.intersects(wallsToCheck[i])) {
-                    move = "false";
+        information.add(move);
+        while (helper) {
+            if (wallsToCheck[i] != null & (boolean) information.get(0)) {
+                if (hitBoxY.intersects(wallsToCheck[i])) {
+                    move = false;
                     invalid = "y";
+                    counter += 1;
+                } else if (hitBoxX.intersects(wallsToCheck[i])) {
+                    move = false;
+                    invalid = "x";
+                    counter += 1;
                 }
             } else {helper = false;}
             i += 1;
         }
-        return new String[]{move, invalid};
+        information.set(0, move);
+        information.add(invalid);
+        information.add(counter);
+        return information;
     }
 }

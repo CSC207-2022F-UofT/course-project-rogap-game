@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class Player {
     private GamePanel gamePanel;
@@ -32,24 +33,26 @@ public class Player {
     }
     public void update() {
         updateWalls();
-        String[] wallCheck = currMoveCollision(-velX, -velY);
-        if (movable(absXPlayer - velX, absYPlayer - velY) & wallCheck[0] == "true") {
+        ArrayList wallCheck = currMoveCollision(-velX, -velY);
+        if (movable(absXPlayer - velX, absYPlayer - velY) & (boolean) wallCheck.get(0)) {
             gamePanel.changeXDelta(velX);
             gamePanel.changeYDelta(velY);
             updateLocation(velX, velY);
-        } else if (wallCheck[1] == "y") {
-            gamePanel.changeXDelta(velX);
-            updateLocation(velX, 0);
-        } else if (wallCheck[1] == "x") {
-            gamePanel.changeYDelta(velY);
-            updateLocation(0, velY);
+        } else if (movable(absXPlayer - velX, absYPlayer - velY) & !((boolean) wallCheck.get(0))) {
+            if (wallCheck.get(1) == "y" & (int) wallCheck.get(2) <= 1) {
+                gamePanel.changeXDelta(velX);
+                updateLocation(velX, 0);
+            } else if (wallCheck.get(1) == "x" & (int) wallCheck.get(2) <= 1) {
+                gamePanel.changeYDelta(velY);
+                updateLocation(0, velY);
+            }
         }
         updateAnimationTick();
         setAnimation();
     }
 
-    private String[] currMoveCollision(int x, int y) {
-        return this.getWallCollision().enemyMovableWall(616 + 12, 326 + 12,
+    private ArrayList currMoveCollision(int x, int y) {
+        return this.getWallCollision().moveAbleWall(616 + 12, 326 + 12,
                 x, y, 24, 24);
     }
     //Player collisions with enemy and walls.

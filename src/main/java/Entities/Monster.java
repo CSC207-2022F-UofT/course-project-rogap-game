@@ -95,7 +95,7 @@ public abstract class Monster extends Entities.Creature {
         return absValue <= attackDistance - 22;
     }
 
-    protected void newState(int enemyState) {
+    public void newState(int enemyState) {
         this.enemyState = enemyState;
         aniTick = 0;
         aniIndex = 0; // when new state, reset the tick and index to show state animation from the start

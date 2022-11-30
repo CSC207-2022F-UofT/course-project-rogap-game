@@ -25,6 +25,10 @@ public class RangedMonster extends Monster {
         attackBoxOffsetX = (int) (Game.SCALE * 29);
     }
 
+    public Rectangle2D.Float getAttackBox() {
+        return attackBox;
+    }
+
     public void update(int[][] lvlData, Player player) {
         updateBehavior(lvlData, player);
         updateAnimationTick();

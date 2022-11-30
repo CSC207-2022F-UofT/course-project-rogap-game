@@ -12,7 +12,7 @@ import java.io.InputStream;
 public class Player {
     private GamePanel gamePanel;
     private BufferedImage[] sprites = new BufferedImage[4];
-    public BufferedImage[][] animations;
+    private BufferedImage[][] animations;
     private int idleDir = 0;
 
     private int velX = 0, velY = 0;
@@ -24,26 +24,39 @@ public class Player {
     private int[][] verticalWalls = {{0,1,1},{0,4,1},{1,1,0},{1,2,1},{1,3,1},{1,4,0},{2,0,1},{2,1,0},{2,2,1},{2,3,0},{2,4,1},{3,0,1},{3,1,1},{3,3,1}};
     private int[][] horizontalWalls = {{2,0,1},{0,1,1},{1,1,1},{2,1,0},{0,2,1},{1,2,0},{2,2,1},{1,3,0},{2,3,1},{1,4,0},{0,4,1},{2,4,1},{0,5,1},{1,5,1}};
     private WallCollision wallCollision = new WallCollision(verticalWalls, horizontalWalls);
+
     public Player(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         importImage();
         loadAnimation();
     }
     public void update() {
-        int checkX = absXPlayer - velX;
-        int checkY = absYPlayer - velY;
         updateWalls();
-        if (movable(checkX, checkY) & wallCollision.movableWall(622, 332, 36, 36)) {
+        String[] wallCheck = currMoveCollision(-velX, -velY);
+        if (movable(absXPlayer - velX, absYPlayer - velY) & wallCheck[0] == "true") {
             gamePanel.changeXDelta(velX);
             gamePanel.changeYDelta(velY);
-            this.absXPlayer -= velX;
-            this.absYPlayer -= velY;
+            updateLocation(velX, velY);
+        } else if (wallCheck[1] == "y") {
+            gamePanel.changeXDelta(velX);
+            updateLocation(velX, 0);
+        } else if (wallCheck[1] == "x") {
+            gamePanel.changeYDelta(velY);
+            updateLocation(0, velY);
         }
         updateAnimationTick();
         setAnimation();
     }
 
+    private String[] currMoveCollision(int x, int y) {
+        return this.getWallCollision().enemyMovableWall(616 + 12, 326 + 12,
+                x, y, 24, 24);
+    }
     //Player collisions with enemy and walls.
+    private void updateLocation(int x, int y){
+        this.absXPlayer -= x;
+        this.absYPlayer -= y;
+    }
     public void updateWalls() {wallCollision.createWallLayout(gamePanel.getXDelta() + velX, gamePanel.getYDelta() + velY);}
     public WallCollision getWallCollision() {return this.wallCollision;}
     public Rectangle getHitBox() {
@@ -54,25 +67,20 @@ public class Player {
         Rectangle hitBox = new Rectangle(targetX + 6, targetY + 6, 36, 36);
         boolean move = true;
         for (MeleeEnemy enemy : gamePanel.getEnemyList()) {
-            if (hitBox.intersects(enemy.hitBox)) {
+            if (hitBox.intersects(enemy.getHitBox())) {
                 move = false;
             }
         }
         return move;
     }
-
     //Helper methods
     public int getAbsXPlayer() {return this.absXPlayer;}
     public int getAbsYPlayer() {return this.absYPlayer;}
 
     //Handles all of player movement
-    public void setVelX(int x) {
-        velX = x;
-    }
-    public void setVelY(int y) {
-        velY = y;
-    }
-    public void setMoving () {
+    public void setVelX(int x) {this.velX = x; this.setMoving();}
+    public void setVelY(int y) {this.velY = y; this.setMoving();}
+    private void setMoving () {
         if (velX != 0 || velY != 0) {
             moving = true;
         } else {moving = false;}
@@ -102,7 +110,6 @@ public class Player {
             }
         }
     }
-
     private void loadAnimation() {
         animations = new BufferedImage[4][6];
         for (int j = 0; j < animations.length; j++){
@@ -159,5 +166,4 @@ public class Player {
     public BufferedImage getCurrentImage () {
         return this.animations[playerAction][aniIndex];
     }
-
 }

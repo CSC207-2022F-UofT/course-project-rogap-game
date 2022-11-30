@@ -89,9 +89,9 @@ public class GamePanel extends JPanel{
     }
     public int getXDelta () {return this.xDelta;}
     public int getYDelta () {return this.yDelta;}
-    public void changeXDelta(int x) {this.xDelta += x; this.enemyOne.changeXEnemy(x);this.enemyTwo.changeXEnemy(x);
+    public void changeXDelta(int x) {this.xDelta += x; this.enemyOne.changeXEnemy(x); this.enemyTwo.changeXEnemy(x);
     }
-    public void changeYDelta(int y) {this.yDelta += y; this.enemyOne.changeYEnemy(y);this.enemyTwo.changeYEnemy(y);
+    public void changeYDelta(int y) {this.yDelta += y; this.enemyOne.changeYEnemy(y); this.enemyTwo.changeYEnemy(y);
     }
     public boolean getIsPaused(){return this.isPaused;
     }

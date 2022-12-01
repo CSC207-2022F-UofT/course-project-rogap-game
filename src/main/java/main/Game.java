@@ -24,7 +24,6 @@ public class Game implements Runnable{
         gamePanel.requestFocus();
         startGameLoop();
     }
-
     public void update(){
         // Everything that needs to me updated, gets updated here :)
         gamePanel.enemyOne.update();

@@ -5,8 +5,8 @@ import main.GamePanel;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class MeleeEnemy {
-    private GamePanel gamePanel;
+public class MeleeEnemy extends Creature {
+    //private GamePanel gamePanel;
     private int xEnemy;
     private int yEnemy;
     private double distance;
@@ -14,7 +14,8 @@ public class MeleeEnemy {
     private int spawnX, spawnY;
     private Rectangle hitBox;
     public MeleeEnemy(GamePanel gamePanel, int x, int y, int spawnX, int spawnY) {
-        this.gamePanel = gamePanel;
+        // this.gamePanel = gamePanel;
+        super(gamePanel);
         this.spawnY = spawnY;
         this.spawnX = spawnX;
         this.xEnemy = x + this.spawnX;

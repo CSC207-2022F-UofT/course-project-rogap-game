@@ -12,16 +12,16 @@ import java.util.ArrayList;
 
 public class Player extends Creature {
     private GamePanel gamePanel;
-    private BufferedImage[] sprites = new BufferedImage[4];
-    private BufferedImage[][] animations;
+    // private BufferedImage[] sprites = new BufferedImage[4];
+    // private BufferedImage[][] animations;
     private int idleDir = 0;
 
     // private int velX = 0, velY = 0;
     // private int absXPlayer = 1882, absYPlayer = 1738;
 
     private int aniTick, aniIndex, aniSpeed= 10;
-    private int playerAction = 0;
-    private boolean moving = false;
+    // private int playerAction = 0;
+    // private boolean moving = false;
     
     // VARIABLES FOR SHOP SYSTEM
     private int gold = 100;
@@ -35,8 +35,8 @@ public class Player extends Creature {
     public Player(GamePanel gamePanel) {
         // this.gamePanel = gamePanel;
         super(gamePanel);
-        importImage();
-        loadAnimation();
+        // importImage();
+        // loadAnimation();
     }
 
 /*    public void update() {
@@ -120,7 +120,7 @@ public class Player extends Creature {
         } else {moving = false;}
     }
     //All the functions that control player animations
-    private void importImage() {
+/*    private void importImage() {
         InputStream lI = getClass().getResourceAsStream("/leftIdle.png");
         InputStream rI = getClass().getResourceAsStream("/rightIdle.png");
         InputStream lM = getClass().getResourceAsStream("/leftMovement.png");
@@ -143,8 +143,8 @@ public class Player extends Creature {
                 e.printStackTrace();
             }
         }
-    }
-    private void loadAnimation() {
+    }*/
+/*    private void loadAnimation() {
         animations = new BufferedImage[4][6];
         for (int j = 0; j < animations.length; j++){
             for (int i = 0; i < animations[j].length; i++) {
@@ -155,8 +155,8 @@ public class Player extends Creature {
                 }
             }
         }
-    }
-    private void setAnimation() {
+    }*/
+/*    private void setAnimation() {
         if (moving) {
             if ((velX == -2 & velY == -2) || (velX == -2 & velY == 2) || (velX == -2)) { //Left movement
                 playerAction = 3;
@@ -170,8 +170,8 @@ public class Player extends Creature {
                 playerAction = 1;
             }
         }
-    }
-    public void setIdleDirection(int dir) {
+    }*/
+ /*   public void setIdleDirection(int dir) {
         this.idleDir = dir;
     }
     private int getSpriteAmount(int playerAction) {
@@ -200,5 +200,5 @@ public class Player extends Creature {
 
     public BufferedImage getCurrentImage() {
         return this.animations[playerAction][aniIndex];
-    }
+    }*/
 }

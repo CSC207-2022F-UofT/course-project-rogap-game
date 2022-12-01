@@ -3,6 +3,7 @@ package Entities;
 import Interface_Adapters.Game;
 
 import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
 import static utilz.Constants.Directions.LEFT;
@@ -28,7 +29,8 @@ public abstract class Monster extends Creature {
     public Monster(float x, float y, int width, int height, int enemyType) {
         super(x, y, width, height);
         this.enemyType = enemyType;
-        initHitbox(x, y, width, height);
+//        initHitbox(x, y, width, height);
+        initHitRadius(x, y, width, height); // monster has circular shape
         maxHealth = GetMaxHealth(enemyType);
         currentHealth = maxHealth;
 
@@ -102,6 +104,16 @@ public abstract class Monster extends Creature {
 
     protected void checkEnemyHit(Rectangle2D.Float attackBox, Player player) {
         Area enemyAttackArea = new Area(attackBox); // find area of enemy attackbox
+        enemyAttackArea.intersect(new Area(player.hitRadius)); // find intersection between enemy attackbox and player hitradius
+        if (!enemyAttackArea.isEmpty()) { // if they intersect, execute following lines
+            player.setHit(true);
+            player.changeHealth(-GetEnemyDmg(enemyType));
+        }
+        attackChecked = true;
+    }
+
+    protected void checkEnemyHit(Ellipse2D.Float attackRadius, Player player) {
+        Area enemyAttackArea = new Area(attackRadius); // find area of enemy attackbox
         enemyAttackArea.intersect(new Area(player.hitRadius)); // find intersection between enemy attackbox and player hitradius
         if (!enemyAttackArea.isEmpty()) { // if they intersect, execute following lines
             player.setHit(true);

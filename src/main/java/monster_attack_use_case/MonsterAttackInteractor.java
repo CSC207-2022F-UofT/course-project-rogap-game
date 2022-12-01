@@ -6,7 +6,6 @@ import Entities.Player;
 import Entities.RangedMonster;
 
 import static utilz.Constants.EnemyConstants.ATTACK;
-import static utilz.Constants.EnemyConstants.HIT;
 
 public class MonsterAttackInteractor implements MonsterAttackInputBoundary {
 
@@ -35,9 +34,19 @@ public class MonsterAttackInteractor implements MonsterAttackInputBoundary {
         Monster monster = requestModel.getMonster();
         Player player = requestModel.getPlayer();
 
-        if (requestModel.getMonsterAttackRadius().intersects(player.getHitbox())) {
-            player.changeHealth(10);
+        if (monster instanceof RangedMonster) {
+            if (requestModel.getMonsterAttackBox().intersects(player.getHitbox())){
+                player.changeHealth(10);
+            }
+        } else if (monster instanceof MeleeMonster) {
+            if (requestModel.getMonsterAttackRadius().intersects(player.getHitbox())){
+                player.changeHealth(10);
+            }
         }
+
+//        if (requestModel.getMonsterAttackRadius().intersects(player.getHitbox())) {
+//            player.changeHealth(10);
+//        }
 
         MonsterAttackResponseModel monsterAttackResponseModel =
                 new MonsterAttackResponseModel(monster, player);

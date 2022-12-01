@@ -26,12 +26,22 @@ public class MonsterAttackRequestModel {
         this.monster = monster;
     }
 
-    Rectangle2D.Float getMonsterAttackRadius() {
-        if (monster instanceof RangedMonster) {
+    Rectangle2D.Float getMonsterAttackBox() {
+//        if (monster instanceof RangedMonster) {
             return ((RangedMonster) monster).getAttackBox();
-        } else { // (monster instanceof MeleeMonster)
-            return ((MeleeMonster) monster).getAttackBox();
-        }
+//        }
+//        else { // (monster instanceof MeleeMonster)
+//            return ((MeleeMonster) monster).getAttackBox();
+//        }
+    }
+
+    Ellipse2D.Float getMonsterAttackRadius() {
+//        if (monster instanceof RangedMonster) {
+//        return ((RangedMonster) monster).getAttackBox();
+//        }
+//        else { // (monster instanceof MeleeMonster)
+            return ((MeleeMonster) monster).getAttackRadius();
+//        }
     }
 
     Player getPlayer() {

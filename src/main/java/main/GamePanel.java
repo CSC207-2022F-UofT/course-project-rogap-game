@@ -41,6 +41,11 @@ public class GamePanel extends JPanel{
 
     private BufferedImage bushes;
 
+    private static String HEALTH = "/healthPotion.png";
+    private static String VITALITY = "/vitalityPotion.png";
+    private static String SPEED = "/speedPotion.png";
+    private static String STRENGTH = "/strengthPotion.png";
+
     // Variables for shop system GUI
 //    private BufferedImage shopKeeper;
 //    private BufferedImage healthPotion;
@@ -56,9 +61,9 @@ public class GamePanel extends JPanel{
 
         // Initializing methods
         player = new Player(this, xDelta, yDelta);
-        key = new Key(this, xDelta, yDelta);
-        potion = new Potion(this, xDelta, yDelta);
-        shopkeeper = new Shopkeeper(this, xDelta, yDelta);
+        key = new Key(this);
+        potion = new Potion(this, STRENGTH);
+        shopkeeper = new Shopkeeper(this);
         enemyOne = new MeleeEnemy(this, xDelta, yDelta, 3780, 3220);
         // Creates shop instance
         gameShop = new ShopSystem(player);
@@ -98,7 +103,7 @@ public class GamePanel extends JPanel{
         InputStream lf = getClass().getResourceAsStream("/Leaf.png");
         InputStream bt = getClass().getResourceAsStream("/Bushes.png");
         InputStream sk = getClass().getResourceAsStream("/ShopKeeper.png");
-        InputStream hp = getClass().getResourceAsStream("/HealthPotion.png");
+        InputStream hp = getClass().getResourceAsStream("/healthPotion.png");
         InputStream ky = getClass().getResourceAsStream("/Key.png");
 
         try {
@@ -177,7 +182,6 @@ public class GamePanel extends JPanel{
         // SHOP VISUAL GOES HERE
         g.drawImage(shopkeeper.getCurrentImage(), xDelta + 1857, yDelta + 1676, null);
         if (gameShop.getItemList().contains("Health Potion")){
-//            g.drawImage(healthPotion, xDelta + 1857, yDelta + 1726, null);
             g.drawImage(potion.getCurrentImage(), xDelta + 1840, yDelta + 1732, null);
         }
         if (gameShop.getItemList().contains("Key")){

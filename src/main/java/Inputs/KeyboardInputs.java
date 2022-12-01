@@ -36,7 +36,7 @@ public class KeyboardInputs implements KeyListener {
                 gamePanel.player.setVelX(2);
                 gamePanel.player.setMoving();
             }
-            case KeyEvent.VK_M ->{
+            case KeyEvent.VK_M -> {
                 // TODO: Change minimap setting
                 gamePanel.setMinimapVisible(!gamePanel.getMinimapVisible());
                 gamePanel.repaint();
@@ -54,12 +54,12 @@ public class KeyboardInputs implements KeyListener {
             case KeyEvent.VK_W, KeyEvent.VK_S -> {
                 gamePanel.player.setVelY(0);
                 gamePanel.player.setMoving();
-
             }
             case KeyEvent.VK_D -> {
                 gamePanel.player.setVelX(0);
                 gamePanel.player.setMoving();
-                gamePanel.player.setIdleDirection(1);}
+                gamePanel.player.setIdleDirection(1);
+            }
             case KeyEvent.VK_A -> {
                 gamePanel.player.setVelX(0);
                 gamePanel.player.setMoving();

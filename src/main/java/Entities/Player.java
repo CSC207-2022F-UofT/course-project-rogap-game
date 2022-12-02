@@ -14,12 +14,12 @@ public class Player extends Creature {
     private GamePanel gamePanel;
     // private BufferedImage[] sprites = new BufferedImage[4];
     // private BufferedImage[][] animations;
-    private int idleDir = 0;
+    // private int idleDir = 0;
 
     // private int velX = 0, velY = 0;
     // private int absXPlayer = 1882, absYPlayer = 1738;
 
-    private int aniTick, aniIndex, aniSpeed= 10;
+    // private int aniTick, aniIndex, aniSpeed= 10;
     // private int playerAction = 0;
     // private boolean moving = false;
     
@@ -107,18 +107,19 @@ public class Player extends Creature {
         this.gold -= amount;
     }
     
-    //Helper methods
+    //Helper methods- What are they for?
     public int getAbsXPlayer() {return this.absXPlayer;}
     public int getAbsYPlayer() {return this.absYPlayer;}
 
-    //Handles all of player movement
-    public void setVelX(int x) {this.velX = x; this.setMoving();}
+    //Handles all player movement
+/*    public void setVelX(int x) {this.velX = x; this.setMoving();}
     public void setVelY(int y) {this.velY = y; this.setMoving();}
     private void setMoving () {
         if (velX != 0 || velY != 0) {
             moving = true;
         } else {moving = false;}
-    }
+    }*/
+
     //All the functions that control player animations
 /*    private void importImage() {
         InputStream lI = getClass().getResourceAsStream("/leftIdle.png");

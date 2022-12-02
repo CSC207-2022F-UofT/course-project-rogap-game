@@ -3,7 +3,11 @@ package Entities;
 import main.GamePanel;
 
 import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
+
+import static Entities.MonsterConstants.*;
 
 public class Monster{
     private GamePanel gamePanel;
@@ -12,7 +16,17 @@ public class Monster{
     private double distance;
     private int velX = 0, velY = 0;
     private int spawnX, spawnY;
-    private Rectangle hitBox;
+//    private Rectangle hitBox;
+
+    protected int aniTick, aniSpeed = 10;
+    protected int aniIndex;
+
+    // for attack methods
+    protected Ellipse2D.Float hitBox;
+    private int currentHealth;
+    protected int maxHealth;
+    protected int enemyType, enemyState;
+    public int PLAYER_ATTACK_DAMAGE;  // TODO: make this an attribute of player class
 
     public Monster(GamePanel gamePanel, int x, int y, int spawnX, int spawnY) {
         this.gamePanel = gamePanel;
@@ -20,14 +34,31 @@ public class Monster{
         this.spawnX = spawnX;
         this.xEnemy = x + this.spawnX;
         this.yEnemy = y + this.spawnY;
+
+        // added for attack methods
+        maxHealth = 50;  // set enemy's max health
+        initHitBox();  // initialize the hitbox
     }
     public void update() {
-        if (!getHitBox().intersects(gamePanel.player.getHitBox())){
+//        if (!getHitBox().intersects(gamePanel.player.getHitBox())){
+//            enemyMovement();
+//        }
+
+        // changed the method of finding the intersection to accommodate for the
+        // hitbox shape change (from rect to ellipse)
+        Area hitBoxArea = new Area(hitBox);     // find area of Monster's hitBox
+        hitBoxArea.intersect(new Area(gamePanel.player.getHitBox())); // find intersection between monster's hitBox and player's hitbox
+        if (hitBoxArea.isEmpty()) {         // if they do not intersect (the intersection is empty)
             enemyMovement();
         }
     }
-    public Rectangle getHitBox() {
-        hitBox = new Rectangle(spawnX - 1280 + 4, spawnY - 720 + 4, 24, 24);
+
+    // change hitbox shape to an ellipse
+    protected void initHitBox() {
+        hitBox = new Ellipse2D.Float(spawnX - 1280 + 4, spawnY - 720 + 4, 24, 24);
+    }
+
+    public Ellipse2D.Float getHitBox() {
         return hitBox;
     }
 
@@ -70,4 +101,21 @@ public class Monster{
     public int getYEnemy() {return this.yEnemy;}
     public void changeXEnemy(int x) {this.xEnemy += x;}
     public void changeYEnemy(int y) {this.yEnemy += y;}
+
+    // for attack methods
+    public void newState(int enemyState) {  // this function is called to update a monster's state
+        this.enemyState = enemyState;
+        aniTick = 0;
+        aniIndex = 0; // when new state, reset the tick and index to show state animation from the start
+    }
+
+    public void takeDamage() {
+        currentHealth -= PLAYER_ATTACK_DAMAGE;
+        if (currentHealth <= 0) {
+            newState(DEAD);
+        } else {
+            newState(HIT);
+        }
+    }
+
 }

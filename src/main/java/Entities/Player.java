@@ -7,6 +7,8 @@ import main.WallCollision;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -69,15 +71,26 @@ public class Player {
     }
     public void updateWalls() {wallCollision.createWallLayout(gamePanel.getXDelta() + velX, gamePanel.getYDelta() + velY);}
     public WallCollision getWallCollision() {return this.wallCollision;}
-    public Rectangle getHitBox() {
-        Rectangle hitBox = new Rectangle(absXPlayer + 6, absYPlayer + 6, 36, 36);
+//    public Rectangle getHitBox() {
+//        Rectangle hitBox = new Rectangle(absXPlayer + 6, absYPlayer + 6, 36, 36);
+//        return hitBox;
+//    }
+    // changed Player hitbox to an ellipse
+    public Ellipse2D.Float getHitBox() {
+        Ellipse2D.Float hitBox = new Ellipse2D.Float(absXPlayer + 6, absYPlayer + 6, 36, 36);
         return hitBox;
     }
     private boolean movable(int targetX, int targetY) {
         Rectangle hitBox = new Rectangle(targetX + 6, targetY + 6, 36, 36);
         boolean move = true;
         for (MeleeEnemy enemy : gamePanel.getEnemyList()) {
-            if (hitBox.intersects(enemy.getHitBox())) {
+//            if (hitBox.intersects(enemy.getHitBox())) {
+
+            // changed the method of finding the intersection to accommodate for the
+            // hitbox shape change (from rect to ellipse)
+            Area hitBoxArea = new Area(hitBox);     // find area of hitBox
+            hitBoxArea.intersect(new Area(enemy.getHitBox()));      // find intersection between hitBox and enemy.getHitBox()
+            if (!hitBoxArea.isEmpty()){         // if they intersect (the intersection is non-empty)
                 move = false;
             }
         }
@@ -174,25 +187,13 @@ public class Player {
     public void setIdleDirection(int dir) {
         this.idleDir = dir;
     }
-    private int getSpriteAmount(int playerAction) {
-        switch (playerAction) {
-            case -1:
-            case 0:
-            case 1:
-                return 6;
-            case 2:
-            case 3:
-                return 5;
-            default:
-                return 1;
-        }
-    }
     private void updateAnimationTick() {
         aniTick ++;
         if (aniTick >= aniSpeed) {
             aniTick = 0;
             aniIndex++;
-            if (aniIndex >= getSpriteAmount(playerAction)) {
+            if (aniIndex >= PlayerConstants.GetSpriteAmount(playerAction)) {
+                // changed get sprite amount method so that it calls it from the PlayerConstants class
                 aniIndex = 0;
             }
         }

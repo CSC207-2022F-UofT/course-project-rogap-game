@@ -9,4 +9,6 @@ public class MeleeEnemy extends Monster{
         super(gamePanel, x, y, spawnX, spawnY);
     }
 
+
+
 }

@@ -8,7 +8,9 @@ import Use_Cases.ShopSystem;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.Graphics2D;
 import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,7 +56,7 @@ public class GamePanel extends JPanel{
     private BufferedImage timerPill;
     private BufferedImage buffbar;
 
-    // Has access to keyboard and mouse inputsd
+    // Has access to keyboard and mouse inputs
 
     public GamePanel(){
         // Adding leaves
@@ -225,11 +227,7 @@ public class GamePanel extends JPanel{
 
         //HealthBar and Stats stuff go here
         if (!showMinimap && !isPaused){
-            g.drawImage(healthBar, 17, 14, null);
-            g.drawImage(buffbar, 495, 619, null);
-            if (showStatBar){
-                g.drawImage(statsBar, 9, 109, null);
-            }
+            drawStats(g);
         }
 
         animateLeaf(g, leafList);
@@ -252,4 +250,20 @@ public class GamePanel extends JPanel{
 
     }
 
+    /**
+     * Draw the Health Bar and the Stats Menu on the screen
+     * @param g Graphics object used to draw
+     */
+    private void drawStats(Graphics g) {
+        // Drawing the outside of the health bar
+        g.drawImage(healthBar, 17, 14, null);
+        // Drawing the health bar
+        g.setColor( new Color(225, 50, 50) );
+        g.fillRoundRect(95, 43, 275, 30, 27, 27);
+        // Drawing the stats menu
+        g.drawImage(buffbar, 495, 619, null);
+        if (showStatBar){
+            g.drawImage(statsBar, 9, 109, null);
+        }
+    }
 }

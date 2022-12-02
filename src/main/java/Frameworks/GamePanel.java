@@ -1,11 +1,11 @@
-package Interface_Adapters;
+package Frameworks;
 
 import Entities.MeleeEnemy;
 import Entities.Player;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
+import Interface_Adapters.Game;
 import Use_Cases.ShopSystem;
-import main.Leaf;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,17 +16,17 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 
-public class GamePanel extends JPanel{
+public class GamePanel extends JPanel implements UpdateScreenModel {
     //TODO: Abu
-    //  - Make player private (Check if this creates any problems)
+    //  - Can't directly have access to Player
     public Player player;
 
     // TODO: Kevin
     //  - Implement shop system CLEAN way
+    //  - Can't have access to shop directly
     private ShopSystem gameShop;
     private JLabel timerGui;
 
-    // Needs to be public
     private int xDelta = -2546, yDelta = -2132;
 
     private boolean isPaused = false;
@@ -64,7 +64,6 @@ public class GamePanel extends JPanel{
 
     public GamePanel(){
         // Adding leaves
-
         leafList.add(new Leaf());
         leafList.add(new Leaf());
         setTimerGui();
@@ -82,6 +81,7 @@ public class GamePanel extends JPanel{
         // Creates shop instance
         //TODO: Kevin
         //  - Create the shop using CLEAN arch
+        //  - Can't do this in GamePanel
         gameShop = new ShopSystem(player);
 
         //TODO: Raiyan
@@ -175,8 +175,9 @@ public class GamePanel extends JPanel{
         this.xDelta = x;
         this.yDelta = y;
     }
-    public void updateGame(){
+    public void update(){
     // TODO, What even is this for???
+        repaint();
     }
     public int getXDelta () {return this.xDelta;}
     public int getYDelta () {return this.yDelta;}
@@ -213,7 +214,6 @@ public class GamePanel extends JPanel{
     // This is for drawing stuff
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-
         //Drawing the basic map
         g.drawImage(map, xDelta, yDelta, null);
 
@@ -228,7 +228,7 @@ public class GamePanel extends JPanel{
 
 
         //TODO: Kevin
-        // Hand shop stuff using CLEAn way
+        // Handle shop stuff using CLEAN way
 
         // SHOP VISUAL GOES HERE
         g.drawImage(shopKeeper, xDelta + 1857, yDelta + 1676, null);
@@ -271,8 +271,7 @@ public class GamePanel extends JPanel{
         }
 
         // TODO: Kevin
-        //  - Don't irectly call a method from gameShop.
-        //  - Do it in a CLEAN way
+        //  - Don't directly call a method from gameShop.
         gameShop.checkLocation();
 
     }

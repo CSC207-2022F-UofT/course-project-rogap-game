@@ -1,8 +1,10 @@
 package Interface_Adapters;
 
+import Frameworks.GamePanel;
+import Frameworks.GameWindow;
+
 //TODO: THIS IS A VIEWMODEL
 public class Game implements Runnable{
-    private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
     private final int FPS_SET = 144;
@@ -14,10 +16,17 @@ public class Game implements Runnable{
     private static long gameTimerSeconds = 0;
     private long pauseTime = 0;
 
+    // Added these
+    GameScreenPresenter gameScreenPresenter;
 
-    public Game(){
+
+    public Game(GameScreenPresenter gameScreenPresenter){
+        this.gameScreenPresenter = gameScreenPresenter;
+
+        // TODO: Raiyan
+        //  - DON'T DO THIS BROOO
         gamePanel = new GamePanel();
-        gameWindow = new GameWindow(gamePanel);
+        new GameWindow(gamePanel);
 
         // Focuses on what is happening here
         gamePanel.requestFocus();
@@ -27,13 +36,13 @@ public class Game implements Runnable{
     public void update(){
         //TODO: KUSHIL
         // Move these to EnemyManager
-        gamePanel.enemyOne.update();
-        gamePanel.enemyTwo.update();
+//        gamePanel.enemyOne.update();
+//        gamePanel.enemyTwo.update();
         gamePanel.player.update();
 
         //TODO: Raiyan
         // Clean this - Don't Directly call UpdateGame()
-        gamePanel.updateGame();
+        // gamePanel.updateGame();
     }
 
     private void startGameLoop(){
@@ -85,7 +94,8 @@ public class Game implements Runnable{
             // This is for the FPS check and repaint
             if (deltaF >= 1){
                 if (!gamePanel.getIsPaused()){
-                    gamePanel.repaint();
+//                    gameScreenPresenter.update();
+                    gamePanel.update();
                 }
 
                 frames++;

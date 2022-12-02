@@ -1,4 +1,6 @@
-package Interface_Adapters;
+package Frameworks;
+
+import Frameworks.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;

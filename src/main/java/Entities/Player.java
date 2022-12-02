@@ -1,6 +1,6 @@
 package Entities;
 
-import Interface_Adapters.GamePanel;
+import Frameworks.GamePanel;
 import main.WallCollision;
 
 import javax.imageio.ImageIO;

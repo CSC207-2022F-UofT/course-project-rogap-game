@@ -1,6 +1,6 @@
 package Entities;
 
-import Interface_Adapters.GamePanel;
+import Frameworks.GamePanel;
 
 import java.awt.*;
 import java.util.ArrayList;

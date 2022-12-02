@@ -1,10 +1,11 @@
-package main;
+package Interface_Adapters;
 
 import Entities.MeleeEnemy;
 import Entities.Player;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
 import Use_Cases.ShopSystem;
+import main.Leaf;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,13 +17,16 @@ import java.util.ArrayList;
 
 
 public class GamePanel extends JPanel{
+    //TODO: Abu
+    //  - Make player private (Check if this creates any problems)
     public Player player;
 
+    // TODO: Kevin
+    //  - Implement shop system CLEAN way
     private ShopSystem gameShop;
     private JLabel timerGui;
 
     // Needs to be public
-
     private int xDelta = -2546, yDelta = -2132;
 
     private boolean isPaused = false;
@@ -31,18 +35,14 @@ public class GamePanel extends JPanel{
     private boolean showStatBar = false;
 
     private ArrayList<Leaf> leafList = new ArrayList<>();
+
+    //TODO: Raiyan
+    //  - Import these images separately
     private BufferedImage map;
     private BufferedImage minimap;
     private BufferedImage minimapCursor;
     private BufferedImage pauseIcon;
     private BufferedImage leaf;
-
-    private MeleeEnemy[] enemyList;
-    public MeleeEnemy enemyOne;
-    public MeleeEnemy enemyTwo;
-    // Has access to keyboard and mouse inputs
-
-
     private BufferedImage bushes;
 
     // Variables for shop system GUI
@@ -54,27 +54,40 @@ public class GamePanel extends JPanel{
     private BufferedImage timerPill;
     private BufferedImage buffbar;
 
-    // Has access to keyboard and mouse inputsd
+
+    //TODO: Abu, Khushil
+    //  -Move enemyList to Enemy Manager
+    private MeleeEnemy[] enemyList;
+    public MeleeEnemy enemyOne;
+    public MeleeEnemy enemyTwo;
+    // Has access to keyboard and mouse inputs
 
     public GamePanel(){
         // Adding leaves
-        enemyList = new MeleeEnemy[2];
+
         leafList.add(new Leaf());
         leafList.add(new Leaf());
         setTimerGui();
 
         // Initializing methods
+        //TODO: Khushil
+        //  - Do these in EnemyManager Class
+        enemyList = new MeleeEnemy[2];
         player = new Player(this);
-        enemyOne = new MeleeEnemy(this, xDelta, yDelta, 3780, 3220);
+        enemyOne = new MeleeEnemy(this, xDelta, yDelta, 3262, 3308);
         enemyTwo = new MeleeEnemy(this, xDelta, yDelta, 4000, 4000);
         enemyList[0] = enemyOne;
         enemyList[1] = enemyTwo;
 
         // Creates shop instance
+        //TODO: Kevin
+        //  - Create the shop using CLEAN arch
         gameShop = new ShopSystem(player);
 
-
+        //TODO: Raiyan
+        //  - Import these in a separate Class
         importImage();
+
         addKeyListener(new KeyboardInputs(this));
         addMouseListener(new MouseInputs(this));
         this.setBackground(new Color(0, 0, 0));
@@ -98,10 +111,14 @@ public class GamePanel extends JPanel{
 
     }
 
+    //TODO: Khushil
+    //  - Move this to Enemy Manager Class
     public MeleeEnemy[] getEnemyList() {
         return this.enemyList;
     }
 
+    // TODO: Raiyan
+    //  - Move this entire class to a separate class to import images
     private void importImage() {
         InputStream is = getClass().getResourceAsStream("/Floor1.png");
         InputStream mc = getClass().getResourceAsStream("/MapCursor.png");
@@ -159,7 +176,7 @@ public class GamePanel extends JPanel{
         this.yDelta = y;
     }
     public void updateGame(){
-
+    // TODO, What even is this for???
     }
     public int getXDelta () {return this.xDelta;}
     public int getYDelta () {return this.yDelta;}
@@ -201,12 +218,17 @@ public class GamePanel extends JPanel{
         g.drawImage(map, xDelta, yDelta, null);
 
         // player VISUAL goes here
+        //TODO: Abu - Access player through an interface using CLEAN way
         g.drawImage(player.getCurrentImage(), 616, 326, 48,48, null);
 
         //Enemy visual goes here
+        //TODO: Abu - Access player and enemy through an interface using CLEAN way
         g.drawImage(player.getCurrentImage(), enemyOne.getXEnemy(), enemyOne.getYEnemy(), null);
         g.drawImage(player.getCurrentImage(), enemyTwo.getXEnemy(), enemyTwo.getYEnemy(), null);
 
+
+        //TODO: Kevin
+        // Hand shop stuff using CLEAn way
 
         // SHOP VISUAL GOES HERE
         g.drawImage(shopKeeper, xDelta + 1857, yDelta + 1676, null);
@@ -248,6 +270,9 @@ public class GamePanel extends JPanel{
             g.drawImage(minimapCursor, 598, 284, null);
         }
 
+        // TODO: Kevin
+        //  - Don't irectly call a method from gameShop.
+        //  - Do it in a CLEAN way
         gameShop.checkLocation();
 
     }

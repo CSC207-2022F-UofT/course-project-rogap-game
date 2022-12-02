@@ -1,6 +1,6 @@
 package Inputs;
 
-import main.GamePanel;
+import Interface_Adapters.GamePanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -17,6 +17,10 @@ public class KeyboardInputs implements KeyListener {
 
     }
 
+
+    //TODO: Abu
+    // - Remove Player from gamePanel
+    // - Implement CLEAN way of changing velocity following SOLID PRINCIPLES
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
@@ -32,6 +36,10 @@ public class KeyboardInputs implements KeyListener {
             case KeyEvent.VK_A -> {
                 gamePanel.player.setVelX(2);
             }
+
+            //TODO: Raiyan
+            //  Don't directly talk to gamePanel.
+            //  Implement CLEAN way of doing this process.
             case KeyEvent.VK_M ->{
                 // TODO: Change minimap setting
                 gamePanel.setMinimapVisible(!gamePanel.getMinimapVisible());
@@ -48,6 +56,10 @@ public class KeyboardInputs implements KeyListener {
         }
     }
 
+
+    //TODO: Abu
+    // - Remove Player from gamePanel
+    // - Implement CLEAN way of changing velocity following SOLID PRINCIPLES
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {

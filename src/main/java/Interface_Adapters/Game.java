@@ -1,7 +1,6 @@
-package main;
+package Interface_Adapters;
 
-import Use_Cases.ShopSystem;
-
+//TODO: THIS IS A VIEWMODEL
 public class Game implements Runnable{
     private GameWindow gameWindow;
     private GamePanel gamePanel;
@@ -26,10 +25,14 @@ public class Game implements Runnable{
     }
 
     public void update(){
-        // Everything that needs to me updated, gets updated here :)
+        //TODO: KUSHIL
+        // Move these to EnemyManager
         gamePanel.enemyOne.update();
         gamePanel.enemyTwo.update();
         gamePanel.player.update();
+
+        //TODO: Raiyan
+        // Clean this - Don't Directly call UpdateGame()
         gamePanel.updateGame();
     }
 
@@ -63,6 +66,9 @@ public class Game implements Runnable{
             deltaF += (currentTime - previousTime) / timePerFrame;
             previousTime = currentTime;
 
+            //TODO: Raiyan
+            // Create usecase for:
+            //      PauseGame
 
             if (deltaU >= 1){
                 // Only update if the game is not paused

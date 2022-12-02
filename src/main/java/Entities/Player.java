@@ -1,8 +1,6 @@
 package Entities;
 
-import Use_Cases.ShopSystem;
-import main.Game;
-import main.GamePanel;
+import Interface_Adapters.GamePanel;
 import main.WallCollision;
 
 import javax.imageio.ImageIO;

@@ -10,20 +10,20 @@ import java.util.ArrayList;
 import static Entities.MonsterConstants.*;
 
 public class Monster{
-    private GamePanel gamePanel;
-    private int xEnemy;
-    private int yEnemy;
-    private double distance;
-    private int velX = 0, velY = 0;
-    private int spawnX, spawnY;
-//    private Rectangle hitBox;
+    protected GamePanel gamePanel;
+    protected int xEnemy;
+    protected int yEnemy;
+    protected double distance;
+    protected int velX = 0, velY = 0;
+    protected int spawnX, spawnY;
+//    protected Rectangle hitBox;
 
     protected int aniTick, aniSpeed = 10;
     protected int aniIndex;
 
     // for attack methods
     protected Ellipse2D.Float hitBox;
-    private int currentHealth;
+    protected int currentHealth;
     protected int maxHealth;
     protected int enemyType, enemyState;
     public int PLAYER_ATTACK_DAMAGE;  // TODO: make this an attribute of player class
@@ -62,7 +62,7 @@ public class Monster{
         return hitBox;
     }
 
-    private void enemyMovement() { //In order to update current enemy location must update absXenemy.
+    protected void enemyMovement() { //In order to update current enemy location must update absXenemy.
         distance = Math.sqrt((Math.pow((gamePanel.player.getAbsXPlayer() - xEnemy - spawnX + 1896),2) + Math.pow((gamePanel.player.getAbsYPlayer() - yEnemy -spawnY + 1046), 2)));
         if (distance < 600 & distance > 110) {
             System.out.println(yEnemy);
@@ -84,11 +84,11 @@ public class Monster{
         }
     }
 
-    private ArrayList currMoveCollision(int x, int y) {
+    protected ArrayList currMoveCollision(int x, int y) {
         return gamePanel.player.getWallCollision().moveAbleWall(xEnemy + 4, yEnemy + 4,
                 x, y, 24, 24);
     }
-    private int enemyMoveHelper(int c, int targetC) {
+    protected int enemyMoveHelper(int c, int targetC) {
         if (c < targetC) {
             return -1;
         } else if (c == targetC) {

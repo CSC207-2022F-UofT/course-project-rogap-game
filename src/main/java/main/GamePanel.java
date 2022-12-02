@@ -250,6 +250,10 @@ public class GamePanel extends JPanel{
 
         gameShop.checkLocation();
 
+        // for debuggingggg,, to be deleted later
+        player.drawPlayerHitbox(g);
+        player.drawAttackRadius(g);
+
     }
 
 }

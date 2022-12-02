@@ -34,12 +34,18 @@ public class Player {
     private int[][] verticalWalls = {{0,1,1},{0,4,1},{1,1,0},{1,2,1},{1,3,1},{1,4,0},{2,0,1},{2,1,0},{2,2,1},{2,3,0},{2,4,1},{3,0,1},{3,1,1},{3,3,1}};
     private int[][] horizontalWalls = {{2,0,1},{0,1,1},{1,1,1},{2,1,0},{0,2,1},{1,2,0},{2,2,1},{1,3,0},{2,3,1},{1,4,0},{0,4,1},{2,4,1},{0,5,1},{1,5,1}};
     private WallCollision wallCollision = new WallCollision(verticalWalls, horizontalWalls);
+
+    // for attack
+    private Ellipse2D.Float hitBox, attackRadius;
     
 
     public Player(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         importImage();
         loadAnimation();
+
+        initHitBox();
+        initAttackBox();
     }
     public void update() {
         updateWalls();
@@ -76,8 +82,11 @@ public class Player {
 //        return hitBox;
 //    }
     // changed Player hitbox to an ellipse
+    private void initHitBox() {
+//        hitBox = new Ellipse2D.Float(absXPlayer + 6, absYPlayer + 6, 48, 48);
+        hitBox = new Ellipse2D.Float(615, 325, 48, 48);
+    }
     public Ellipse2D.Float getHitBox() {
-        Ellipse2D.Float hitBox = new Ellipse2D.Float(absXPlayer + 6, absYPlayer + 6, 36, 36);
         return hitBox;
     }
     private boolean movable(int targetX, int targetY) {
@@ -201,4 +210,27 @@ public class Player {
     public BufferedImage getCurrentImage () {
         return this.animations[playerAction][aniIndex];
     }
+
+    // for attack
+    private void initAttackBox() {
+        attackRadius = new Ellipse2D.Float(590, 300, 100, 100);
+        // attack radius at position (590, 300) with width and heigth 100
+    }
+
+    public Ellipse2D.Float getAttackRadius() {
+        return attackRadius;
+    }
+
+    public void drawAttackRadius(Graphics g) {
+        g.setColor(Color.red);
+        g.drawOval((int) attackRadius.x, (int) attackRadius.y, (int) attackRadius.width, (int) attackRadius.height);
+        // can remove lvlOffsetX after
+    }
+
+    //  FOR DEBUGGING
+    public void drawPlayerHitbox(Graphics g) {
+        g.setColor(Color.red);
+        g.drawOval((int) hitBox.x, (int) hitBox.y, (int) hitBox.width, (int) hitBox.height);
+    }
+
 }

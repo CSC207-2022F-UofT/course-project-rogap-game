@@ -1,11 +1,13 @@
 package Inputs;
 
-import main.GamePanel;
+import Frameworks.GamePanel;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+// TODO: Anyone
+//  - This can totally be deleted, since we are not using it
 public class MouseInputs implements MouseListener, MouseMotionListener {
     private GamePanel gamePanel;
     // Remove the Motionlistener later :)

@@ -1,19 +1,17 @@
 package Interface_Adapters;
 
 import Use_Cases.PauseGameInputBoundary;
+import Use_Cases.GameLoopInteractorReference;
 
 public class PauseGameController {
     PauseGameInputBoundary gameState;
-    GameLoopManager gameManager;
-    // Have Game Loop Manager Reference
-
-    public PauseGameController(PauseGameInputBoundary gameState, GameLoopManager gameManager){
+    GameLoopInteractorReference gameManagerRef;
+    public PauseGameController(PauseGameInputBoundary gameState, GameLoopInteractorReference gameManagerRef){
         this.gameState = gameState;
-        this.gameManager = gameManager;
+        this.gameManagerRef = gameManagerRef;
     }
 
     public void pause(){
-        this.gameState.pause(gameManager);
-        gameManager.gameScreenPresenter.update();
+        this.gameState.pause(gameManagerRef);
     }
 }

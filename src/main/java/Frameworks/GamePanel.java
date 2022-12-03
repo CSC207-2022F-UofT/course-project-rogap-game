@@ -4,9 +4,13 @@ import Entities.MeleeEnemy;
 import Entities.Player;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
-import Interface_Adapters.GameLoopManager;
+import Interface_Adapters.GameLoopManagerLoop;
 import Interface_Adapters.PauseGameController;
-import Interface_Adapters.UpdateScreenModel;
+import Interface_Adapters.ShowMapController;
+import Interface_Adapters.UpdateScreenBoundary;
+
+//TODO: Kevin
+//  - This can't be here
 import Entities.ShopSystem;
 
 import javax.imageio.ImageIO;
@@ -18,7 +22,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 
-public class GamePanel extends JPanel implements UpdateScreenModel {
+public class GamePanel extends JPanel implements UpdateScreenBoundary {
     //TODO: Abu
     //  - Can't directly have access to Player
     public Player player;
@@ -30,9 +34,6 @@ public class GamePanel extends JPanel implements UpdateScreenModel {
     private JLabel timerGui;
 
     private int xDelta = -2546, yDelta = -2132;
-
-
-    private boolean showMinimap = false;
 
     private boolean showStatBar = false;
 
@@ -65,6 +66,7 @@ public class GamePanel extends JPanel implements UpdateScreenModel {
 
     // THIS IS GOOD STUFF
     PauseGameController pauseGameController;
+    ShowMapController showMapController;
 
     public GamePanel(){
         // Adding leaves
@@ -95,10 +97,12 @@ public class GamePanel extends JPanel implements UpdateScreenModel {
         this.setBackground(new Color(0, 0, 0));
     }
 
-    public void setUp(PauseGameController pauseGameController){
+    public void setUp(PauseGameController pauseGameController, ShowMapController showMapController){
         this.pauseGameController = pauseGameController;
+        this.showMapController = showMapController;
+
         // TODO: Pass in KeyboardInputController instead of GamePanel
-        addKeyListener(new KeyboardInputs(pauseGameController));
+        addKeyListener(new KeyboardInputs(pauseGameController, showMapController));
         addMouseListener(new MouseInputs(this));
     }
 
@@ -112,12 +116,12 @@ public class GamePanel extends JPanel implements UpdateScreenModel {
     private void changeTimerGui(){
         timerGui.setBounds(605, -19, 100, 100);
         timerGui.setHorizontalAlignment(0);
-        if (GameLoopManager.getGameTimerSeconds() % 2 == 0){
+        if (GameLoopManagerLoop.getGameTimerSeconds() % 2 == 0){
             timerGui.setForeground(new Color(150, 203, 187));
         }else{
             timerGui.setForeground(new Color(255, 81, 81, 194));
         }
-        timerGui.setText(String.valueOf(120 - GameLoopManager.getGameTimerSeconds()));
+        timerGui.setText(String.valueOf(120 - GameLoopManagerLoop.getGameTimerSeconds()));
 
     }
 
@@ -198,14 +202,6 @@ public class GamePanel extends JPanel implements UpdateScreenModel {
     public void changeYDelta(int y) {this.yDelta += y; this.enemyOne.changeYEnemy(y); this.enemyTwo.changeYEnemy(y);
     }
 
-    public boolean getMinimapVisible(){
-        return this.showMinimap;
-    }
-
-
-    public void setMinimapVisible(boolean set){
-        this.showMinimap = set;
-    }
 
     public void changeStatsBarVisible(){
         this.showStatBar = !this.showStatBar;
@@ -255,7 +251,7 @@ public class GamePanel extends JPanel implements UpdateScreenModel {
         changeTimerGui();
 
         //HealthBar and Stats stuff go here
-        if (!showMinimap && !GameLoopManager.getIsPaused()){
+        if (!GameLoopManagerLoop.getMinimapVisible() && !GameLoopManagerLoop.getIsPaused()){
             g.drawImage(healthBar, 17, 14, null);
             g.drawImage(buffbar, 495, 619, null);
             if (showStatBar){
@@ -266,15 +262,15 @@ public class GamePanel extends JPanel implements UpdateScreenModel {
         animateLeaf(g, leafList);
 
         // Pause menu
-        if (GameLoopManager.getIsPaused()){
+        if (GameLoopManagerLoop.getIsPaused()){
             g.setColor(new Color(162, 155, 155, 139));
             g.fillRect(0, 0, 1280, 720);
-            if (!showMinimap){
+            if (!GameLoopManagerLoop.getMinimapVisible()){
                 g.drawImage(pauseIcon, 500, 295, null);
             }
         }
         //Showing Minimap
-        if (showMinimap){
+        if (GameLoopManagerLoop.getMinimapVisible()){
             g.drawImage(minimap, -52 + xDelta/7, -130 + yDelta/6, null);
             g.drawImage(minimapCursor, 598, 284, null);
         }

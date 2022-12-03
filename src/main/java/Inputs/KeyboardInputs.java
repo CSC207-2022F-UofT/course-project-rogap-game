@@ -1,7 +1,6 @@
 package Inputs;
-
-import Frameworks.GamePanel;
 import Interface_Adapters.PauseGameController;
+import Interface_Adapters.ShowMapController;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -14,9 +13,11 @@ public class KeyboardInputs implements KeyListener {
 //        this.gamePanel = gamePanel;
 //    }
     PauseGameController pauseGameController;
+    ShowMapController showMapController;
 
-    public KeyboardInputs(PauseGameController pauseGameController){
+    public KeyboardInputs(PauseGameController pauseGameController, ShowMapController showMapController){
         this.pauseGameController = pauseGameController;
+        this.showMapController = showMapController;
     }
 
     @Override
@@ -47,11 +48,12 @@ public class KeyboardInputs implements KeyListener {
             //TODO: Raiyan
             //  Don't directly talk to gamePanel.
             //  Implement CLEAN way of doing this process.
-//            case KeyEvent.VK_M ->{
-//                // TODO: Change minimap setting
+            case KeyEvent.VK_M ->{
+                // TODO: Change minimap setting
 //                gamePanel.setMinimapVisible(!gamePanel.getMinimapVisible());
 //                gamePanel.repaint();
-//            }
+                showMapController.updateMap();
+            }
             case KeyEvent.VK_ESCAPE -> {
                 // Use Controller to change stuff.
 //                gamePanel.setIsPaused(!gamePanel.getIsPaused());

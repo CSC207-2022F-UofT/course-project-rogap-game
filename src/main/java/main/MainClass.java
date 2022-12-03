@@ -1,13 +1,8 @@
 package main;
 
 import Frameworks.GamePanel;
-import Frameworks.GameWindow;
-import Interface_Adapters.GameLoopManager;
-import Interface_Adapters.GameScreenPresenter;
-import Interface_Adapters.PauseGameController;
-import Interface_Adapters.UpdateScreenModel;
-import Use_Cases.PauseGame;
-import Use_Cases.PauseGameInputBoundary;
+import Interface_Adapters.*;
+import Use_Cases.*;
 
 public class MainClass {
     public static void main(String[] args) {
@@ -19,15 +14,19 @@ public class MainClass {
         String userName = myObj.nextLine();  // Read user input
         System.out.println("Welcome " + userName + "!");  // Output user input
 */
-        UpdateScreenModel screenModel = new GamePanel();
+        UpdateScreenBoundary screenModel = new GamePanel();
         GameScreenPresenter presenter = new GameScreenPresenter(screenModel);
         //GameWindow application = new GameWindow(presenter);
 
-        GameLoopManager gameManager = new GameLoopManager(presenter);
-        PauseGameInputBoundary pauseGameInteractor = new PauseGame();
-        PauseGameController pauseGameController = new PauseGameController(pauseGameInteractor, gameManager);
+        GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter);
 
-        screenModel.setUp(pauseGameController);
+        PauseGameInputBoundary pauseGameInteractor = new PauseGameInteractor();
+        ShowMapInputBoundary showMapInteractor = new ShowMapInteractor();
+
+        PauseGameController pauseGameController = new PauseGameController(pauseGameInteractor, gameManager);
+        ShowMapController showMapController = new ShowMapController(showMapInteractor, gameManager);
+
+        screenModel.setUp(pauseGameController, showMapController);
         gameManager.start();
     }
 }

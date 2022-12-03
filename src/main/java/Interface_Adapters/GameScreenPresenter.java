@@ -1,15 +1,15 @@
 package Interface_Adapters;
 
 public class GameScreenPresenter {
-    UpdateScreenModel screenModel;
+    UpdateScreenBoundary screenModel;
     //TODO: This will call Repaint method
 
-    public GameScreenPresenter(UpdateScreenModel screenModel){
+    public GameScreenPresenter(UpdateScreenBoundary screenModel){
 
         this.screenModel = screenModel;
     }
 
-    public UpdateScreenModel create(){
+    public UpdateScreenBoundary create(){
         return this.screenModel;
     }
     public void update(){

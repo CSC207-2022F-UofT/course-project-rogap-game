@@ -1,9 +1,10 @@
 package Interface_Adapters;
 
 import Frameworks.GameWindow;
+import Use_Cases.GameLoopInteractorReference;
 
 //TODO: THIS calls various usecases and uses presenter to update view
-public class GameLoopManager implements Runnable{
+public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReference {
 
     private Thread gameThread;
     private final int FPS_SET = 144;
@@ -15,14 +16,16 @@ public class GameLoopManager implements Runnable{
     private static long gameTimerSeconds = 0;
     private long pauseTime = 0;
 
-    public static boolean isPaused = false;
+    private static boolean isPaused = false;
+
+    private static boolean showMinimap = false;
 
     // Dependency Injection
     GameScreenPresenter gameScreenPresenter;
-    UpdateScreenModel screenModel;
+    UpdateScreenBoundary screenModel;
 
 
-    public GameLoopManager(GameScreenPresenter gameScreenPresenter){
+    public GameLoopManagerLoop(GameScreenPresenter gameScreenPresenter){
         this.gameScreenPresenter = gameScreenPresenter;
         screenModel = gameScreenPresenter.create();
         new GameWindow(screenModel);
@@ -51,6 +54,10 @@ public class GameLoopManager implements Runnable{
         // gamePanel.updateGame();
     }
 
+    public void reDraw(){
+        gameScreenPresenter.update();
+    }
+
     private void startGameLoop(){
         gameThread = new Thread(this);
         gameThread.start();
@@ -65,6 +72,13 @@ public class GameLoopManager implements Runnable{
     }
     public void changeIsPaused(){
         isPaused = !isPaused;
+    }
+
+    public static boolean getMinimapVisible(){
+        return showMinimap;
+    }
+    public void changeMinimapVisible(){
+        showMinimap = !showMinimap;
     }
 
     // Main game loop
@@ -108,7 +122,7 @@ public class GameLoopManager implements Runnable{
             // This is for the FPS check and repaint
             if (deltaF >= 1){
                 if (!getIsPaused()){
-                    gameScreenPresenter.update();
+                    reDraw();
                 }
                 frames++;
                 deltaF--;

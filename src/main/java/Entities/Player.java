@@ -11,11 +11,13 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 public class Player {
+    final private int STARTING_DMG = 10;
+    final private int STARTING_HP = 100;
     private GamePanel gamePanel;
     private BufferedImage[] sprites = new BufferedImage[4];
     private BufferedImage[][] animations;
     private int idleDir = 0;
-
+    private int attack = STARTING_DMG;
     private int velX = 0, velY = 0;
     private int absXPlayer = 1882, absYPlayer = 1738;
 
@@ -25,31 +27,31 @@ public class Player {
     
     // VARIABLES FOR SHOP SYSTEM
     private int gold = 100;
-    private int health = 10;
-
+    private int maxHealth = STARTING_HP;
+    private int currentHealth = maxHealth;
     private int[][] verticalWalls = {{0,1,1},{0,4,1},{1,1,0},{1,2,1},{1,3,1},{1,4,0},{2,0,1},{2,1,0},{2,2,1},{2,3,0},{2,4,1},{3,0,1},{3,1,1},{3,3,1}};
     private int[][] horizontalWalls = {{2,0,1},{0,1,1},{1,1,1},{2,1,0},{0,2,1},{1,2,0},{2,2,1},{1,3,0},{2,3,1},{1,4,0},{0,4,1},{2,4,1},{0,5,1},{1,5,1}};
     private WallCollision wallCollision = new WallCollision(verticalWalls, horizontalWalls);
     
 
-    public Player(GamePanel gamePanel) {
-        this.gamePanel = gamePanel;
+    public Player() {
         importImage();
         loadAnimation();
     }
+    // TODO: Abu, remove player's dependency to gamePanel
     public void update() {
-        updateWalls();
+//        updateWalls();
         ArrayList wallCheck = currMoveCollision(-velX, -velY);
         if (movable(absXPlayer - velX, absYPlayer - velY) & (boolean) wallCheck.get(0)) {
-            gamePanel.changeXDelta(velX);
-            gamePanel.changeYDelta(velY);
-            updateLocation(velX, velY);
+//            gamePanel.changeXDelta(velX);
+//            gamePanel.changeYDelta(velY);
+              updateLocation(velX, velY);
         } else if (movable(absXPlayer - velX, absYPlayer - velY) & !((boolean) wallCheck.get(0))) {
             if (wallCheck.get(1) == "y" & (int) wallCheck.get(2) <= 1) {
-                gamePanel.changeXDelta(velX);
-                updateLocation(velX, 0);
+//                gamePanel.changeXDelta(velX);
+                  updateLocation(velX, 0);
             } else if (wallCheck.get(1) == "x" & (int) wallCheck.get(2) <= 1) {
-                gamePanel.changeYDelta(velY);
+//                gamePanel.changeYDelta(velY);
                 updateLocation(0, velY);
             }
         }
@@ -65,7 +67,7 @@ public class Player {
         this.absXPlayer -= x;
         this.absYPlayer -= y;
     }
-    public void updateWalls() {wallCollision.createWallLayout(gamePanel.getXDelta() + velX, gamePanel.getYDelta() + velY);}
+//    public void updateWalls() {wallCollision.createWallLayout(gamePanel.getXDelta() + velX, gamePanel.getYDelta() + velY);}
     public WallCollision getWallCollision() {return this.wallCollision;}
     public Rectangle getHitBox() {
         Rectangle hitBox = new Rectangle(absXPlayer + 6, absYPlayer + 6, 36, 36);
@@ -81,17 +83,28 @@ public class Player {
         }
         return move;
     }
-    public int getHealth() {
-        return this.health;
+    public int getMaxHealth() { return this.maxHealth; }
+    public int getCurrentHealth() {
+        return this.currentHealth;
     }
+    public int getAttack() { return attack; }
 
-    public void addHealth(int amount){
-        System.out.println("Health Before: " + getHealth());
-        this.health += amount;
-        if (getHealth() > 100){
-            this.health = 100;
+    /**
+     * Returns the speed of the player
+     */
+    public int getSpeed() { return velX + velY; }
+
+    /**
+     * Heals the player
+     * @param amount How much health we regen
+     */
+    public void regenHealth(int amount){
+        System.out.println("Health Before: " + getCurrentHealth());
+        this.currentHealth += amount;
+        if (getCurrentHealth() > 100){
+            this.currentHealth = 100;
         }
-        System.out.println("Health After: " + getHealth());
+        System.out.println("Health After: " + getCurrentHealth());
     }
 
     public int getGold(){

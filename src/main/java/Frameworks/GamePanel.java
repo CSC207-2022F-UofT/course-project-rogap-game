@@ -5,6 +5,7 @@ import Entities.Player;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
 import Interface_Adapters.GameLoopManager;
+import Interface_Adapters.MovementController;
 import Interface_Adapters.PauseGameController;
 import Interface_Adapters.UpdateScreenModel;
 import Entities.ShopSystem;
@@ -65,6 +66,8 @@ public class GamePanel extends JPanel implements UpdateScreenModel {
 
     // THIS IS GOOD STUFF
     PauseGameController pauseGameController;
+    MovementController movementController;
+
 
     public GamePanel(){
         // Adding leaves
@@ -91,14 +94,14 @@ public class GamePanel extends JPanel implements UpdateScreenModel {
         //TODO: Raiyan
         //  - Import these in a separate Class
         importImage();
-
         this.setBackground(new Color(0, 0, 0));
     }
 
-    public void setUp(PauseGameController pauseGameController){
+    public void setUp(PauseGameController pauseGameController, MovementController movementController){
         this.pauseGameController = pauseGameController;
+        this.movementController = movementController;
         // TODO: Pass in KeyboardInputController instead of GamePanel
-        addKeyListener(new KeyboardInputs(pauseGameController));
+        addKeyListener(new KeyboardInputs(pauseGameController, movementController));
         addMouseListener(new MouseInputs(this));
     }
 

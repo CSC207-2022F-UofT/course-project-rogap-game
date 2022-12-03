@@ -2,10 +2,7 @@ package main;
 
 import Frameworks.GamePanel;
 import Frameworks.GameWindow;
-import Interface_Adapters.GameLoopManager;
-import Interface_Adapters.GameScreenPresenter;
-import Interface_Adapters.PauseGameController;
-import Interface_Adapters.UpdateScreenModel;
+import Interface_Adapters.*;
 import Use_Cases.PauseGame;
 import Use_Cases.PauseGameInputBoundary;
 
@@ -26,8 +23,9 @@ public class MainClass {
         GameLoopManager gameManager = new GameLoopManager(presenter);
         PauseGameInputBoundary pauseGameInteractor = new PauseGame();
         PauseGameController pauseGameController = new PauseGameController(pauseGameInteractor, gameManager);
+        MovementController movementController = new MovementController(gameManager);
 
-        screenModel.setUp(pauseGameController);
+        screenModel.setUp(pauseGameController, movementController);
         gameManager.start();
     }
 }

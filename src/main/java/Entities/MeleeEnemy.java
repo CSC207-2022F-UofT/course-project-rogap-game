@@ -66,6 +66,7 @@ public class MeleeEnemy {
         }
     }
     public int getXEnemy() {return this.xEnemy;}
+
     public int getYEnemy() {return this.yEnemy;}
     public void changeXEnemy(int x) {this.xEnemy += x;}
     public void changeYEnemy(int y) {this.yEnemy += y;}

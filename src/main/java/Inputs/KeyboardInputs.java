@@ -1,6 +1,7 @@
 package Inputs;
 
 import Frameworks.GamePanel;
+import Interface_Adapters.MovementController;
 import Interface_Adapters.PauseGameController;
 
 import java.awt.event.KeyEvent;
@@ -14,9 +15,11 @@ public class KeyboardInputs implements KeyListener {
 //        this.gamePanel = gamePanel;
 //    }
     PauseGameController pauseGameController;
+    MovementController movementController;
 
-    public KeyboardInputs(PauseGameController pauseGameController){
+    public KeyboardInputs(PauseGameController pauseGameController, MovementController movementController){
         this.pauseGameController = pauseGameController;
+        this.movementController = movementController;
     }
 
     @Override

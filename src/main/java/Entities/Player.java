@@ -16,7 +16,7 @@ public class Player {
     private BufferedImage[][] animations;
     private int idleDir = 0;
 
-    private int velX = 0, velY = 0;
+
     private int absXPlayer = 1882, absYPlayer = 1738;
 
     private int aniTick, aniIndex, aniSpeed= 10;
@@ -56,12 +56,19 @@ public class Player {
         updateAnimationTick();
         setAnimation();
     }
+    public int getAbsXPlayer() {return this.absXPlayer;}
+    public int getAbsYPlayer() {return this.absYPlayer;}
+
     private ArrayList currMoveCollision(int x, int y) {
         return this.getWallCollision().moveAbleWall(616 + 12, 326 + 12,
                 x, y, 24, 24);
     }
     //Player collisions with enemy and walls.
     private void updateLocation(int x, int y){
+        /*
+        This will update the current location of the player.
+         */
+
         this.absXPlayer -= x;
         this.absYPlayer -= y;
     }

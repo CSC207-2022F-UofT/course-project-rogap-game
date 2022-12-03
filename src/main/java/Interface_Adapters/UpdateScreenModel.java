@@ -6,5 +6,5 @@ public interface UpdateScreenModel {
 
     void requestFocus();
 
-    void setUp(PauseGameController pauseGameController);
+    void setUp(PauseGameController pauseGameController, MovementController movementController);
 }

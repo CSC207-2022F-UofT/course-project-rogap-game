@@ -9,7 +9,7 @@ public class Key extends StaticAnimatedSprite implements Purchasable {
     public Key(GamePanel gamePanel) {
         super(gamePanel);
         importImage("/Key.png");
-        loadAnimation(40, 40, 6);
+        loadAnimation(40, 48, 6);
     }
     public int getPrice(){
         return 100;

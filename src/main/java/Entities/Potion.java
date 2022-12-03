@@ -9,7 +9,7 @@ public class Potion extends StaticAnimatedSprite implements Purchasable {
     public Potion(GamePanel gamePanel, String potion_type) {
         super(gamePanel);
         super.importImage(potion_type);
-        super.loadAnimation(32, 32, 5);
+        super.loadAnimation(32, 45, 5);
     }
     public int getPrice(){
         return 100;

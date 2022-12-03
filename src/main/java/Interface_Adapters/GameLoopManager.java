@@ -1,11 +1,10 @@
 package Interface_Adapters;
 
-import Frameworks.GamePanel;
 import Frameworks.GameWindow;
 
-//TODO: THIS IS A VIEWMODEL
-public class Game implements Runnable{
-    private GamePanel gamePanel;
+//TODO: THIS calls various usecases and uses presenter to update view
+public class GameLoopManager implements Runnable{
+
     private Thread gameThread;
     private final int FPS_SET = 144;
     private final int UPS_SET = 144;
@@ -16,20 +15,27 @@ public class Game implements Runnable{
     private static long gameTimerSeconds = 0;
     private long pauseTime = 0;
 
-    // Added these
+    public static boolean isPaused = false;
+
+    // Dependency Injection
     GameScreenPresenter gameScreenPresenter;
+    UpdateScreenModel screenModel;
 
 
-    public Game(GameScreenPresenter gameScreenPresenter){
+    public GameLoopManager(GameScreenPresenter gameScreenPresenter){
         this.gameScreenPresenter = gameScreenPresenter;
-
+        screenModel = gameScreenPresenter.create();
+        new GameWindow(screenModel);
         // TODO: Raiyan
         //  - DON'T DO THIS BROOO
-        gamePanel = new GamePanel();
-        new GameWindow(gamePanel);
+        //gamePanel = new GamePanel();
 
         // Focuses on what is happening here
-        gamePanel.requestFocus();
+        screenModel.requestFocus();
+
+    }
+
+    public void start(){
         startGameLoop();
     }
 
@@ -38,7 +44,7 @@ public class Game implements Runnable{
         // Move these to EnemyManager
 //        gamePanel.enemyOne.update();
 //        gamePanel.enemyTwo.update();
-        gamePanel.player.update();
+//        gamePanel.player.update();
 
         //TODO: Raiyan
         // Clean this - Don't Directly call UpdateGame()
@@ -51,7 +57,15 @@ public class Game implements Runnable{
     }
 
     public static int getGameTimerSeconds(){
-        return (int) ((int)(gameTimerSeconds - startTime) / 1000F);}
+        return (int) ((int)(gameTimerSeconds - startTime) / 1000F);
+    }
+
+    public static boolean getIsPaused(){
+        return isPaused;
+    }
+    public void changeIsPaused(){
+        isPaused = !isPaused;
+    }
 
     // Main game loop
     @Override
@@ -81,7 +95,7 @@ public class Game implements Runnable{
 
             if (deltaU >= 1){
                 // Only update if the game is not paused
-                if (!gamePanel.getIsPaused()){
+                if (!getIsPaused()){
                     update();
                     gameTimerSeconds = System.currentTimeMillis() - pauseTime;
                 }else{
@@ -93,11 +107,9 @@ public class Game implements Runnable{
 
             // This is for the FPS check and repaint
             if (deltaF >= 1){
-                if (!gamePanel.getIsPaused()){
-//                    gameScreenPresenter.update();
-                    gamePanel.update();
+                if (!getIsPaused()){
+                    gameScreenPresenter.update();
                 }
-
                 frames++;
                 deltaF--;
             }

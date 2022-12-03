@@ -4,8 +4,10 @@ import Entities.MeleeEnemy;
 import Entities.Player;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
-import Interface_Adapters.Game;
-import Use_Cases.ShopSystem;
+import Interface_Adapters.GameLoopManager;
+import Interface_Adapters.PauseGameController;
+import Interface_Adapters.UpdateScreenModel;
+import Entities.ShopSystem;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -29,7 +31,7 @@ public class GamePanel extends JPanel implements UpdateScreenModel {
 
     private int xDelta = -2546, yDelta = -2132;
 
-    private boolean isPaused = false;
+
     private boolean showMinimap = false;
 
     private boolean showStatBar = false;
@@ -60,7 +62,9 @@ public class GamePanel extends JPanel implements UpdateScreenModel {
     private MeleeEnemy[] enemyList;
     public MeleeEnemy enemyOne;
     public MeleeEnemy enemyTwo;
-    // Has access to keyboard and mouse inputs
+
+    // THIS IS GOOD STUFF
+    PauseGameController pauseGameController;
 
     public GamePanel(){
         // Adding leaves
@@ -88,10 +92,16 @@ public class GamePanel extends JPanel implements UpdateScreenModel {
         //  - Import these in a separate Class
         importImage();
 
-        addKeyListener(new KeyboardInputs(this));
-        addMouseListener(new MouseInputs(this));
         this.setBackground(new Color(0, 0, 0));
     }
+
+    public void setUp(PauseGameController pauseGameController){
+        this.pauseGameController = pauseGameController;
+        // TODO: Pass in KeyboardInputController instead of GamePanel
+        addKeyListener(new KeyboardInputs(pauseGameController));
+        addMouseListener(new MouseInputs(this));
+    }
+
     private void setTimerGui(){
         timerGui = new JLabel(String.valueOf(120));
         timerGui.setBounds(605, -19, 100, 100);
@@ -102,12 +112,12 @@ public class GamePanel extends JPanel implements UpdateScreenModel {
     private void changeTimerGui(){
         timerGui.setBounds(605, -19, 100, 100);
         timerGui.setHorizontalAlignment(0);
-        if (Game.getGameTimerSeconds() % 2 == 0){
+        if (GameLoopManager.getGameTimerSeconds() % 2 == 0){
             timerGui.setForeground(new Color(150, 203, 187));
         }else{
             timerGui.setForeground(new Color(255, 81, 81, 194));
         }
-        timerGui.setText(String.valueOf(120 - Game.getGameTimerSeconds()));
+        timerGui.setText(String.valueOf(120 - GameLoopManager.getGameTimerSeconds()));
 
     }
 
@@ -171,28 +181,27 @@ public class GamePanel extends JPanel implements UpdateScreenModel {
         }
     }
 
+    // TODO: Abu
+    //  - Move this to controller and add interface for GamePanel to check when these are updated
     public void setPointerLocation(int x, int y){
         this.xDelta = x;
         this.yDelta = y;
     }
     public void update(){
-    // TODO, What even is this for???
         repaint();
     }
+
     public int getXDelta () {return this.xDelta;}
     public int getYDelta () {return this.yDelta;}
     public void changeXDelta(int x) {this.xDelta += x; this.enemyOne.changeXEnemy(x); this.enemyTwo.changeXEnemy(x);
     }
     public void changeYDelta(int y) {this.yDelta += y; this.enemyOne.changeYEnemy(y); this.enemyTwo.changeYEnemy(y);
     }
-    public boolean getIsPaused(){return this.isPaused;
-    }
+
     public boolean getMinimapVisible(){
         return this.showMinimap;
     }
-    public void setIsPaused(boolean set){
-        this.isPaused = set;
-    }
+
 
     public void setMinimapVisible(boolean set){
         this.showMinimap = set;
@@ -246,7 +255,7 @@ public class GamePanel extends JPanel implements UpdateScreenModel {
         changeTimerGui();
 
         //HealthBar and Stats stuff go here
-        if (!showMinimap && !isPaused){
+        if (!showMinimap && !GameLoopManager.getIsPaused()){
             g.drawImage(healthBar, 17, 14, null);
             g.drawImage(buffbar, 495, 619, null);
             if (showStatBar){
@@ -257,7 +266,7 @@ public class GamePanel extends JPanel implements UpdateScreenModel {
         animateLeaf(g, leafList);
 
         // Pause menu
-        if (getIsPaused()){
+        if (GameLoopManager.getIsPaused()){
             g.setColor(new Color(162, 155, 155, 139));
             g.fillRect(0, 0, 1280, 720);
             if (!showMinimap){

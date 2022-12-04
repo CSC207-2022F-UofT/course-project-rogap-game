@@ -4,6 +4,7 @@ import Use_Cases.ShopSystem;
 import main.Game;
 import main.GamePanel;
 import main.WallCollision;
+import static Entities.PlayerConstants.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,9 +15,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+
 public class Player {
     private GamePanel gamePanel;
-    private BufferedImage[] sprites = new BufferedImage[4];
+    private BufferedImage[] sprites = new BufferedImage[6];
     private BufferedImage[][] animations;
     private int idleDir = 0;
 
@@ -35,8 +37,9 @@ public class Player {
     private int[][] horizontalWalls = {{2,0,1},{0,1,1},{1,1,1},{2,1,0},{0,2,1},{1,2,0},{2,2,1},{1,3,0},{2,3,1},{1,4,0},{0,4,1},{2,4,1},{0,5,1},{1,5,1}};
     private WallCollision wallCollision = new WallCollision(verticalWalls, horizontalWalls);
 
-    // for attack
+    // for attack methods
     private Ellipse2D.Float hitBox, attackRadius;
+    private boolean attacking = false, hit = false;
     
 
     public Player(GamePanel gamePanel) {
@@ -92,7 +95,7 @@ public class Player {
     private boolean movable(int targetX, int targetY) {
         Rectangle hitBox = new Rectangle(targetX + 6, targetY + 6, 36, 36);
         boolean move = true;
-        for (MeleeEnemy enemy : gamePanel.getEnemyList()) {
+        for (MeleeEnemy enemy : gamePanel.getMeleeEnemyList()) {
 //            if (hitBox.intersects(enemy.getHitBox())) {
 
             // changed the method of finding the intersection to accommodate for the
@@ -147,12 +150,17 @@ public class Player {
         InputStream rI = getClass().getResourceAsStream("/rightIdle.png");
         InputStream lM = getClass().getResourceAsStream("/leftMovement.png");
         InputStream rM = getClass().getResourceAsStream("/rightMovement.png");
+//        InputStream lA = getClass().getResourceAsStream("/player_attack.png"); // player left attack
+//        InputStream rA = getClass().getResourceAsStream("/player_attack.png"); // player right attack
         try {
             assert lI != null & rI != null & lM != null & rM != null;
             sprites[0] = ImageIO.read(lI);
             sprites[1] = ImageIO.read(rI);
             sprites[2] = ImageIO.read(lM);
             sprites[3] = ImageIO.read(rM);
+//            sprites[4] = ImageIO.read(lA);
+//            sprites[5] = ImageIO.read(rA);
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -161,6 +169,8 @@ public class Player {
                 rM.close();
                 rI.close();
                 lM.close();
+//                lA.close();
+//                rA.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -178,21 +188,47 @@ public class Player {
             }
         }
     }
+
     private void setAnimation() {
+        int startAni = playerAction; // NEW
+
         if (moving) {
             if ((velX == -2 & velY == -2) || (velX == -2 & velY == 2) || (velX == -2)) { //Left movement
-                playerAction = 3;
+                playerAction = LEFT_MOVEMENT;
             } else if ((velX == 2 & velY == -2) || (velX == 2 & velY == 2)|| (velX == 2)) { //Right movement
-                playerAction = 2;
+                playerAction = RIGHT_MOVEMENT;
             } //Needs testing for up and down
         } else {
             if (idleDir == 0) { //Left idle animation
-                playerAction = 0;
+                playerAction = LEFT_IDLE;
             } else {
-                playerAction = 1;
+                playerAction = RIGHT_IDLE;
             }
         }
+
+        if (attacking) { // TODO: i just copied and pasted the if condition for moving
+            if ((velX == -2 & velY == -2) || (velX == -2 & velY == 2) || (velX == -2)) { //Left attack
+                playerAction = LEFT_ATTACK;
+            } else if ((velX == 2 & velY == -2) || (velX == 2 & velY == 2)|| (velX == 2)) { //Right attack
+                playerAction = RIGHT_ATTACK;
+            } //Needs testing for up and down
+        }
+
+        if (hit) {
+            playerAction = HIT;
+        }
+
+        if (startAni != playerAction)  // if the player action is changed, reset the animation tick
+            resetAniTick();
     }
+
+    private void resetAniTick() {  // NEW
+        // used to reset the animation tick and index so that as the player's action changes,
+        // the animations that are shown start from the beginning of each action sprites.
+        aniTick = 0;
+        aniIndex = 0;
+    }
+
     public void setIdleDirection(int dir) {
         this.idleDir = dir;
     }
@@ -227,10 +263,23 @@ public class Player {
         // can remove lvlOffsetX after
     }
 
+    public void setAttacking(boolean value) {
+        this.attacking = value;
+    }
+
+    public void setHit(boolean value) {
+        this.hit = value;
+    }
+
+
     //  FOR DEBUGGING
     public void drawPlayerHitbox(Graphics g) {
         g.setColor(Color.red);
         g.drawOval((int) hitBox.x, (int) hitBox.y, (int) hitBox.width, (int) hitBox.height);
+    }
+
+    public void changeHealth(int value) {  // TODO: complete health function
+        health += value;
     }
 
 }

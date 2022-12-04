@@ -21,9 +21,8 @@ public class PlayerConstants {
                 return 5;
             case RIGHT_ATTACK:  // TODO: change values
             case LEFT_ATTACK:   // TODO: change values
-                return 4;       // TODO: change values
-            case HIT:           // TODO: change values
-            case DEAD:          // TODO: change values
+            case HIT:
+            case DEAD:
                 return 3;       // TODO: change values
         }
         return 0;

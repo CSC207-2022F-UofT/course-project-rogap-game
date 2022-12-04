@@ -1,7 +1,9 @@
 package main;
 
+import Entities.EnemyManager;
 import Entities.MeleeEnemy;
 import Entities.Player;
+import Entities.RangedEnemy;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
 import Use_Cases.ShopSystem;
@@ -37,10 +39,11 @@ public class GamePanel extends JPanel{
     private BufferedImage pauseIcon;
     private BufferedImage leaf;
 
-    private MeleeEnemy[] enemyList;
-    public MeleeEnemy enemyOne;
-    public MeleeEnemy enemyTwo;
+    private MeleeEnemy[] meleeEnemies;
+    public MeleeEnemy enemyMOne;
+    public MeleeEnemy enemyMTwo;
     // Has access to keyboard and mouse inputs
+    public EnemyManager enemyManager;
 
 
     private BufferedImage bushes;
@@ -58,17 +61,19 @@ public class GamePanel extends JPanel{
 
     public GamePanel(){
         // Adding leaves
-        enemyList = new MeleeEnemy[2];
+        meleeEnemies = new MeleeEnemy[2];
         leafList.add(new Leaf());
         leafList.add(new Leaf());
         setTimerGui();
 
         // Initializing methods
         player = new Player(this);
-        enemyOne = new MeleeEnemy(this, xDelta, yDelta, 3780, 3220);
-        enemyTwo = new MeleeEnemy(this, xDelta, yDelta, 4000, 4000);
-        enemyList[0] = enemyOne;
-        enemyList[1] = enemyTwo;
+//        enemyMOne = new MeleeEnemy(this, xDelta, yDelta, 3780, 3220);
+//        enemyMTwo = new MeleeEnemy(this, xDelta, yDelta, 4000, 4000);
+//        meleeEnemies[0] = enemyMOne;
+//        meleeEnemies[1] = enemyMTwo;
+
+        enemyManager = new EnemyManager(this);
 
         // Creates shop instance
         gameShop = new ShopSystem(player);
@@ -98,8 +103,8 @@ public class GamePanel extends JPanel{
 
     }
 
-    public MeleeEnemy[] getEnemyList() {
-        return this.enemyList;
+    public MeleeEnemy[] getMeleeEnemyList() {
+        return this.meleeEnemies;
     }
 
     private void importImage() {
@@ -163,9 +168,9 @@ public class GamePanel extends JPanel{
     }
     public int getXDelta () {return this.xDelta;}
     public int getYDelta () {return this.yDelta;}
-    public void changeXDelta(int x) {this.xDelta += x; this.enemyOne.changeXEnemy(x); this.enemyTwo.changeXEnemy(x);
+    public void changeXDelta(int x) {this.xDelta += x; this.enemyMOne.changeXEnemy(x); this.enemyMTwo.changeXEnemy(x);
     }
-    public void changeYDelta(int y) {this.yDelta += y; this.enemyOne.changeYEnemy(y); this.enemyTwo.changeYEnemy(y);
+    public void changeYDelta(int y) {this.yDelta += y; this.enemyMOne.changeYEnemy(y); this.enemyMTwo.changeYEnemy(y);
     }
     public boolean getIsPaused(){return this.isPaused;
     }
@@ -204,8 +209,8 @@ public class GamePanel extends JPanel{
         g.drawImage(player.getCurrentImage(), 616, 326, 48,48, null);
 
         //Enemy visual goes here
-        g.drawImage(player.getCurrentImage(), enemyOne.getXEnemy(), enemyOne.getYEnemy(), null);
-        g.drawImage(player.getCurrentImage(), enemyTwo.getXEnemy(), enemyTwo.getYEnemy(), null);
+        g.drawImage(player.getCurrentImage(), enemyMOne.getXEnemy(), enemyMOne.getYEnemy(), null);
+        g.drawImage(player.getCurrentImage(), enemyMTwo.getXEnemy(), enemyMTwo.getYEnemy(), null);
 
 
         // SHOP VISUAL GOES HERE
@@ -254,6 +259,19 @@ public class GamePanel extends JPanel{
         player.drawPlayerHitbox(g);
         player.drawAttackRadius(g);
 
+        enemyMOne.drawMonsterHitBox(g);
+        enemyMOne.drawAttackBox(g);
+        enemyMTwo.drawMonsterHitBox(g);
+        enemyMTwo.drawAttackBox(g);
+
+//        enemyROne.drawMonsterHitBox(g);
+//        enemyROne.drawAttackBox(g);
+//        enemyRTwo.drawMonsterHitBox(g);
+//        enemyRTwo.drawAttackBox(g);
+    }
+
+    public Player getPlayer() {
+        return this.player;
     }
 
 }

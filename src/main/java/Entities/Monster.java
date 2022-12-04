@@ -5,6 +5,7 @@ import main.GamePanel;
 import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import static Entities.MonsterConstants.*;
@@ -22,10 +23,10 @@ public class Monster{
     protected int aniIndex;
 
     // for attack methods
-    protected Ellipse2D.Float hitBox;
+    protected Ellipse2D.Float hitBox, attackHitBox;
     protected int currentHealth;
     protected int maxHealth;
-    protected int enemyType, enemyState;
+    protected int enemyState;
     public int PLAYER_ATTACK_DAMAGE;  // TODO: make this an attribute of player class
 
     public Monster(GamePanel gamePanel, int x, int y, int spawnX, int spawnY) {
@@ -37,52 +38,38 @@ public class Monster{
 
         // added for attack methods
         maxHealth = 50;  // set enemy's max health
-        initHitBox();  // initialize the hitbox
-    }
-    public void update() {
-//        if (!getHitBox().intersects(gamePanel.player.getHitBox())){
-//            enemyMovement();
-//        }
-
-        // changed the method of finding the intersection to accommodate for the
-        // hitbox shape change (from rect to ellipse)
-        Area hitBoxArea = new Area(hitBox);     // find area of Monster's hitBox
-        hitBoxArea.intersect(new Area(gamePanel.player.getHitBox())); // find intersection between monster's hitBox and player's hitbox
-        if (hitBoxArea.isEmpty()) {         // if they do not intersect (the intersection is empty)
-            enemyMovement();
-        }
+        initHitBoxAttack();
     }
 
     // change hitbox shape to an ellipse
-    protected void initHitBox() {
-        hitBox = new Ellipse2D.Float(spawnX - 1280 + 4, spawnY - 720 + 4, 24, 24);
-    }
-
     public Ellipse2D.Float getHitBox() {
+//        hitBox = new Ellipse2D.Float(spawnX - 1280 + 4, spawnY - 720 + 4, 24, 24);// adjusted the monster hitbox sizes
+        hitBox = new Ellipse2D.Float(spawnX - 1280 + 4, spawnY - 720 + 4, 48, 48);
         return hitBox;
     }
 
-    protected void enemyMovement() { //In order to update current enemy location must update absXenemy.
-        distance = Math.sqrt((Math.pow((gamePanel.player.getAbsXPlayer() - xEnemy - spawnX + 1896),2) + Math.pow((gamePanel.player.getAbsYPlayer() - yEnemy -spawnY + 1046), 2)));
-        if (distance < 600 & distance > 110) {
-            System.out.println(yEnemy);
-            velX = enemyMoveHelper(xEnemy - 616 - 1280,gamePanel.player.getAbsXPlayer() - spawnX);
-            velY = enemyMoveHelper(yEnemy - 326 - 720,gamePanel.player.getAbsYPlayer() - spawnY);
-            ArrayList wall = currMoveCollision(velX, velY);
-            if ((Boolean) wall.get(0)) {
-                xEnemy -= velX;
-                spawnX -= velX;
-                yEnemy -= velY;
-                spawnY -= velY;
-            } else {
-                //TODO: make enemies move randomly while it is touching the border.
-            }
-        } else if (distance < 110) {
-            //TODO: add a function that calls the attack for enemy.
-        } else {
-            //TODO: make enemies move randomly while player is not close
-        }
-    }
+//    protected void enemyMovement() { //In order to update current enemy location must update absXenemy.
+//        distance = Math.sqrt((Math.pow((gamePanel.player.getAbsXPlayer() - xEnemy - spawnX + 1896),2) + Math.pow((gamePanel.player.getAbsYPlayer() - yEnemy -spawnY + 1046), 2)));
+//        if (distance < 600 & distance > 110) {
+//            System.out.println(yEnemy);
+//            velX = enemyMoveHelper(xEnemy - 616 - 1280,gamePanel.player.getAbsXPlayer() - spawnX);
+//            velY = enemyMoveHelper(yEnemy - 326 - 720,gamePanel.player.getAbsYPlayer() - spawnY);
+//            ArrayList wall = currMoveCollision(velX, velY);
+//            if ((Boolean) wall.get(0)) {
+//                xEnemy -= velX;
+//                spawnX -= velX;
+//                yEnemy -= velY;
+//                spawnY -= velY;
+//            } else {
+//                //TODO: make enemies move randomly while it is touching the border.
+//            }
+//        } else if (distance < 110) {
+//            //TODO: add a function that calls the attack for enemy.
+//        } else {
+//            //TODO: make enemies move randomly while player is not close
+//        }
+//
+//    }
 
     protected ArrayList currMoveCollision(int x, int y) {
         return gamePanel.player.getWallCollision().moveAbleWall(xEnemy + 4, yEnemy + 4,
@@ -109,13 +96,27 @@ public class Monster{
         aniIndex = 0; // when new state, reset the tick and index to show state animation from the start
     }
 
-    public void takeDamage() {
+    public void takeDamage() {      // TODO: update methods
         currentHealth -= PLAYER_ATTACK_DAMAGE;
         if (currentHealth <= 0) {
             newState(DEAD);
         } else {
             newState(HIT);
         }
+    }
+
+    private void initHitBoxAttack() {
+        attackHitBox = new Ellipse2D.Float(xEnemy, yEnemy, 29, 29);
+    }
+
+    protected void updateHitBoxAttack() {
+        attackHitBox.x = xEnemy;
+        attackHitBox.y = yEnemy;
+    }
+
+    public void drawMonsterHitBox(Graphics g) {
+        g.setColor(Color.red);
+        g.drawOval((int) attackHitBox.x, (int) attackHitBox.y, (int) attackHitBox.width, (int) attackHitBox.height);
     }
 
 }

@@ -44,6 +44,9 @@ public class KeyboardInputs implements KeyListener {
             case KeyEvent.VK_O-> {
                 gamePanel.changeStatsBarVisible();
             }
+            case KeyEvent.VK_SPACE -> {
+                gamePanel.player.setAttacking(true);
+            }
 
         }
     }

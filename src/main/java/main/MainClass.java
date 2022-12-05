@@ -26,7 +26,13 @@ public class MainClass {
         PauseGameController pauseGameController = new PauseGameController(pauseGameInteractor, gameManager);
         ShowMapController showMapController = new ShowMapController(showMapInteractor, gameManager);
 
-        screenModel.setUp(pauseGameController, showMapController);
+        //Player movement
+        PlayerMovement playerMovement = new PlayerMovement();
+        PlayerMovementInputBoundary playerMovementInteractor = new PlayerMovementInteractor(playerMovement);
+        PlayerMovementController playerMovementController = new PlayerMovementController(playerMovementInteractor);
+
+
+        screenModel.setUp(pauseGameController, showMapController, playerMovementController);
         gameManager.start();
     }
 }

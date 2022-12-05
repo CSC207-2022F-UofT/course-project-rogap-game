@@ -1,5 +1,6 @@
 package Inputs;
 import Interface_Adapters.PauseGameController;
+import Interface_Adapters.PlayerMovementController;
 import Interface_Adapters.ShowMapController;
 
 import java.awt.event.KeyEvent;
@@ -14,10 +15,12 @@ public class KeyboardInputs implements KeyListener {
 //    }
     PauseGameController pauseGameController;
     ShowMapController showMapController;
+    PlayerMovementController playerMovementController;
 
-    public KeyboardInputs(PauseGameController pauseGameController, ShowMapController showMapController){
+    public KeyboardInputs(PauseGameController pauseGameController, ShowMapController showMapController, PlayerMovementController playerMovementController){
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
+        this.playerMovementController = playerMovementController;
     }
 
     @Override
@@ -32,18 +35,18 @@ public class KeyboardInputs implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_W -> {
-//                gamePanel.player.setVelY(2);
-//            }
-//            case KeyEvent.VK_S -> {
-//                gamePanel.player.setVelY(-2);
-//            }
-//            case KeyEvent.VK_D -> {
-//                gamePanel.player.setVelX(-2);
-//            }
-//            case KeyEvent.VK_A -> {
-//                gamePanel.player.setVelX(2);
-//            }
+            case KeyEvent.VK_W -> {
+                playerMovementController.playerMoveY(2);
+            }
+            case KeyEvent.VK_S -> {
+                playerMovementController.playerMoveY(-2);
+            }
+            case KeyEvent.VK_D -> {
+                playerMovementController.playerMoveX(-2);
+            }
+            case KeyEvent.VK_A -> {
+                playerMovementController.playerMoveX(2);
+            }
 
             //TODO: Raiyan
             //  Don't directly talk to gamePanel.

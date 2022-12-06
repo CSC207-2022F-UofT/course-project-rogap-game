@@ -6,5 +6,6 @@ public interface UpdateScreenBoundary {
 
     void requestFocus();
 
-    void setUp(PauseGameController pauseGameController, ShowMapController showMapController);
+    void setUp(PauseGameController pauseGameController, ShowMapController showMapController,
+               StatBarsPresenterBoundary statBarsPresenterBoundary, ShowStatsController showStatsController);
 }

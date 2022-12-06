@@ -4,22 +4,15 @@ import Entities.MeleeEnemy;
 import Entities.Player;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
-import Interface_Adapters.StatBarsPresenterBoundary;
-import Interface_Adapters.GameLoopManagerLoop;
-import Interface_Adapters.PauseGameController;
-import Interface_Adapters.ShowMapController;
-import Interface_Adapters.UpdateScreenBoundary;
+import Interface_Adapters.*;
 
 //TODO: Kevin
 //  - This can't be here
 import Entities.ShopSystem;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -38,7 +31,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     private ShopSystem gameShop;
     private JLabel timerGui;
 
-    StatBarsPresenterBoundary presenter;
+    StatBarsPresenterBoundary statBarsPresenterBoundary;
 
     private int xDelta = -2546, yDelta = -2132;
 
@@ -66,7 +59,6 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 
     //TODO: Kevin
     //  - import the potion images
-    private BufferedImage healthPotion;
 
     //TODO: Abu, Khushil
     //  -Move enemyList to Enemy Manager
@@ -77,6 +69,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     // THIS IS GOOD STUFF
     PauseGameController pauseGameController;
     ShowMapController showMapController;
+    ShowStatsController showStatsController;
 
     public GamePanel(){
         // Adding leaves
@@ -104,12 +97,15 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 
     }
 
-    public void setUp(PauseGameController pauseGameController, ShowMapController showMapController){
+    public void setUp(PauseGameController pauseGameController, ShowMapController showMapController,
+                      StatBarsPresenterBoundary statBarsPresenterBoundary, ShowStatsController showStatsController){
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
+        this.showStatsController = showStatsController;
+        this.statBarsPresenterBoundary = statBarsPresenterBoundary;
 
         // TODO: Pass in KeyboardInputController instead of GamePanel
-        addKeyListener(new KeyboardInputs(pauseGameController, showMapController));
+        addKeyListener(new KeyboardInputs(pauseGameController, showMapController, showStatsController));
         addMouseListener(new MouseInputs(this));
     }
 
@@ -171,13 +167,6 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     }
     public void changeYDelta(int y) {this.yDelta += y; this.enemyOne.changeYEnemy(y); this.enemyTwo.changeYEnemy(y);
     }
-
-
-    public void changeStatsBarVisible(){
-        this.showStatBar = !this.showStatBar;
-    }
-
-
 
     public void animateLeaf(Graphics g, ArrayList<Leaf> alist){
         for (Leaf curr : alist ){
@@ -251,7 +240,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
      */
     private void drawStats(Graphics g) {
         if (!GameLoopManagerLoop.getMinimapVisible() && !GameLoopManagerLoop.getIsPaused()) {
-            int[] playerStats = presenter.getStats();
+            int[] playerStats = statBarsPresenterBoundary.getStats();
             // Drawing the outside of the health bar
             g.drawImage(healthBar, 17, 14, null);
             // Drawing the health bar
@@ -260,7 +249,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
                     30, 27, 27);
             // Drawing the stats menu
             g.drawImage(buffbar, 495, 619, null);
-            if (showStatBar) {
+            if (GameLoopManagerLoop.getStatsVisible()) {
                 g.drawImage(statsBar, 9, 109, null);
                 g.setColor( new Color(255, 165, 0));
                 g.fillRect(72, 156, playerStats[STRENGTH] * 10, 6);

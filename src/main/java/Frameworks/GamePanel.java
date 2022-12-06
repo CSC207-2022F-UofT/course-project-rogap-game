@@ -207,8 +207,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         //Drawing the basic map
-        g.drawImage(map, playerMovementController.getX(), playerMovementController.getY(), null);
-        g.drawImage(bushes, playerMovementController.getX(), playerMovementController.getY(), null);
+        g.drawImage(map, playerMovementController.getVisualX(), playerMovementController.getVisualY(), null);
 
         // player VISUAL goes here
         //TODO: Abu - Access player through an interface using CLEAN way
@@ -233,6 +232,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         }
 */
 
+        g.drawImage(bushes, playerMovementController.getVisualX(), playerMovementController.getVisualY(), null);
 
         // TODO: Add health bar and animation
 
@@ -261,7 +261,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         }
         //Showing Minimap
         if (GameLoopManagerLoop.getMinimapVisible()){
-            g.drawImage(minimap, -52 + playerMovementController.getX()/7, -130 + playerMovementController.getY()/6, null);
+            g.drawImage(minimap, -52 + playerMovementController.getVisualX()/7, -130 + playerMovementController.getVisualY()/6, null);
             g.drawImage(minimapCursor, 598, 284, null);
         }
 

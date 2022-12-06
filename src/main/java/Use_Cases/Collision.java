@@ -46,9 +46,10 @@ public class Collision {
                 if (hitBox.intersects(wallsToCheck[i])) {
                     move = false;
                 }
-            } else if (i >= 58) {
+            } else {
                 helper = false;
             }
+            i += 1;
         }
         return move;
     }

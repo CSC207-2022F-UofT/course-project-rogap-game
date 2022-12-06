@@ -5,8 +5,12 @@ import java.awt.image.BufferedImage;
 public interface PlayerMovementInputBoundary {
     void setMovingX(int velX);
     void setMovingY(int velY);
-    int getLocationX();
-    int getLocationY();
+    int getHelperX();
+    int getHelperY();
+    int getVisualX();
+    int getVisualY();
     BufferedImage getCurrAnimation();
-    void updateLocation();
+    void updateX();
+    void updateY();
+    void setIdleDirection(int dir);
 }

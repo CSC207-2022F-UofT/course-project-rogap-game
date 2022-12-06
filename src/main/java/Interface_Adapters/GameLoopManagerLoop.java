@@ -8,8 +8,8 @@ import Use_Cases.GameLoopInteractorReference;
 public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReference {
 
     private Thread gameThread;
-    private final int FPS_SET = 144;
-    private final int UPS_SET = 144;
+    private final int FPS_SET = 120;
+    private final int UPS_SET = 120;
 
 
     // Game Timer Variables
@@ -47,10 +47,12 @@ public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReferenc
     public void update(){
         //TODO: KUSHIL
         // Move these to EnemyManager
-        playerMovementController.update();
+
         //TODO: Raiyan
         // Clean this - Don't Directly call UpdateGame()
         // gamePanel.updateGame();
+
+        playerMovementController.update();
     }
 
     public void reDraw(){

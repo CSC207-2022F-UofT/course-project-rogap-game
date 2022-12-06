@@ -32,7 +32,6 @@ public class KeyboardInputs implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W -> {
-                System.out.println("is this even");
                 playerMovementController.playerMoveY(2);
             }
             case KeyEvent.VK_S -> {

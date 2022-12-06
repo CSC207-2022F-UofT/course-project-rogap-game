@@ -1,10 +1,6 @@
 package Use_Cases;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class PlayerMovement extends Movement{
 
@@ -16,33 +12,31 @@ public class PlayerMovement extends Movement{
     private int idleDir = 0;
 
     private int currLocationX = -2546, currLocationY = -2132;
+    private int helperX = 1882, helperY = 1738;
     private BufferedImage[][] animations;
-
     public PlayerMovement(BufferedImage[][] animations) {
         this.animations = animations;
     }
 
     @Override
-    public int newXLocation() {
-        return this.currLocationX + velX;
+    public void updateX() {
+        this.currLocationX += velX;
+        this.helperX -= velX;
     }
-
     @Override
-    public int newYLocation() {
-        return this.currLocationY + velY;
+    public void updateY() {
+        this.currLocationY += velY;
+        this.helperY -= velY;
     }
-
     @Override
     public void setVelX(int x) {
         this.velX = x;
         this.setMoving();
-        System.out.println("myguy");
     }
     @Override
     public void setVelY(int y) {
         this.velY = y;
         this.setMoving();
-        System.out.println("maddoood");
     }
     @Override
     public void setMoving () {
@@ -50,12 +44,21 @@ public class PlayerMovement extends Movement{
             moving = true;
         } else {moving = false;}
     }
-    public int getCurrLocationX() {
+
+    //Getting locations
+    public int getVisualX() {
         return currLocationX;
     }
-    public int getCurrLocationY() {
+    public int getVisualY() {
         return currLocationY;
     }
+    public int getHelperX() {
+        return helperX;
+    }
+    public int getHelperY() {
+        return helperY;
+    }
+
     private void setAnimation() {
         if (moving) {
             if ((velX == -2 & velY == -2) || (velX == -2 & velY == 2) || (velX == -2)) { //Left movement

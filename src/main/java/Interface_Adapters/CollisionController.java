@@ -9,8 +9,8 @@ public class CollisionController {
     public CollisionController(CollisionInputBoundary collisionInputBoundary) {
         this.collisionInputBoundary = collisionInputBoundary;
     }
-    public boolean movable(int currX, int currY, int changeX, int changeY, int width, int height) {
-        collisionInputBoundary.updateWalls(currX, currY);
+    public boolean movable(int visualX, int visualY, int currX, int currY, int changeX, int changeY, int width, int height) {
+        collisionInputBoundary.updateWalls(visualX, visualY);
         return collisionInputBoundary.movable(currX, currY, changeX, changeY, width, height);
     }
 }

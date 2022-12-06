@@ -13,12 +13,9 @@ import Interface_Adapters.UpdateScreenBoundary;
 //  - This can't be here
 import Entities.ShopSystem;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -31,31 +28,30 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     //  - Implement shop system CLEAN way
     //  - Can't have access to shop directly
     private ShopSystem gameShop;
+
     private JLabel timerGui;
-
     private int xDelta = -2546, yDelta = -2132;
-
     private boolean showStatBar = false;
-
     private ArrayList<Leaf> leafList = new ArrayList<>();
 
-    //TODO: Raiyan
-    //  - Import these images separately
     private BufferedImage map;
-    private BufferedImage minimap;
     private BufferedImage minimapCursor;
+    private BufferedImage minimap;
     private BufferedImage pauseIcon;
     private BufferedImage leaf;
     private BufferedImage bushes;
 
     // Variables for shop system GUI
     private BufferedImage shopKeeper;
-    private BufferedImage healthPotion;
-
     private BufferedImage statsBar;
     private BufferedImage healthBar;
     private BufferedImage timerPill;
     private BufferedImage buffbar;
+
+    //TODO: Kevin
+    //  - import the potion images
+    private BufferedImage healthPotion;
+
 
 
     //TODO: Abu, Khushil
@@ -73,6 +69,9 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         leafList.add(new Leaf());
         leafList.add(new Leaf());
         setTimerGui();
+        importImage();
+        this.setBackground(new Color(0, 0, 0));
+
 
         // Initializing methods
         //TODO: Khushil
@@ -89,12 +88,6 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         //  - Create the shop using CLEAN arch
         //  - Can't do this in GamePanel
         gameShop = new ShopSystem(player);
-
-        //TODO: Raiyan
-        //  - Import these in a separate Class
-        importImage();
-
-        this.setBackground(new Color(0, 0, 0));
     }
 
     public void setUp(PauseGameController pauseGameController, ShowMapController showMapController){
@@ -131,58 +124,19 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         return this.enemyList;
     }
 
-    // TODO: Raiyan
-    //  - Move this entire class to a separate class to import images
     private void importImage() {
-        InputStream is = getClass().getResourceAsStream("/Floor1.png");
-        InputStream mc = getClass().getResourceAsStream("/MapCursor.png");
-        InputStream mm = getClass().getResourceAsStream("/Minimap.png");
-        InputStream pi = getClass().getResourceAsStream("/Paused.png");
-        InputStream lf = getClass().getResourceAsStream("/Leaf.png");
-        InputStream bt = getClass().getResourceAsStream("/Bushes.png");
-        InputStream sk = getClass().getResourceAsStream("/ShopKeeper.png");
-        InputStream hp = getClass().getResourceAsStream("/HealthPotion.png");
-        InputStream sb = getClass().getResourceAsStream("/StatsBar.png");
-        InputStream hb = getClass().getResourceAsStream("/HealthBar.png");
-        InputStream tp = getClass().getResourceAsStream("/TimerPill.png");
-        InputStream bb = getClass().getResourceAsStream("/Buffbar.png");
-
-        try {
-            assert is != null;
-            map = ImageIO.read(is);
-            minimapCursor = ImageIO.read(mc);
-            minimap = ImageIO.read(mm);
-            pauseIcon = ImageIO.read(pi);
-            leaf = ImageIO.read(lf);
-            bushes = ImageIO.read(bt);
-            shopKeeper = ImageIO.read(sk);
-            healthPotion = ImageIO.read(hp);
-            statsBar = ImageIO.read(sb);
-            healthBar = ImageIO.read(hb);
-            timerPill = ImageIO.read(tp);
-            buffbar = ImageIO.read(bb);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-                mc.close();
-                mm.close();
-                pi.close();
-                lf.close();
-                bt.close();
-                sk.close();
-                hp.close();
-                sb.close();
-                hb.close();
-                tp.close();
-                bb.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        BufferedImage[] imageList = LoadLevelImage.importImage();
+        map = imageList[0];
+        minimapCursor = imageList[1];
+        minimap = imageList[2];
+        pauseIcon = imageList[3];
+        leaf = imageList[4];
+        bushes = imageList[5];
+        shopKeeper = imageList[6];
+        statsBar = imageList[7];
+        healthBar = imageList[8];
+        timerPill = imageList[9];
+        buffbar = imageList[10];
     }
 
     // TODO: Abu

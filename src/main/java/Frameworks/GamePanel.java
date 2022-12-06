@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     // TODO: Kevin
     //  - Implement shop system CLEAN way
     //  - Can't have access to shop directly
-//    private ShopSystem gameShop;
+    private ShopSystem gameShop;
     private JLabel timerGui;
 
     StatBarsPresenterBoundary presenter;
@@ -64,6 +64,9 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     private BufferedImage timerPill;
     private BufferedImage buffbar;
 
+    //TODO: Kevin
+    //  - import the potion images
+    private BufferedImage healthPotion;
 
     //TODO: Abu, Khushil
     //  -Move enemyList to Enemy Manager
@@ -75,18 +78,19 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     PauseGameController pauseGameController;
     ShowMapController showMapController;
 
-    public GamePanel(StatBarsPresenterBoundary presenter) {
-        this.presenter = presenter;
+    public GamePanel(){
         // Adding leaves
         leafList.add(new Leaf());
         leafList.add(new Leaf());
         setTimerGui();
+        importImage();
+        this.setBackground(new Color(0, 0, 0));
 
         // Initializing methods
         //TODO: Khushil
         //  - Do these in EnemyManager Class
         enemyList = new MeleeEnemy[2];
-//        player = new Player(this);
+        player = new Player();
         enemyOne = new MeleeEnemy(this, xDelta, yDelta, 3262, 3308);
         enemyTwo = new MeleeEnemy(this, xDelta, yDelta, 4000, 4000);
         enemyList[0] = enemyOne;
@@ -96,13 +100,8 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         //TODO: Kevin
         //  - Create the shop using CLEAN arch
         //  - Can't do this in GamePanel
-//        gameShop = new ShopSystem(player);
+        gameShop = new ShopSystem(player);
 
-        //TODO: Raiyan
-        //  - Import these in a separate Class
-        importImage();
-
-        this.setBackground(new Color(0, 0, 0));
     }
 
     public void setUp(PauseGameController pauseGameController, ShowMapController showMapController){
@@ -142,55 +141,18 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     // TODO: Raiyan
     //  - Move this entire class to a separate class to import images
     private void importImage() {
-        InputStream is = getClass().getResourceAsStream("/Floor1.png");
-        InputStream mc = getClass().getResourceAsStream("/MapCursor.png");
-        InputStream mm = getClass().getResourceAsStream("/Minimap.png");
-        InputStream pi = getClass().getResourceAsStream("/Paused.png");
-        InputStream lf = getClass().getResourceAsStream("/Leaf.png");
-        InputStream bt = getClass().getResourceAsStream("/Bushes.png");
-        InputStream sk = getClass().getResourceAsStream("/ShopKeeper.png");
-        InputStream hp = getClass().getResourceAsStream("/HealthPotion.png");
-        InputStream sb = getClass().getResourceAsStream("/StatsBar.png");
-        InputStream hb = getClass().getResourceAsStream("/HealthBar.png");
-        InputStream tp = getClass().getResourceAsStream("/TimerPill.png");
-        InputStream bb = getClass().getResourceAsStream("/Buffbar.png");
-
-        try {
-            assert is != null;
-            map = ImageIO.read(is);
-            minimapCursor = ImageIO.read(mc);
-            minimap = ImageIO.read(mm);
-            pauseIcon = ImageIO.read(pi);
-            leaf = ImageIO.read(lf);
-            bushes = ImageIO.read(bt);
-            shopKeeper = ImageIO.read(sk);
-            healthPotion = ImageIO.read(hp);
-            statsBar = ImageIO.read(sb);
-            healthBar = ImageIO.read(hb);
-            timerPill = ImageIO.read(tp);
-            buffbar = ImageIO.read(bb);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-                mc.close();
-                mm.close();
-                pi.close();
-                lf.close();
-                bt.close();
-                sk.close();
-                hp.close();
-                sb.close();
-                hb.close();
-                tp.close();
-                bb.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        BufferedImage[] imageList = LoadLevelImage.importImage();
+        map = imageList[0];
+        minimapCursor = imageList[1];
+        minimap = imageList[2];
+        pauseIcon = imageList[3];
+        leaf = imageList[4];
+        bushes = imageList[5];
+        shopKeeper = imageList[6];
+        statsBar = imageList[7];
+        healthBar = imageList[8];
+        timerPill = imageList[9];
+        buffbar = imageList[10];
     }
 
     // TODO: Abu
@@ -232,12 +194,12 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 
         // player VISUAL goes here
         //TODO: Abu - Access player through an interface using CLEAN way
-//        g.drawImage(player.getCurrentImage(), 616, 326, 48,48, null);
+        g.drawImage(player.getCurrentImage(), 616, 326, 48,48, null);
 
         //Enemy visual goes here
         //TODO: Abu - Access player and enemy through an interface using CLEAN way
-//        g.drawImage(player.getCurrentImage(), enemyOne.getXEnemy(), enemyOne.getYEnemy(), null);
-//        g.drawImage(player.getCurrentImage(), enemyTwo.getXEnemy(), enemyTwo.getYEnemy(), null);
+        g.drawImage(player.getCurrentImage(), enemyOne.getXEnemy(), enemyOne.getYEnemy(), null);
+        g.drawImage(player.getCurrentImage(), enemyTwo.getXEnemy(), enemyTwo.getYEnemy(), null);
 
 
         //TODO: Kevin
@@ -245,9 +207,9 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 
         // SHOP VISUAL GOES HERE
         g.drawImage(shopKeeper, xDelta + 1857, yDelta + 1676, null);
-//        if (gameShop.getItemList().contains("Health Potion")){
-//            g.drawImage(healthPotion, xDelta + 1857, yDelta + 1726, null);
-//        }
+        if (gameShop.getItemList().contains("Health Potion")){
+            g.drawImage(healthPotion, xDelta + 1857, yDelta + 1726, null);
+        }
 
         //Drawing the bushes
         g.drawImage(bushes, xDelta, yDelta, null);
@@ -279,7 +241,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 
         // TODO: Kevin
         //  - Don't directly call a method from gameShop.
-//        gameShop.checkLocation();
+        gameShop.checkLocation();
 
     }
 

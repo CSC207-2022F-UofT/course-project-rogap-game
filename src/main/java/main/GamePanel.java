@@ -68,10 +68,10 @@ public class GamePanel extends JPanel{
 
         // Initializing methods
         player = new Player(this);
-//        enemyMOne = new MeleeEnemy(this, xDelta, yDelta, 3780, 3220);
-//        enemyMTwo = new MeleeEnemy(this, xDelta, yDelta, 4000, 4000);
-//        meleeEnemies[0] = enemyMOne;
-//        meleeEnemies[1] = enemyMTwo;
+        enemyMOne = new MeleeEnemy(this, xDelta, yDelta, 3780, 3220);
+        enemyMTwo = new MeleeEnemy(this, xDelta, yDelta, 4000, 4000);
+        meleeEnemies[0] = enemyMOne;
+        meleeEnemies[1] = enemyMTwo;
 
         enemyManager = new EnemyManager(this);
 

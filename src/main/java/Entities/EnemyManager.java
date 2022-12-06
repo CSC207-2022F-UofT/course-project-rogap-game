@@ -9,6 +9,10 @@ import java.util.ArrayList;
 
 import static Entities.MonsterConstants.*;
 
+/**
+ * This class manages all enemies of the game. It contains array lists of all Ranged monsters and Melee monsters,
+ * allowing for all monsters to be accessed updated at once.
+ */
 public class EnemyManager {
 
     private GamePanel gamePanel;
@@ -24,6 +28,9 @@ public class EnemyManager {
         addEnemies();
     }
 
+    /**
+     * Creates new enemies, spawns them on the map, and adds each one to their respective array list.
+     */
     private void addEnemies() {  // TODO: update with monster spawn methods
         MeleeEnemy meleeOne = new MeleeEnemy(gamePanel, xDelta, yDelta, 3780, 3220);
         MeleeEnemy meleeTwo = new MeleeEnemy(gamePanel, xDelta, yDelta, 4000, 4000);
@@ -36,6 +43,14 @@ public class EnemyManager {
     }
 
     // check if monsters took damage from player's attacks
+
+    /**
+     * Checks if any monsters took damage from the Player's attack. This method is called when the Player's attacking
+     * state is true. For each monster in the game, it checks for the intersection between the Player's attack radius
+     * and the monster's hitbox. If there is an intersection, meaning that the monster was within the Player's attack
+     * radius, the monster takes damage. It calls the method takeDamage to do so.
+     * @param attackRadius
+     */
     public void checkMonsterHit(Ellipse2D.Float attackRadius) {
         for (RangedEnemy r : rangedEnemies) {
             Area playerAttackRadius = new Area(attackRadius);     // find area of Player's attack box
@@ -55,6 +70,9 @@ public class EnemyManager {
         }
     }
 
+    /**
+     * This method is called once in SOMETHING!!!!!!!!!!!!! and it updates all monsters in the game.
+     */
     public void update() {
         for (RangedEnemy r : rangedEnemies)
             r.update();

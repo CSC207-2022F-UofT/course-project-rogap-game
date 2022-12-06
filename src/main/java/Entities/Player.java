@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-
 public class Player {
     private GamePanel gamePanel;
     private BufferedImage[] sprites = new BufferedImage[6];
@@ -40,8 +39,12 @@ public class Player {
     // for attack methods
     private Ellipse2D.Float hitBox, attackRadius;
     private boolean attacking = false, hit = false;
-    
 
+
+    /**
+     * Player class constructor. Takes an instanct of GamePanel as a parameter
+     * @param gamePanel
+     */
     public Player(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         importImage();
@@ -50,6 +53,7 @@ public class Player {
         initHitBox();
         initAttackBox();
     }
+
     public void update() {
         updateWalls();
         ArrayList wallCheck = currMoveCollision(-velX, -velY);
@@ -85,10 +89,19 @@ public class Player {
 //        return hitBox;
 //    }
     // changed Player hitbox to an ellipse
+
+    /**
+     * Initializes the Player's hitbox. This will be used for collision detection and attack methods.
+     */
     private void initHitBox() {
 //        hitBox = new Ellipse2D.Float(absXPlayer + 6, absYPlayer + 6, 48, 48);
         hitBox = new Ellipse2D.Float(615, 325, 48, 48);
     }
+
+    /**
+     * Returns Player's hitbox
+     * @return Ellipse2D.Float
+     */
     public Ellipse2D.Float getHitBox() {
         return hitBox;
     }
@@ -108,6 +121,7 @@ public class Player {
         }
         return move;
     }
+
     public int getHealth() {
         return this.health;
     }
@@ -222,9 +236,11 @@ public class Player {
             resetAniTick();
     }
 
+    /**
+     * Resets the animation tick and animation index so 0 so that as playerAction changes,
+     * the animations of the new state are shown from the beginning of their sprite sheets.
+     */
     private void resetAniTick() {  // NEW
-        // used to reset the animation tick and index so that as the player's action changes,
-        // the animations that are shown start from the beginning of each action sprites.
         aniTick = 0;
         aniIndex = 0;
     }
@@ -248,31 +264,59 @@ public class Player {
     }
 
     // for attack
+
+    /**
+     * Initializes the Player's attack radius. This is an ellipse which is centered at the Player. This attribute is
+     * used for Player's attack methods.
+     */
     private void initAttackBox() {
         attackRadius = new Ellipse2D.Float(590, 300, 100, 100);
         // attack radius at position (590, 300) with width and heigth 100
     }
 
+    /**
+     * Returns the Player's attack radius
+     * @return Ellipse2D.Float
+     */
     public Ellipse2D.Float getAttackRadius() {
         return attackRadius;
     }
 
+    /**
+     * Draws Player's attack radius on the gameplay screen. This method is only used for debugging the attack methods.
+     * For actual gameplay, this method is not used.
+     * @param g
+     */
     public void drawAttackRadius(Graphics g) {
         g.setColor(Color.red);
         g.drawOval((int) attackRadius.x, (int) attackRadius.y, (int) attackRadius.width, (int) attackRadius.height);
         // can remove lvlOffsetX after
     }
 
+    /**
+     * This method changes the attacking state of the Player and is used in keyboard inputs.
+     * @param value
+     */
     public void setAttacking(boolean value) {
         this.attacking = value;
     }
 
+    /**
+     * This method changes the hit state of the Player.
+     * @param value
+     */
     public void setHit(boolean value) {
         this.hit = value;
     }
 
 
     //  FOR DEBUGGING
+
+    /**
+     * Draws Player's hitbox on the gameplay screen. This method is only used for debugging the attack methods.
+     * For actual gameplay, this method is not used.
+     * @param g
+     */
     public void drawPlayerHitbox(Graphics g) {
         g.setColor(Color.red);
         g.drawOval((int) hitBox.x, (int) hitBox.y, (int) hitBox.width, (int) hitBox.height);

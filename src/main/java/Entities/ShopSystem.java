@@ -16,7 +16,7 @@ public class ShopSystem{
 
     // TODO: Kevin
     //  - This is a usecase for ShopSystem
-    public void checkLocation(){
+/*    public void checkLocation(){
         int x = player.getAbsXPlayer();
         int y = player.getAbsYPlayer();
 
@@ -28,7 +28,7 @@ public class ShopSystem{
                 }
             }
         }
-    }
+    }*/
 
     public Set<String> getItemList() {
         return itemList.keySet();

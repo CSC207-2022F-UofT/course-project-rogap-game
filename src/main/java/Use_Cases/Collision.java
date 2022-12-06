@@ -1,16 +1,12 @@
-package main;
+package Use_Cases;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class WallCollision {
+public class Collision {
     private Rectangle[] wallLayout = new Rectangle[60];
-    private int[][] vWalls;
-    private int[][] hWalls;
-    public WallCollision(int[][] vWalls, int[][] hWalls){
-        this.vWalls = vWalls;
-        this.hWalls = hWalls;
-    }
+    private int[][] vWalls = {{0,1,1},{0,4,1},{1,1,0},{1,2,1},{1,3,1},{1,4,0},{2,0,1},{2,1,0},{2,2,1},{2,3,0},{2,4,1},{3,0,1},{3,1,1},{3,3,1}};
+    private int[][] hWalls = {{2,0,1},{0,1,1},{1,1,1},{2,1,0},{0,2,1},{1,2,0},{2,2,1},{1,3,0},{2,3,1},{1,4,0},{0,4,1},{2,4,1},{0,5,1},{1,5,1}};
     public void createWallLayout(int xDelta, int yDelta) {
         int zeroX = xDelta + 2546 - 1265;
         int zeroY = yDelta + 2132 - 1410;
@@ -38,34 +34,22 @@ public class WallCollision {
             }
         }
     }
-    public ArrayList moveAbleWall(int currX, int currY, int changeX, int changeY, int width, int height) {
+    public boolean moveAbleWall(int currX, int currY, int changeX, int changeY, int width, int height) {
         boolean move = true;
         boolean helper = true;
-        Rectangle hitBoxX = new Rectangle(currX + changeX, currY, width, height);
-        Rectangle hitBoxY = new Rectangle(currX, currY + changeY, width, height);
+        Rectangle hitBox = new Rectangle(currX + changeX, currY + changeY, width, height);
         Rectangle[] wallsToCheck = this.wallLayout;
+
         int i = 0;
-        int counter = 0;
-        ArrayList information = new ArrayList(3);
-        String invalid = "-";
-        information.add(move);
-        while (helper) {
-            if (wallsToCheck[i] != null & (boolean) information.get(0)) {
-                if (hitBoxY.intersects(wallsToCheck[i])) {
+        while (helper & move) {
+            if (wallsToCheck[i] != null) {
+                if (hitBox.intersects(wallsToCheck[i])) {
                     move = false;
-                    invalid = "y";
-                    counter += 1;
-                } else if (hitBoxX.intersects(wallsToCheck[i])) {
-                    move = false;
-                    invalid = "x";
-                    counter += 1;
                 }
-            } else {helper = false;}
-            i += 1;
+            } else if (i >= 58) {
+                helper = false;
+            }
         }
-        information.set(0, move);
-        information.add(invalid);
-        information.add(counter);
-        return information;
+        return move;
     }
 }

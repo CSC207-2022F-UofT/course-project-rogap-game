@@ -1,5 +1,7 @@
 package Use_Cases;
 
+import java.awt.image.BufferedImage;
+
 public class PlayerMovementInteractor implements PlayerMovementInputBoundary {
     private PlayerMovement playerMovement;
 
@@ -20,6 +22,17 @@ public class PlayerMovementInteractor implements PlayerMovementInputBoundary {
     }
     public int getLocationY() {
         return this.playerMovement.getCurrLocationY();
+    }
+
+    @Override
+    public BufferedImage getCurrAnimation() {
+
+        return playerMovement.getCurrentImage();
+    }
+    @Override
+    public void updateLocation() {
+        playerMovement.newXLocation();
+        playerMovement.newYLocation();
     }
 
 }

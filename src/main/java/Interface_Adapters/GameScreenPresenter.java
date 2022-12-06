@@ -8,15 +8,10 @@ public class GameScreenPresenter {
 
         this.screenModel = screenModel;
     }
-
     public UpdateScreenBoundary create(){
         return this.screenModel;
     }
     public void update(){
         screenModel.update();
     }
-
-
-
-
 }

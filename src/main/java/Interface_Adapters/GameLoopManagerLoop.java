@@ -1,6 +1,7 @@
 package Interface_Adapters;
 
 import Frameworks.GameWindow;
+import Frameworks.PlayerAnimationImport;
 import Use_Cases.GameLoopInteractorReference;
 
 //TODO: THIS calls various usecases and uses presenter to update view
@@ -23,10 +24,11 @@ public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReferenc
     // Dependency Injection
     GameScreenPresenter gameScreenPresenter;
     UpdateScreenBoundary screenModel;
+    PlayerMovementController playerMovementController;
 
-
-    public GameLoopManagerLoop(GameScreenPresenter gameScreenPresenter){
+    public GameLoopManagerLoop(GameScreenPresenter gameScreenPresenter, PlayerMovementController playerMovementController){
         this.gameScreenPresenter = gameScreenPresenter;
+        this.playerMovementController = playerMovementController;
         screenModel = gameScreenPresenter.create();
         new GameWindow(screenModel);
         // TODO: Raiyan
@@ -45,10 +47,7 @@ public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReferenc
     public void update(){
         //TODO: KUSHIL
         // Move these to EnemyManager
-//        gamePanel.enemyOne.update();
-//        gamePanel.enemyTwo.update();
-//        gamePanel.player.update();
-
+        playerMovementController.update();
         //TODO: Raiyan
         // Clean this - Don't Directly call UpdateGame()
         // gamePanel.updateGame();

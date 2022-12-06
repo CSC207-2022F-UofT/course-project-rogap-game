@@ -12,90 +12,50 @@ public class PlayerMovement extends Movement{
     private int aniTick, aniIndex, aniSpeed= 10;
     private int playerAction = 0;
     private boolean moving = false;
-    private BufferedImage[] sprites = new BufferedImage[4];
-    private BufferedImage[][] animations;
+
     private int idleDir = 0;
 
     private int currLocationX = -2546, currLocationY = -2132;
+    private BufferedImage[][] animations;
 
-    public PlayerMovement() {
-
-    }
-
-
-
-    @Override
-    public Rectangle getHitBox() {
-        return null;
+    public PlayerMovement(BufferedImage[][] animations) {
+        this.animations = animations;
     }
 
     @Override
-    public int newXLocation(int currLocation) {
+    public int newXLocation() {
         return this.currLocationX + velX;
     }
 
     @Override
-    public int newYLocation(int currLocation) {
+    public int newYLocation() {
         return this.currLocationY + velY;
     }
 
     @Override
-    public void setVelX(int x) {this.velX = x; this.setMoving();}
+    public void setVelX(int x) {
+        this.velX = x;
+        this.setMoving();
+        System.out.println("myguy");
+    }
     @Override
-    public void setVelY(int y) {this.velY = y; this.setMoving();}
+    public void setVelY(int y) {
+        this.velY = y;
+        this.setMoving();
+        System.out.println("maddoood");
+    }
     @Override
     public void setMoving () {
         if (velX != 0 || velY != 0) {
             moving = true;
         } else {moving = false;}
     }
-
     public int getCurrLocationX() {
         return currLocationX;
     }
     public int getCurrLocationY() {
         return currLocationY;
     }
-    //All the functions that control player animations
-
-    private void importImage() {
-        InputStream lI = getClass().getResourceAsStream("/leftIdle.png");
-        InputStream rI = getClass().getResourceAsStream("/rightIdle.png");
-        InputStream lM = getClass().getResourceAsStream("/leftMovement.png");
-        InputStream rM = getClass().getResourceAsStream("/rightMovement.png");
-        try {
-            assert lI != null & rI != null & lM != null & rM != null;
-            sprites[0] = ImageIO.read(lI);
-            sprites[1] = ImageIO.read(rI);
-            sprites[2] = ImageIO.read(lM);
-            sprites[3] = ImageIO.read(rM);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                lI.close();
-                rM.close();
-                rI.close();
-                lM.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void loadAnimation() {
-        animations = new BufferedImage[4][6];
-        for (int j = 0; j < animations.length; j++){
-            for (int i = 0; i < animations[j].length; i++) {
-                if (j <= 1) {
-                    animations[j][i] = sprites[j].getSubimage(i*32, 0,32,32);
-                } else if (j >= 2 & i <= 4) {
-                    animations[j][i] = sprites[j].getSubimage(i*32, 0,32,32);
-                }
-            }
-        }
-    }
-
     private void setAnimation() {
         if (moving) {
             if ((velX == -2 & velY == -2) || (velX == -2 & velY == 2) || (velX == -2)) { //Left movement
@@ -138,6 +98,8 @@ public class PlayerMovement extends Movement{
         }
     }
     public BufferedImage getCurrentImage () {
+        updateAnimationTick();
+        setAnimation();
         return this.animations[playerAction][aniIndex];
     }
 }

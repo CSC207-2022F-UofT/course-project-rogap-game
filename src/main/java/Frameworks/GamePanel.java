@@ -20,9 +20,6 @@ import java.util.ArrayList;
 
 
 public class GamePanel extends JPanel implements UpdateScreenBoundary {
-    //TODO: Abu
-    //  - Can't directly have access to Player
-    public Player player;
 
     // TODO: Kevin
     //  - Implement shop system CLEAN way
@@ -85,7 +82,9 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         //TODO: Kevin
         //  - Create the shop using CLEAN arch
         //  - Can't do this in GamePanel
+/*
         gameShop = new ShopSystem(player);
+*/
 
         //TODO: Raiyan
         //  - Import these in a separate Class
@@ -191,16 +190,11 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     }*/
     public void update(){
         repaint();
-
     }
-
-
 
     public void changeStatsBarVisible(){
         this.showStatBar = !this.showStatBar;
     }
-
-
 
     public void animateLeaf(Graphics g, ArrayList<Leaf> alist){
         for (Leaf curr : alist ){
@@ -267,13 +261,15 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         }
         //Showing Minimap
         if (GameLoopManagerLoop.getMinimapVisible()){
-            g.drawImage(minimap, -52 + xDelta/7, -130 + yDelta/6, null);
+            g.drawImage(minimap, -52 + playerMovementController.getX()/7, -130 + playerMovementController.getY()/6, null);
             g.drawImage(minimapCursor, 598, 284, null);
         }
 
         // TODO: Kevin
         //  - Don't directly call a method from gameShop.
+/*
         gameShop.checkLocation();
+*/
 
     }
 

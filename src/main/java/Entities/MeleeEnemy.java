@@ -3,35 +3,44 @@ package Entities;
 import main.GamePanel;
 
 import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
-public class MeleeEnemy {
-    private GamePanel gamePanel;
-    private int xEnemy;
-    private int yEnemy;
-    private double distance;
-    private int velX = 0, velY = 0;
-    private int spawnX, spawnY;
-    private Rectangle hitBox;
+import static Entities.MonsterConstants.*;
+
+public class MeleeEnemy extends Monster{
+
+    private Ellipse2D.Float attackRadius;
+
     public MeleeEnemy(GamePanel gamePanel, int x, int y, int spawnX, int spawnY) {
-        this.gamePanel = gamePanel;
-        this.spawnY = spawnY;
-        this.spawnX = spawnX;
-        this.xEnemy = x + this.spawnX;
-        this.yEnemy = y + this.spawnY;
-    }
-    public void update() {
-        if (!getHitBox().intersects(gamePanel.player.getHitBox())){
-            enemyMovement();
-        }
-    }
-    public Rectangle getHitBox() {
-        hitBox = new Rectangle(spawnX - 1280 + 4, spawnY - 720 + 4, 24, 24);
-        return hitBox;
+        super(gamePanel, x, y, spawnX, spawnY);
+        initAttackRadius();
     }
 
-    private void enemyMovement() { //In order to update current enemy location must update absXenemy.
-        distance = Math.sqrt((Math.pow((gamePanel.player.getAbsXPlayer() - xEnemy - spawnX + 1896),2) + Math.pow((gamePanel.player.getAbsYPlayer() - yEnemy -spawnY + 1046), 2)));
+    public void update() {
+//        if (!getHitBox().intersects(gamePanel.player.getHitBox())){
+//            enemyMovement();
+//        }
+
+        // changed the method of finding the intersection to accommodate for the
+        // hitbox shape change (from rect to ellipse)
+        Area hitBoxArea = new Area(attackHitBox);     // find area of Monster's hitBox
+        hitBoxArea.intersect(new Area(gamePanel.player.getHitBox())); // find intersection between monster's hitBox and player's hitbox
+        if (hitBoxArea.isEmpty()) {         // if they do not intersect (the intersection is empty)
+            enemyMovement();
+        }
+
+        updateHitBoxAttack();
+        // update ani tick
+        updateBehavior();
+
+    }
+
+    protected void enemyMovement() { //In order to update current enemy location must update absXenemy.
+        distance = Math.sqrt((Math.pow((gamePanel.player.getAbsXPlayer() - xEnemy - spawnX + 1896),2) +
+                Math.pow((gamePanel.player.getAbsYPlayer() - yEnemy -spawnY + 1046), 2)));
         if (distance < 600 & distance > 110) {
             System.out.println(yEnemy);
             velX = enemyMoveHelper(xEnemy - 616 - 1280,gamePanel.player.getAbsXPlayer() - spawnX);
@@ -46,27 +55,45 @@ public class MeleeEnemy {
                 //TODO: make enemies move randomly while it is touching the border.
             }
         } else if (distance < 110) {
-            //TODO: add a function that calls the attack for enemy.
+            newState(LEFT_ATTACK); // TODO: add conditions for the direction the enemy is facing
+
         } else {
             //TODO: make enemies move randomly while player is not close
         }
+
     }
 
-    private ArrayList currMoveCollision(int x, int y) {
-        return gamePanel.player.getWallCollision().moveAbleWall(xEnemy + 4, yEnemy + 4,
-                x, y, 24, 24);
+    private void initAttackRadius() {
+        attackRadius = new Ellipse2D.Float(attackHitBox.x - 15, attackHitBox.y - 15,
+                attackHitBox.width + 31, attackHitBox.height + 31);
     }
-    private int enemyMoveHelper(int c, int targetC) {
-        if (c < targetC) {
-            return -1;
-        } else if (c == targetC) {
-            return 0;
-        } else {
-            return 1;
+
+    // for debugging
+    public void drawAttackBox(Graphics g) {
+        g.setColor(Color.red);
+        g.drawOval((int) attackRadius.x, (int) attackRadius.y,
+                (int) attackRadius.width, (int) attackRadius.height);
+    }
+
+    private void updateBehavior() {
+        Player player = gamePanel.getPlayer();
+        switch (enemyState) {
+            case LEFT_ATTACK, RIGHT_ATTACK ->
+                    checkPlayerHit(attackRadius, player);
         }
     }
-    public int getXEnemy() {return this.xEnemy;}
-    public int getYEnemy() {return this.yEnemy;}
-    public void changeXEnemy(int x) {this.xEnemy += x;}
-    public void changeYEnemy(int y) {this.yEnemy += y;}
+
+    private void checkPlayerHit(Ellipse2D.Float attackRadius, Player player) {
+        Area enemyAttackArea = new Area(attackRadius); // find area of enemy attackbox
+        enemyAttackArea.intersect(new Area(player.getHitBox())); // find intersection between enemy attack radius and player hitradius
+        if (!enemyAttackArea.isEmpty()) { // if they intersect:
+            player.setHit(true);
+            player.changeHealth(5);  // TODO: determine player damage value
+        }
+//        attackChecked = true;
+    }
+
+
+
+
 }

@@ -27,10 +27,11 @@ public class Game implements Runnable{
 
     public void update(){
         // Everything that needs to me updated, gets updated here :)
-        gamePanel.enemyOne.update();
-        gamePanel.enemyTwo.update();
+        gamePanel.enemyMOne.update();
+        gamePanel.enemyMTwo.update();
         gamePanel.player.update();
         gamePanel.updateGame();
+        gamePanel.enemyManager.update();
     }
 
     private void startGameLoop(){

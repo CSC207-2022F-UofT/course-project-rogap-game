@@ -30,6 +30,18 @@ public class MainClass {
         PlayerMovementInputBoundary playerMovementInteractor = new PlayerMovementInteractor(playerMovement);
         PlayerMovementController playerMovementController = new PlayerMovementController(playerMovementInteractor, collisionController);
 
+        //Player attack
+        PlayerAttack playerAttack = new PlayerAttack();
+        MeleeAttack meleeAttack = new MeleeAttack();
+        RangedAttack rangedAttack = new RangedAttack();
+        MeleeAttack[] meleeAttacks = new MeleeAttack[1]; // TODO: change to arrays from Enemy Manager class
+        meleeAttacks[0] = meleeAttack;
+        RangedAttack[] rangedAttacks = new RangedAttack[1];
+        rangedAttacks[0] = rangedAttack;
+        PlayerAttackInputBoundary playerAttackInputBoundary = new PlayerAttackInteractor(playerAttack,
+                meleeAttacks, rangedAttacks);
+        PlayerAttackController playerAttackController = new PlayerAttackController(playerAttackInputBoundary);
+
         GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter, playerMovementController);
 
         PauseGameInputBoundary pauseGameInteractor = new PauseGameInteractor();
@@ -41,7 +53,7 @@ public class MainClass {
 
 
 
-        screenModel.setUp(pauseGameController, showMapController, playerMovementController);
+        screenModel.setUp(pauseGameController, showMapController, playerMovementController, playerAttackController);
         gameManager.start();
     }
 }

@@ -61,6 +61,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     PauseGameController pauseGameController;
     ShowMapController showMapController;
     PlayerMovementController playerMovementController;
+    PlayerAttackController playerAttackController;
 
     public GamePanel(){
         // Adding leaves
@@ -93,13 +94,16 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         this.setBackground(new Color(0, 0, 0));
     }
 
-    public void setUp(PauseGameController pauseGameController, ShowMapController showMapController, PlayerMovementController playerMovementController){
+    public void setUp(PauseGameController pauseGameController, ShowMapController showMapController,
+                      PlayerMovementController playerMovementController, PlayerAttackController playerAttackController){
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
         this.playerMovementController = playerMovementController;
+        this.playerAttackController = playerAttackController;
 
         // TODO: Pass in KeyboardInputController instead of GamePanel
-        addKeyListener(new KeyboardInputs(pauseGameController, showMapController, playerMovementController));
+        addKeyListener(new KeyboardInputs(pauseGameController, showMapController,
+                playerMovementController, playerAttackController));
         addMouseListener(new MouseInputs(this));
     }
 

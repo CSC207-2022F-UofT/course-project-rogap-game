@@ -1,5 +1,6 @@
 package Inputs;
 import Interface_Adapters.PauseGameController;
+import Interface_Adapters.PlayerAttackController;
 import Interface_Adapters.PlayerMovementController;
 import Interface_Adapters.ShowMapController;
 
@@ -16,11 +17,14 @@ public class KeyboardInputs implements KeyListener {
     PauseGameController pauseGameController;
     ShowMapController showMapController;
     PlayerMovementController playerMovementController;
+    PlayerAttackController playerAttackController;
 
-    public KeyboardInputs(PauseGameController pauseGameController, ShowMapController showMapController, PlayerMovementController playerMovementController){
+    public KeyboardInputs(PauseGameController pauseGameController, ShowMapController showMapController,
+                          PlayerMovementController playerMovementController, PlayerAttackController playerAttackController){
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
         this.playerMovementController = playerMovementController;
+        this.playerAttackController = playerAttackController;
     }
 
     @Override
@@ -42,6 +46,10 @@ public class KeyboardInputs implements KeyListener {
             }
             case KeyEvent.VK_A -> {
                 playerMovementController.playerMoveX(2);
+            }
+            // for Player Attack
+            case KeyEvent.VK_SPACE -> {
+                playerAttackController.attack();
             }
 
             //TODO: Raiyan

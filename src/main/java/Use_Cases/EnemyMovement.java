@@ -30,12 +30,12 @@ public class EnemyMovement extends Movement{
     }
 
     @Override
-    public static int getHelperX() {
+    public int getHelperX() {
         return spawnX;
     }
 
     @Override
-    public static int getHelperY() {
+    public int getHelperY() {
         return spawnY;
     }
 }

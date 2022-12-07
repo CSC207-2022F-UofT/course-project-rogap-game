@@ -15,7 +15,6 @@ public class PlayerAttackInteractor implements PlayerAttackInputBoundary{
         this.rangedEnemies = rangedEnemies;
     }
 
-
     @Override
     public void attack() {
         // TODO: set Player state to attacking

@@ -40,7 +40,7 @@ public class MainClass {
         rangedAttacks[0] = rangedAttack;
         PlayerAttackInputBoundary playerAttackInputBoundary = new PlayerAttackInteractor(playerAttack,
                 meleeAttacks, rangedAttacks);
-        PlayerAttackController playerAttackController = new PlayerAttackController(playerAttackInputBoundary);
+        PlayerAttackController playerAttackController = new PlayerAttackController(playerAttackInputBoundary, playerMovementController);
 
         GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter, playerMovementController);
 

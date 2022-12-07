@@ -2,6 +2,7 @@ package main;
 
 import Entities.Player;
 import Frameworks.GamePanel;
+import Frameworks.PlayerAnimationImport;
 import Interface_Adapters.*;
 import Use_Cases.*;
 
@@ -18,7 +19,17 @@ public class MainClass {
         GameScreenPresenter presenter = new GameScreenPresenter(screenModel);
         // GameWindow application = new GameWindow(presenter);
 
-        GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter);
+        //Creating player sprites in blue layer, maybe controller needed?
+        PlayerAnimationImport playerAnimationImport = new PlayerAnimationImport();
+        //Player movement and collisions
+        PlayerMovement playerMovement = new PlayerMovement(playerAnimationImport.getPlayerAnimations());
+        Collision collision = new Collision();
+        CollisionInputBoundary collisionInteractor = new CollisionInteractor(collision);
+        CollisionController collisionController = new CollisionController(collisionInteractor);
+        PlayerMovementInputBoundary playerMovementInteractor = new PlayerMovementInteractor(playerMovement);
+        PlayerMovementController playerMovementController = new PlayerMovementController(playerMovementInteractor, collisionController);
+
+        GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter, playerMovementController);
 
         // Stat Bars Use Case
         Player player = new Player();
@@ -35,7 +46,7 @@ public class MainClass {
         PauseGameController pauseGameController = new PauseGameController(pauseGameInteractor, gameManager);
         ShowMapController showMapController = new ShowMapController(showMapInteractor, gameManager);
 
-        screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary, showStatsController);
+        screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary, showStatsController, playerMovementController);
         gameManager.start();
     }
 }

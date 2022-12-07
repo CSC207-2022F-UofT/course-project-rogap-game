@@ -1,5 +1,6 @@
 package Inputs;
 import Interface_Adapters.PauseGameController;
+import Interface_Adapters.PlayerMovementController;
 import Interface_Adapters.ShowMapController;
 import Interface_Adapters.ShowStatsController;
 
@@ -15,14 +16,15 @@ public class KeyboardInputs implements KeyListener {
 //    }
     PauseGameController pauseGameController;
     ShowMapController showMapController;
-
+    PlayerMovementController playerMovementController;
     ShowStatsController showStatsController;
 
     public KeyboardInputs(PauseGameController pauseGameController, ShowMapController showMapController,
-                          ShowStatsController showStatsController){
+                          ShowStatsController showStatsController, PlayerMovementController playerMovementController){
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
         this.showStatsController = showStatsController;
+        this.playerMovementController = playerMovementController;
     }
 
     @Override
@@ -30,25 +32,21 @@ public class KeyboardInputs implements KeyListener {
 
     }
 
-
-    //TODO: Abu
-    // - Remove Player from gamePanel
-    // - Implement CLEAN way of changing velocity following SOLID PRINCIPLES
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_W -> {
-//                gamePanel.player.setVelY(2);
-//            }
-//            case KeyEvent.VK_S -> {
-//                gamePanel.player.setVelY(-2);
-//            }
-//            case KeyEvent.VK_D -> {
-//                gamePanel.player.setVelX(-2);
-//            }
-//            case KeyEvent.VK_A -> {
-//                gamePanel.player.setVelX(2);
-//            }
+            case KeyEvent.VK_W -> {
+                playerMovementController.playerMoveY(2);
+            }
+            case KeyEvent.VK_S -> {
+                playerMovementController.playerMoveY(-2);
+            }
+            case KeyEvent.VK_D -> {
+                playerMovementController.playerMoveX(-2);
+            }
+            case KeyEvent.VK_A -> {
+                playerMovementController.playerMoveX(2);
+            }
 
             case KeyEvent.VK_M -> {
                 showMapController.updateMap();
@@ -70,16 +68,16 @@ public class KeyboardInputs implements KeyListener {
 //    @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_W, KeyEvent.VK_S -> {
-//                gamePanel.player.setVelY(0);
-//            }
-//            case KeyEvent.VK_D -> {
-//                gamePanel.player.setVelX(0);
-//                gamePanel.player.setIdleDirection(1);}
-//            case KeyEvent.VK_A -> {
-//                gamePanel.player.setVelX(0);
-//                gamePanel.player.setIdleDirection(0);
-//            }
+            case KeyEvent.VK_W, KeyEvent.VK_S -> {
+                playerMovementController.playerMoveY(0);
+            }
+            case KeyEvent.VK_D -> {
+                playerMovementController.playerMoveX(0);
+                playerMovementController.setIdleDirection(1);}
+            case KeyEvent.VK_A -> {
+                playerMovementController.playerMoveX(0);
+                playerMovementController.setIdleDirection(0); }
+
         }
     }
 }

@@ -1,7 +1,5 @@
 package main;
 
-import Use_Cases.ShopSystem;
-
 public class Game implements Runnable{
     private GameWindow gameWindow;
     private GamePanel gamePanel;

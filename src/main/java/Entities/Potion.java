@@ -1,17 +1,21 @@
 package Entities;
 
-//import Use_Cases.Purchasable;
-import Use_Cases.Purchasable;
+
 import main.GamePanel;
 
-public class Potion extends StaticAnimatedSprite implements Purchasable {
+abstract class Potion extends StaticAnimatedSprite implements Purchasable {
+    private final int HEIGHT = 45;
+    private final int WIDTH = 32;
+
     // == Constructor ==
-    public Potion(GamePanel gamePanel, String potion_type) {
-        super(gamePanel);
+    public Potion(String potion_type) {
         super.importImage(potion_type);
         super.loadAnimation(32, 45, 5);
     }
-    public int getPrice(){
-        return 100;
+    public int getHeight(){
+        return HEIGHT;
+    }
+    public int getWidth(){
+        return WIDTH;
     }
 }

@@ -1,15 +1,11 @@
 package Entities;
 
-import Use_Cases.ShopSystem;
-import main.Game;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Player {
     private GamePanel gamePanel;

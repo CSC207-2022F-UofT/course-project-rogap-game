@@ -8,15 +8,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class StaticAnimatedSprite {
-    private GamePanel gamePanel;
     private BufferedImage sprite;
     public BufferedImage[] animation;
     protected int aniTick, aniIndex, aniSpeed= 10;
-
-    // == Constructor ==
-    public StaticAnimatedSprite(GamePanel gamePanel) {
-        this.gamePanel = gamePanel;
-    }
 
     // code relating to animating static animated sprites
     protected void importImage(String filename) {

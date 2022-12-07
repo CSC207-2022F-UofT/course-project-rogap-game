@@ -3,11 +3,10 @@ package main;
 import Entities.MeleeEnemy;
 import Entities.Player;
 import Entities.Key;
-import Entities.Potion;
 import Entities.Shopkeeper;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
-import Use_Cases.ShopSystem;
+import Entities.Shop;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -21,9 +20,8 @@ import java.util.ArrayList;
 public class GamePanel extends JPanel{
     public Player player;
     public Key key;
-    public Potion potion;
     public Shopkeeper shopkeeper;
-    private ShopSystem gameShop;
+    private Shop gameShop;
     private JLabel timerGui;
 
     // Needs to be public
@@ -61,12 +59,11 @@ public class GamePanel extends JPanel{
 
         // Initializing methods
         player = new Player(this, xDelta, yDelta);
-        key = new Key(this);
-        potion = new Potion(this, STRENGTH);
-        shopkeeper = new Shopkeeper(this);
+        key = new Key();
+        shopkeeper = new Shopkeeper();
         enemyOne = new MeleeEnemy(this, xDelta, yDelta, 3780, 3220);
         // Creates shop instance
-        gameShop = new ShopSystem(player);
+        gameShop = new Shop(player);
 
         importImage();
         addKeyListener(new KeyboardInputs(this));

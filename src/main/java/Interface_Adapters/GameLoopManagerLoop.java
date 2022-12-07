@@ -1,10 +1,11 @@
-package main;
+package Interface_Adapters;
 
-import Use_Cases.ShopSystem;
+import Frameworks.GameWindow;
+import Use_Cases.GameLoopInteractorReference;
 
-public class Game implements Runnable{
-    private GameWindow gameWindow;
-    private GamePanel gamePanel;
+//TODO: THIS calls various usecases and uses presenter to update view
+public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReference {
+
     private Thread gameThread;
     private final int FPS_SET = 144;
     private final int UPS_SET = 144;
@@ -15,22 +16,46 @@ public class Game implements Runnable{
     private static long gameTimerSeconds = 0;
     private long pauseTime = 0;
 
+    private static boolean isPaused = false;
 
-    public Game(){
-        gamePanel = new GamePanel();
-        gameWindow = new GameWindow(gamePanel);
+    private static boolean showMinimap = false;
+
+    // Dependency Injection
+    GameScreenPresenter gameScreenPresenter;
+    UpdateScreenBoundary screenModel;
+
+
+    public GameLoopManagerLoop(GameScreenPresenter gameScreenPresenter){
+        this.gameScreenPresenter = gameScreenPresenter;
+        screenModel = gameScreenPresenter.create();
+        new GameWindow(screenModel);
+        // TODO: Raiyan
+        //  - DON'T DO THIS BROOO
+        //gamePanel = new GamePanel();
 
         // Focuses on what is happening here
-        gamePanel.requestFocus();
+        screenModel.requestFocus();
+
+    }
+
+    public void start(){
         startGameLoop();
     }
 
     public void update(){
-        // Everything that needs to me updated, gets updated here :)
-        gamePanel.enemyOne.update();
-        gamePanel.enemyTwo.update();
-        gamePanel.player.update();
-        gamePanel.updateGame();
+        //TODO: KUSHIL
+        // Move these to EnemyManager
+//        gamePanel.enemyOne.update();
+//        gamePanel.enemyTwo.update();
+//        gamePanel.player.update();
+
+        //TODO: Raiyan
+        // Clean this - Don't Directly call UpdateGame()
+        // gamePanel.updateGame();
+    }
+
+    public void reDraw(){
+        gameScreenPresenter.update();
     }
 
     private void startGameLoop(){
@@ -39,7 +64,22 @@ public class Game implements Runnable{
     }
 
     public static int getGameTimerSeconds(){
-        return (int) ((int)(gameTimerSeconds - startTime) / 1000F);}
+        return (int) ((int)(gameTimerSeconds - startTime) / 1000F);
+    }
+
+    public static boolean getIsPaused(){
+        return isPaused;
+    }
+    public void changeIsPaused(){
+        isPaused = !isPaused;
+    }
+
+    public static boolean getMinimapVisible(){
+        return showMinimap;
+    }
+    public void changeMinimapVisible(){
+        showMinimap = !showMinimap;
+    }
 
     // Main game loop
     @Override
@@ -63,10 +103,13 @@ public class Game implements Runnable{
             deltaF += (currentTime - previousTime) / timePerFrame;
             previousTime = currentTime;
 
+            //TODO: Raiyan
+            // Create usecase for:
+            //      PauseGame
 
             if (deltaU >= 1){
                 // Only update if the game is not paused
-                if (!gamePanel.getIsPaused()){
+                if (!getIsPaused()){
                     update();
                     gameTimerSeconds = System.currentTimeMillis() - pauseTime;
                 }else{
@@ -78,10 +121,9 @@ public class Game implements Runnable{
 
             // This is for the FPS check and repaint
             if (deltaF >= 1){
-                if (!gamePanel.getIsPaused()){
-                    gamePanel.repaint();
+                if (!getIsPaused()){
+                    reDraw();
                 }
-
                 frames++;
                 deltaF--;
             }

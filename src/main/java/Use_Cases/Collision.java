@@ -39,7 +39,6 @@ public class Collision {
         boolean helper = true;
         Rectangle hitBox = new Rectangle(currX + changeX, currY + changeY, width, height);
         Rectangle[] wallsToCheck = this.wallLayout;
-
         int i = 0;
         while (helper & move) {
             if (wallsToCheck[i] != null) {

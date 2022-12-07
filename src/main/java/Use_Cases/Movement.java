@@ -7,8 +7,8 @@ public abstract class Movement {
 
     public abstract void updateX();
     public abstract void updateY();
-    public abstract void setVelX(int x);
-    public abstract void setVelY(int y);
-    public abstract void setMoving ();
-
+    public abstract int getVisualX();
+    public abstract int getVisualY();
+    public abstract int getHelperX();
+    public abstract int getHelperY();
 }

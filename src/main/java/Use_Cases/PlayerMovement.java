@@ -28,17 +28,14 @@ public class PlayerMovement extends Movement{
         this.currLocationY += velY;
         this.helperY -= velY;
     }
-    @Override
     public void setVelX(int x) {
         this.velX = x;
         this.setMoving();
     }
-    @Override
     public void setVelY(int y) {
         this.velY = y;
         this.setMoving();
     }
-    @Override
     public void setMoving () {
         if (velX != 0 || velY != 0) {
             moving = true;

@@ -1,7 +1,7 @@
 package Use_Cases;
 
 public class EnemyMovement extends Movement{
-    private int spawnX, spawnY;
+    private static int spawnX, spawnY;
     private int xEnemy, yEnemy;
     public EnemyMovement(int xEnemy, int yEnemy, int spawnX, int spawnY) {
         this.spawnY = spawnY;
@@ -29,13 +29,11 @@ public class EnemyMovement extends Movement{
         return yEnemy;
     }
 
-    @Override
-    public int getHelperX() {
+    public static int getHelperX() {
         return spawnX;
     }
 
-    @Override
-    public int getHelperY() {
+    public static int getHelperY() {
         return spawnY;
     }
 }

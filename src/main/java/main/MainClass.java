@@ -1,6 +1,7 @@
 package main;
 
 import Frameworks.GamePanel;
+import Frameworks.MonsterAnimationImport;
 import Frameworks.PlayerAnimationImport;
 import Interface_Adapters.*;
 import Use_Cases.*;
@@ -30,17 +31,22 @@ public class MainClass {
         PlayerMovementInputBoundary playerMovementInteractor = new PlayerMovementInteractor(playerMovement);
         PlayerMovementController playerMovementController = new PlayerMovementController(playerMovementInteractor, collisionController);
 
-        //Player attack
-        PlayerAttack playerAttack = new PlayerAttack();
-        MeleeAttack meleeAttack = new MeleeAttack();
-        RangedAttack rangedAttack = new RangedAttack();
+        //Player & Monster attack/hit
+        MonsterAnimationImport monsterAnimationImport = new MonsterAnimationImport();
+        PlayerAttack playerAttack = new PlayerAttack(playerAnimationImport.getPlayerAttackHitAnimations());
+        MeleeAttack meleeAttack = new MeleeAttack(monsterAnimationImport.getPlayerAttackHitAnimations());
+        RangedAttack rangedAttack = new RangedAttack(monsterAnimationImport.getPlayerAttackHitAnimations());
         MeleeAttack[] meleeAttacks = new MeleeAttack[1]; // TODO: change to arrays from Enemy Manager class
         meleeAttacks[0] = meleeAttack;
         RangedAttack[] rangedAttacks = new RangedAttack[1];
         rangedAttacks[0] = rangedAttack;
         PlayerAttackInputBoundary playerAttackInputBoundary = new PlayerAttackInteractor(playerAttack,
                 meleeAttacks, rangedAttacks);
-        PlayerAttackController playerAttackController = new PlayerAttackController(playerAttackInputBoundary, playerMovementController);
+        MonsterAttackInputBoundary monsterAttackInputBoundary = new MonsterAttackInteractor(meleeAttacks, rangedAttacks,
+                playerAttack);
+        AttackController attackController = new AttackController(playerAttackInputBoundary, monsterAttackInputBoundary);
+
+
 
         GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter, playerMovementController);
 
@@ -53,7 +59,7 @@ public class MainClass {
 
 
 
-        screenModel.setUp(pauseGameController, showMapController, playerMovementController, playerAttackController);
+        screenModel.setUp(pauseGameController, showMapController, playerMovementController, attackController);
         gameManager.start();
     }
 }

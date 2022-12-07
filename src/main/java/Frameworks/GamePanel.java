@@ -102,7 +102,8 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         this.playerMovementController = playerMovementController;
 
         // TODO: Pass in KeyboardInputController instead of GamePanel
-        addKeyListener(new KeyboardInputs(pauseGameController, showMapController, showStatsController));
+        addKeyListener(new KeyboardInputs(pauseGameController, showMapController,
+                showStatsController, playerMovementController));
         addMouseListener(new MouseInputs(this));
     }
 
@@ -255,7 +256,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
                 g.fillRect(72, 156, playerStats[STRENGTH] * 10, 6);
                 g.setColor( new Color(0, 255, 255));
                 // TODO: Once speed is implemented as a parameter, switch 2 for playerStats[SPEED]
-                g.fillRect(72, 189, 2 * 10, 6);
+                g.fillRect(72, 189, playerStats[SPEED] * 10, 6);
             }
         }
     }

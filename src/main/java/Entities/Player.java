@@ -19,11 +19,6 @@ public class Player {
     public int getAttack() { return attack; }
 
     /**
-     * Returns the speed of the player
-     */
-//    public int getSpeed() { return velX + velY; }
-
-    /**
      * Heals the player
      * @param amount How much health we regen
      */

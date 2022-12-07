@@ -1,7 +1,7 @@
 package Interface_Adapters;
 
+import java.lang.Math.*;
 import Use_Cases.PlayerMovementInputBoundary;
-
 
 import java.awt.image.BufferedImage;
 
@@ -50,7 +50,13 @@ public class PlayerMovementController {
     public void playerMoveY(int velY) {
         this.saveVelY = velY;
         playerMovementInputBoundary.setMovingY(velY);
+    }
 
+    /**
+     * @return The player's speed
+     */
+    public int getCurrentVelocity() {
+        return Math.abs(saveVelX) + Math.abs(saveVelY);
     }
 
 }

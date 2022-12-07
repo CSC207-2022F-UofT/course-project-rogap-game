@@ -12,6 +12,6 @@ public class PauseGameController {
     }
 
     public void pause(){
-        this.gameState.pause(gameManagerRef);
+        gameState.pause(gameManagerRef);
     }
 }

@@ -1,20 +1,38 @@
 package Entities;
 
 public class Player {
-    // VARIABLES FOR SHOP SYSTEM
-    private int gold = 100;
-    private int health = 10;
-    public int getHealth() {
-        return this.health;
-    }
 
-    public void addHealth(int amount){
-        System.out.println("Health Before: " + getHealth());
-        this.health += amount;
-        if (getHealth() > 100){
-            this.health = 100;
+    final private int STARTING_DMG = 10;
+    final private int STARTING_HP = 100;
+    private int attack = STARTING_DMG;
+    
+    // VARIABLES FOR SHOP SYSTEM
+    private int maxHealth = STARTING_HP;
+    private int currentHealth = maxHealth;
+
+    public int getMaxHealth() { return this.maxHealth; }
+    public int getCurrentHealth() {
+        return this.currentHealth;
+
+    }
+    public int getAttack() { return attack; }
+
+    /**
+     * Returns the speed of the player
+     */
+//    public int getSpeed() { return velX + velY; }
+
+    /**
+     * Heals the player
+     * @param amount How much health we regen
+     */
+    public void regenHealth(int amount){
+        System.out.println("Health Before: " + getCurrentHealth());
+        this.currentHealth += amount;
+        if (getCurrentHealth() > 100){
+            this.currentHealth = 100;
         }
-        System.out.println("Health After: " + getHealth());
+        System.out.println("Health After: " + getCurrentHealth());
     }
 
     public int getGold(){

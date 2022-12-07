@@ -4,7 +4,9 @@ import Frameworks.GameWindow;
 import Frameworks.PlayerAnimationImport;
 import Use_Cases.GameLoopInteractorReference;
 
-//TODO: THIS calls various usecases and uses presenter to update view
+/**
+ * Manager class that calls various use cases and uses presenter to update view
+ */
 public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReference {
 
     private Thread gameThread;
@@ -20,6 +22,7 @@ public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReferenc
     private static boolean isPaused = false;
 
     private static boolean showMinimap = false;
+    private static boolean showStats = false;
 
     // Dependency Injection
     GameScreenPresenter gameScreenPresenter;
@@ -80,6 +83,12 @@ public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReferenc
     }
     public void changeMinimapVisible(){
         showMinimap = !showMinimap;
+    }
+    public static boolean getStatsVisible(){
+        return showStats;
+    }
+    public void changeStatsVisible() {
+        showStats = !showStats;
     }
 
     // Main game loop

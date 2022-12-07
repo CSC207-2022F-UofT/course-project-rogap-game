@@ -2,6 +2,7 @@ package Inputs;
 import Interface_Adapters.PauseGameController;
 import Interface_Adapters.PlayerMovementController;
 import Interface_Adapters.ShowMapController;
+import Interface_Adapters.ShowStatsController;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -16,10 +17,13 @@ public class KeyboardInputs implements KeyListener {
     PauseGameController pauseGameController;
     ShowMapController showMapController;
     PlayerMovementController playerMovementController;
+    ShowStatsController showStatsController;
 
-    public KeyboardInputs(PauseGameController pauseGameController, ShowMapController showMapController, PlayerMovementController playerMovementController){
+    public KeyboardInputs(PauseGameController pauseGameController, ShowMapController showMapController,
+                          ShowStatsController showStatsController, PlayerMovementController playerMovementController){
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
+        this.showStatsController = showStatsController;
         this.playerMovementController = playerMovementController;
     }
 
@@ -44,24 +48,15 @@ public class KeyboardInputs implements KeyListener {
                 playerMovementController.playerMoveX(2);
             }
 
-            //TODO: Raiyan
-            //  Don't directly talk to gamePanel.
-            //  Implement CLEAN way of doing this process.
-            case KeyEvent.VK_M ->{
-                // TODO: Change minimap setting
-//                gamePanel.setMinimapVisible(!gamePanel.getMinimapVisible());
-//                gamePanel.repaint();
+            case KeyEvent.VK_M -> {
                 showMapController.updateMap();
             }
             case KeyEvent.VK_ESCAPE -> {
-                // Use Controller to change stuff.
-//                gamePanel.setIsPaused(!gamePanel.getIsPaused());
-//                gamePanel.repaint();
                 pauseGameController.pause();
             }
-//            case KeyEvent.VK_O-> {
-//                gamePanel.changeStatsBarVisible();
-//            }
+            case KeyEvent.VK_O-> {
+                showStatsController.showStats();
+            }
 
         }
     }

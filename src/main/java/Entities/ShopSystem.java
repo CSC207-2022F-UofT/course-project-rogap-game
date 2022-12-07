@@ -40,7 +40,7 @@ public class ShopSystem{
         // TODO: More on items goes here
         if (player.getGold() >= itemList.get(itemName)){
             player.removeGold(itemList.get(itemName));
-            player.addHealth(20);
+            player.regenHealth(20);
             itemList.remove(itemName);
 
             System.out.println("Thank you for your purchase!");

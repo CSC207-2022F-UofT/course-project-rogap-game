@@ -1,5 +1,6 @@
 package main;
 
+import Entities.Player;
 import Frameworks.GamePanel;
 import Frameworks.PlayerAnimationImport;
 import Interface_Adapters.*;
@@ -8,17 +9,15 @@ import Use_Cases.*;
 public class MainClass {
     public static void main(String[] args) {
 
-/*
-        Scanner myObj = new Scanner(System.in);
-        System.out.println("Enter username");
-
-        String userName = myObj.nextLine();  // Read user input
-        System.out.println("Welcome " + userName + "!");  // Output user input
-*/
+//        Scanner myObj = new Scanner(System.in);
+//        System.out.println("Enter username");
+//
+//        String userName = myObj.nextLine();  // Read user input
+//        System.out.println("Welcome " + userName + "!");  // Output user input
 
         UpdateScreenBoundary screenModel = new GamePanel();
         GameScreenPresenter presenter = new GameScreenPresenter(screenModel);
-        //GameWindow application = new GameWindow(presenter);
+        // GameWindow application = new GameWindow(presenter);
 
         //Creating player sprites in blue layer, maybe controller needed?
         PlayerAnimationImport playerAnimationImport = new PlayerAnimationImport();
@@ -32,16 +31,22 @@ public class MainClass {
 
         GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter, playerMovementController);
 
+        // Stat Bars Use Case
+        Player player = new Player();
+        StatBarsInputBoundary statBarsInputBoundary = new StatBarsInteractor(player);
+        StatBarsPresenterBoundary statBarsPresenterBoundary = new StatBarsPresenter(statBarsInputBoundary);
+
+        // Display Stats Use Case
+        ShowStatsInputBoundary showStatsInputBoundary = new ShowStatsInteractor();
+        ShowStatsController showStatsController = new ShowStatsController(gameManager, showStatsInputBoundary);
+
         PauseGameInputBoundary pauseGameInteractor = new PauseGameInteractor();
         ShowMapInputBoundary showMapInteractor = new ShowMapInteractor();
 
         PauseGameController pauseGameController = new PauseGameController(pauseGameInteractor, gameManager);
         ShowMapController showMapController = new ShowMapController(showMapInteractor, gameManager);
 
-
-
-
-        screenModel.setUp(pauseGameController, showMapController, playerMovementController);
+        screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary, showStatsController, playerMovementController);
         gameManager.start();
     }
 }

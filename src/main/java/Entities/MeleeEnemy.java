@@ -1,6 +1,6 @@
 package Entities;
 
-import main.GamePanel;
+import Frameworks.GamePanel;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,16 +20,17 @@ public class MeleeEnemy {
         this.xEnemy = x + this.spawnX;
         this.yEnemy = y + this.spawnY;
     }
-    public void update() {
+/*    public void update() {
         if (!getHitBox().intersects(gamePanel.player.getHitBox())){
             enemyMovement();
         }
-    }
+    }*/
     public Rectangle getHitBox() {
         hitBox = new Rectangle(spawnX - 1280 + 4, spawnY - 720 + 4, 24, 24);
         return hitBox;
     }
 
+/*
     private void enemyMovement() { //In order to update current enemy location must update absXenemy.
         distance = Math.sqrt((Math.pow((gamePanel.player.getAbsXPlayer() - xEnemy - spawnX + 1896),2) + Math.pow((gamePanel.player.getAbsYPlayer() - yEnemy -spawnY + 1046), 2)));
         if (distance < 600 & distance > 110) {
@@ -51,11 +52,9 @@ public class MeleeEnemy {
             //TODO: make enemies move randomly while player is not close
         }
     }
+*/
 
-    private ArrayList currMoveCollision(int x, int y) {
-        return gamePanel.player.getWallCollision().moveAbleWall(xEnemy + 4, yEnemy + 4,
-                x, y, 24, 24);
-    }
+
     private int enemyMoveHelper(int c, int targetC) {
         if (c < targetC) {
             return -1;

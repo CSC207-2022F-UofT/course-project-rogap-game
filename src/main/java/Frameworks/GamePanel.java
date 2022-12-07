@@ -4,10 +4,7 @@ import Entities.MeleeEnemy;
 import Entities.Player;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
-import Interface_Adapters.GameLoopManagerLoop;
-import Interface_Adapters.PauseGameController;
-import Interface_Adapters.ShowMapController;
-import Interface_Adapters.UpdateScreenBoundary;
+import Interface_Adapters.*;
 
 //TODO: Kevin
 //  - This can't be here
@@ -20,6 +17,10 @@ import java.util.ArrayList;
 
 
 public class GamePanel extends JPanel implements UpdateScreenBoundary {
+    final int MAX_HEALTH = 0;
+    final int CURRENT_HEALTH = 1;
+    final int STRENGTH = 2;
+    final int SPEED = 3;
     //TODO: Abu
     //  - Can't directly have access to Player
     public Player player;
@@ -28,21 +29,29 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     //  - Implement shop system CLEAN way
     //  - Can't have access to shop directly
     private ShopSystem gameShop;
-
     private JLabel timerGui;
+
+    StatBarsPresenterBoundary statBarsPresenterBoundary;
+
     private int xDelta = -2546, yDelta = -2132;
-    private boolean showStatBar = false;
+
+    private boolean showStatBar = true;
+
     private ArrayList<Leaf> leafList = new ArrayList<>();
 
+    //TODO: Raiyan
+    //  - Import these images separately
     private BufferedImage map;
-    private BufferedImage minimapCursor;
     private BufferedImage minimap;
+    private BufferedImage minimapCursor;
     private BufferedImage pauseIcon;
     private BufferedImage leaf;
     private BufferedImage bushes;
 
     // Variables for shop system GUI
     private BufferedImage shopKeeper;
+    private BufferedImage healthPotion;
+
     private BufferedImage statsBar;
     private BufferedImage healthBar;
     private BufferedImage timerPill;
@@ -50,9 +59,6 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 
     //TODO: Kevin
     //  - import the potion images
-    private BufferedImage healthPotion;
-
-
 
     //TODO: Abu, Khushil
     //  -Move enemyList to Enemy Manager
@@ -63,6 +69,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     // THIS IS GOOD STUFF
     PauseGameController pauseGameController;
     ShowMapController showMapController;
+    ShowStatsController showStatsController;
 
     public GamePanel(){
         // Adding leaves
@@ -72,12 +79,11 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         importImage();
         this.setBackground(new Color(0, 0, 0));
 
-
         // Initializing methods
         //TODO: Khushil
         //  - Do these in EnemyManager Class
         enemyList = new MeleeEnemy[2];
-        player = new Player(this);
+        player = new Player();
         enemyOne = new MeleeEnemy(this, xDelta, yDelta, 3262, 3308);
         enemyTwo = new MeleeEnemy(this, xDelta, yDelta, 4000, 4000);
         enemyList[0] = enemyOne;
@@ -88,14 +94,18 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         //  - Create the shop using CLEAN arch
         //  - Can't do this in GamePanel
         gameShop = new ShopSystem(player);
+
     }
 
-    public void setUp(PauseGameController pauseGameController, ShowMapController showMapController){
+    public void setUp(PauseGameController pauseGameController, ShowMapController showMapController,
+                      StatBarsPresenterBoundary statBarsPresenterBoundary, ShowStatsController showStatsController){
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
+        this.showStatsController = showStatsController;
+        this.statBarsPresenterBoundary = statBarsPresenterBoundary;
 
         // TODO: Pass in KeyboardInputController instead of GamePanel
-        addKeyListener(new KeyboardInputs(pauseGameController, showMapController));
+        addKeyListener(new KeyboardInputs(pauseGameController, showMapController, showStatsController));
         addMouseListener(new MouseInputs(this));
     }
 
@@ -124,6 +134,8 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         return this.enemyList;
     }
 
+    // TODO: Raiyan
+    //  - Move this entire class to a separate class to import images
     private void importImage() {
         BufferedImage[] imageList = LoadLevelImage.importImage();
         map = imageList[0];
@@ -155,13 +167,6 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     }
     public void changeYDelta(int y) {this.yDelta += y; this.enemyOne.changeYEnemy(y); this.enemyTwo.changeYEnemy(y);
     }
-
-
-    public void changeStatsBarVisible(){
-        this.showStatBar = !this.showStatBar;
-    }
-
-
 
     public void animateLeaf(Graphics g, ArrayList<Leaf> alist){
         for (Leaf curr : alist ){
@@ -205,13 +210,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         changeTimerGui();
 
         //HealthBar and Stats stuff go here
-        if (!GameLoopManagerLoop.getMinimapVisible() && !GameLoopManagerLoop.getIsPaused()){
-            g.drawImage(healthBar, 17, 14, null);
-            g.drawImage(buffbar, 495, 619, null);
-            if (showStatBar){
-                g.drawImage(statsBar, 9, 109, null);
-            }
-        }
+        drawStats(g);
 
         animateLeaf(g, leafList);
 
@@ -233,6 +232,32 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         //  - Don't directly call a method from gameShop.
         gameShop.checkLocation();
 
+    }
+
+    /**
+     * Draw the Health Bar and the Stats Menu on the screen
+     * @param g Graphics object used to draw
+     */
+    private void drawStats(Graphics g) {
+        if (!GameLoopManagerLoop.getMinimapVisible() && !GameLoopManagerLoop.getIsPaused()) {
+            int[] playerStats = statBarsPresenterBoundary.getStats();
+            // Drawing the outside of the health bar
+            g.drawImage(healthBar, 17, 14, null);
+            // Drawing the health bar
+            g.setColor(new Color(225, 50, 50));
+            g.fillRoundRect(95, 43, 275 * playerStats[CURRENT_HEALTH] / playerStats[MAX_HEALTH],
+                    30, 27, 27);
+            // Drawing the stats menu
+            g.drawImage(buffbar, 495, 619, null);
+            if (GameLoopManagerLoop.getStatsVisible()) {
+                g.drawImage(statsBar, 9, 109, null);
+                g.setColor( new Color(255, 165, 0));
+                g.fillRect(72, 156, playerStats[STRENGTH] * 10, 6);
+                g.setColor( new Color(0, 255, 255));
+                // TODO: Once speed is implemented as a parameter, switch 2 for playerStats[SPEED]
+                g.fillRect(72, 189, 2 * 10, 6);
+            }
+        }
     }
 
 }

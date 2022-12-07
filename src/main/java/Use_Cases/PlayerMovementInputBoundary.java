@@ -3,10 +3,18 @@ package Use_Cases;
 import java.awt.image.BufferedImage;
 
 public interface PlayerMovementInputBoundary {
-    void setMovingX(int velX);
-    void setMovingY(int velY);
+    void rightActivator();
+    void leftActivator();
+    void upActivator();
+    void downActivator();
+    void rightDeactivator();
+    void leftDeactivator();
+    void upDeactivator();
+    void downDeactivator();
     int getHelperX();
     int getHelperY();
+    int getVelX();
+    int getVelY();
     int getVisualX();
     int getVisualY();
     BufferedImage getCurrAnimation();

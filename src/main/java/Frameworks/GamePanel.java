@@ -102,7 +102,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         this.playerMovementController = playerMovementController;
 
         // TODO: Pass in KeyboardInputController instead of GamePanel
-        addKeyListener(new KeyboardInputs(pauseGameController, showMapController, showStatsController));
+        addKeyListener(new KeyboardInputs(pauseGameController, showMapController, showStatsController, playerMovementController));
         addMouseListener(new MouseInputs(this));
     }
 

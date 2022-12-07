@@ -2,6 +2,7 @@ package Entities;
 
 public class Player {
 
+    public int gold = 100;
     final private int STARTING_DMG = 10;
     final private int STARTING_HP = 100;
     private int attack = STARTING_DMG;
@@ -13,14 +14,13 @@ public class Player {
     public int getMaxHealth() { return this.maxHealth; }
     public int getCurrentHealth() {
         return this.currentHealth;
-
     }
     public int getAttack() { return attack; }
 
     /**
      * Returns the speed of the player
      */
-//    public int getSpeed() { return velX + velY; }
+/*    public int getSpeed() { return velX + velY; }*/
 
     /**
      * Heals the player

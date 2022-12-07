@@ -8,11 +8,12 @@ public class PlayerMovement extends Movement{
     private int aniTick, aniIndex, aniSpeed= 10;
     private int playerAction = 0;
     private boolean moving = false;
-
+    private int speed = 2;
     private int idleDir = 0;
 
     private int currLocationX = -2546, currLocationY = -2132;
     private int helperX = 1882, helperY = 1738;
+    private boolean right, left, up, down;
     private BufferedImage[][] animations;
     public PlayerMovement(BufferedImage[][] animations) {
         this.animations = animations;
@@ -20,24 +21,77 @@ public class PlayerMovement extends Movement{
 
     @Override
     public void updateX() {
-        this.currLocationX += velX;
-        this.helperX -= velX;
+        if (left) {
+            this.currLocationX += speed;
+            this.helperX -= speed;
+        } else if (right) {
+            this.currLocationX += -speed;
+            this.helperX -= -speed;
+        }
     }
     @Override
     public void updateY() {
-        this.currLocationY += velY;
-        this.helperY -= velY;
+        if (up) {
+            this.currLocationY += speed;
+            this.helperY -= speed;
+        } else if (down) {
+            this.currLocationY += -speed;
+            this.helperY -= -speed;
+        }
     }
-    public void setVelX(int x) {
-        this.velX = x;
+    //Potential bug fixes
+    public int getVelX () {
+        if (left) {
+            return speed;
+        } else if (right) {
+            return -speed;
+        } else {
+            return 0;
+        }
+    }
+    public int getVelY () {
+        if (down) {
+            return -speed;
+        } else if (up) {
+            return speed;
+        } else {
+            return 0;
+        }
+    }
+    public void rightActivator() {
+        this.right = true;
         this.setMoving();
     }
-    public void setVelY(int y) {
-        this.velY = y;
+    public void leftActivator() {
+        this.left = true;
+        this.setMoving();
+    }
+    public void upActivator() {
+        this.up = true;
+        this.setMoving();
+    }
+    public void downActivator() {
+        this.down = true;
+        this.setMoving();
+    }
+    public void rightDeactivator() {
+        this.right = false;
+        this.setMoving();
+    }
+    public void leftDeactivator() {
+        this.left = false;
+        this.setMoving();
+    }
+    public void upDeactivator() {
+        this.up = false;
+        this.setMoving();
+    }
+    public void downDeactivator() {
+        this.down = false;
         this.setMoving();
     }
     public void setMoving () {
-        if (velX != 0 || velY != 0) {
+        if (right || left || up || down) {
             moving = true;
         } else {moving = false;}
     }
@@ -58,9 +112,9 @@ public class PlayerMovement extends Movement{
 
     private void setAnimation() {
         if (moving) {
-            if ((velX == -2 & velY == -2) || (velX == -2 & velY == 2) || (velX == -2)) { //Left movement
+            if ((right & up) || (right & down) || (right)) {
                 playerAction = 3;
-            } else if ((velX == 2 & velY == -2) || (velX == 2 & velY == 2)|| (velX == 2)) { //Right movement
+            } else if ((left & up) || (left & down)|| (left)) {
                 playerAction = 2;
             } //Needs testing for up and down
         } else {

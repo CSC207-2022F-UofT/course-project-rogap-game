@@ -10,13 +10,49 @@ public class PlayerMovementInteractor implements PlayerMovementInputBoundary {
     }
 
     @Override
-    public void setMovingX(int velX) {
-        playerMovement.setVelX(velX);
+    public void rightActivator() {
+        playerMovement.rightActivator();
+        playerMovement.leftDeactivator();
     }
+
     @Override
-    public void setMovingY(int velY) {
-        playerMovement.setVelY(velY);
+    public void leftActivator() {
+        playerMovement.leftActivator();
+        playerMovement.rightDeactivator();
     }
+
+    @Override
+    public void upActivator() {
+        playerMovement.upActivator();
+        playerMovement.downDeactivator();
+    }
+
+    @Override
+    public void downActivator() {
+        playerMovement.downActivator();
+        playerMovement.upDeactivator();
+    }
+
+    @Override
+    public void rightDeactivator() {
+        playerMovement.rightDeactivator();
+    }
+
+    @Override
+    public void leftDeactivator() {
+        playerMovement.leftDeactivator();
+    }
+
+    @Override
+    public void upDeactivator() {
+        playerMovement.upDeactivator();
+    }
+
+    @Override
+    public void downDeactivator() {
+        playerMovement.downDeactivator();
+    }
+
     @Override
     public int getVisualX() {
         return this.playerMovement.getVisualX();
@@ -28,6 +64,14 @@ public class PlayerMovementInteractor implements PlayerMovementInputBoundary {
     @Override
     public int getHelperX() {return this.playerMovement.getHelperX();}
     public int getHelperY() {return this.playerMovement.getHelperY();}
+    @Override
+    public int getVelX() {
+        return playerMovement.getVelX();
+    }
+    @Override
+    public int getVelY() {
+        return playerMovement.getVelY();
+    }
     @Override
     public BufferedImage getCurrAnimation() {
 
@@ -41,11 +85,9 @@ public class PlayerMovementInteractor implements PlayerMovementInputBoundary {
     public void updateY() {
         playerMovement.updateY();
     }
-
     @Override
     public void setIdleDirection(int dir) {
         playerMovement.setIdleDirection(dir);
     }
-
 
 }

@@ -19,7 +19,6 @@ public class PlayerMovement extends Movement{
         this.animations = animations;
     }
 
-    @Override
     public void updateX() {
         if (left) {
             this.currLocationX += speed;
@@ -29,7 +28,7 @@ public class PlayerMovement extends Movement{
             this.helperX -= -speed;
         }
     }
-    @Override
+
     public void updateY() {
         if (up) {
             this.currLocationY += speed;

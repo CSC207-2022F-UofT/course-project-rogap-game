@@ -14,15 +14,20 @@ public class PlayerMovementController {
         this.collisionController = collisionController;
     }
     public void update() {
-        if (collisionController.movable(getVisualX(),getVisualY(), 628, 338,
-                -playerMovementInputBoundary.getVelX(), 0, 24, 24)) {
+        if (getMoveableWall(getVisualX(), getVisualY(), -playerMovementInputBoundary.getVelX(), 0)) {
             playerMovementInputBoundary.updateX();
         }
-        if (collisionController.movable(getVisualX(),getVisualY(), 628, 338, 0,
-                -playerMovementInputBoundary.getVelY(), 24, 24)) {
+        if (getMoveableWall(getVisualX(), getVisualY(), 0, -playerMovementInputBoundary.getVelY())) {
             playerMovementInputBoundary.updateY();
         }
+
     }
+    public boolean getMoveableWall(int visualX, int visualY, int changeX, int changeY) {
+        return collisionController.movable(visualX, visualY, 628, 338, changeX, changeY, 24, 24);
+    }
+/*    public boolean getMoveableEnemies() {
+
+    }*/
     public int getVisualX() {
         return playerMovementInputBoundary.getVisualX();
     }

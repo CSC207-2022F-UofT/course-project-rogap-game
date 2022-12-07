@@ -13,4 +13,5 @@ public class CollisionController {
         collisionInputBoundary.updateWalls(visualX, visualY);
         return collisionInputBoundary.movable(currX, currY, changeX, changeY, width, height);
     }
+/*    public boolean moveAbleEnemies() {}*/
 }

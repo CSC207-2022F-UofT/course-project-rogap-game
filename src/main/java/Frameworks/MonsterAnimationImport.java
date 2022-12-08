@@ -5,13 +5,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-// TODO!!!!!!! update with new sprites
+// TODO!!!!!!! update with new spritesss
 public class MonsterAnimationImport {
     private BufferedImage[][] animations;
     private BufferedImage[] sprites = new BufferedImage[4];
     // attack animations
     private BufferedImage[][] attackHitAnimations;
-    private BufferedImage[] attackHitSprites = new BufferedImage[4];
+    private BufferedImage[] attackHitSprites = new BufferedImage[2];
 
     private void importImage() {
         InputStream lI = getClass().getResourceAsStream("/leftIdle.png");
@@ -59,14 +59,14 @@ public class MonsterAnimationImport {
             }
         }
     }
-    public BufferedImage[][] getPlayerAnimations() {
+    public BufferedImage[][] getMonsterAnimations() {
         importImage();
         loadAnimation();
         return animations;
     }
 
     private void loadAttackHitAnimation() {
-        attackHitAnimations = new BufferedImage[2][6];
+        attackHitAnimations = new BufferedImage[2][5];
         for (int j = 0; j < attackHitAnimations.length; j ++) {
             for (int i = 0; i < attackHitAnimations[j].length; i++) {
                 attackHitAnimations[j][i] = attackHitSprites[j].getSubimage(i*32, 0, 32, 32);

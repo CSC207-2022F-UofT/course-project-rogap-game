@@ -3,6 +3,7 @@ package Interface_Adapters;
 import Use_Cases.MonsterAttackInputBoundary;
 import Use_Cases.PlayerAttackInputBoundary;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class AttackController {
@@ -33,6 +34,10 @@ public class AttackController {
 
     public BufferedImage getRangedAttackHitAnimation() {
         return monsterAttackInputBoundary.getRangedAttackHitAnimation();
+    }
+
+    public void drawPlayerHitRadius(Graphics g) {
+        playerAttackInputBoundary.drawPlayerHitRadius(g);
     }
 
 }

@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 
 public class MeleeAttack extends MonsterAttack{
 
+    private Ellipse2D.Float attackRadius;
+
     public MeleeAttack(BufferedImage[][] monsterAttackHitAnimations) {
         super(monsterAttackHitAnimations);
     }

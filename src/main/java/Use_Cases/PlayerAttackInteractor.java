@@ -1,5 +1,6 @@
 package Use_Cases;
 
+import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
@@ -48,6 +49,11 @@ public class PlayerAttackInteractor implements PlayerAttackInputBoundary{
     @Override
     public BufferedImage getCurrAttackHitAnimation() {
         return playerAttack.getCurrentImage();
+    }
+
+    @Override
+    public void drawPlayerHitRadius(Graphics g) {
+        playerAttack.drawAttackRadius(g);
     }
 
 }

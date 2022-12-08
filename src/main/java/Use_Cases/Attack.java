@@ -1,14 +1,15 @@
 package Use_Cases;
 
+import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
 public abstract class Attack {
-    /**
-     * Initializes the creature's hit radius centered at the creature. The hit radius is of type Ellipse2D.Float and
-     * outlines the shape of the creature.
-     */
-    public abstract void initHitRadius();
+//    /**
+//     * Initializes the creature's hit radius centered at the creature. The hit radius is of type Ellipse2D.Float and
+//     * outlines the shape of the creature.
+//     */
+//    public abstract void initHitRadius();
 
     /**
      * Returns the hit radius of the creature.
@@ -16,15 +17,15 @@ public abstract class Attack {
      */
     public abstract Ellipse2D.Float getHitRadius();
 
-    /**
-     * Updates the hit radius position based on the creature's current position.
-     */
-    public abstract void updateHitRadius();
+//    /**
+//     * Updates the hit radius position based on the creature's current position.
+//     */
+//    public abstract void updateHitRadius();
 
-    /**
-     * Initializes the creature's attack radius centered at the creature.
-     */
-    public abstract void initAttackRadius();
+//    /**
+//     * Initializes the creature's attack radius centered at the creature.
+//     */
+//    public abstract void initAttackRadius();
 
     /**
      * Returns the creature's attack radius.
@@ -32,10 +33,10 @@ public abstract class Attack {
      */
     public abstract Ellipse2D.Float getAttackRadius();
 
-    /**
-     * Updates the attack radius position based on the creature's hit radius position.
-     */
-    public abstract void updateAttackRadius();
+//    /**
+//     * Updates the attack radius position based on the creature's hit radius position.
+//     */
+//    public abstract void updateAttackRadius();
 
     public abstract void setAttackHitAnimation();
 
@@ -45,7 +46,7 @@ public abstract class Attack {
      * - Attack right -> case 1
      * - Hit left -> case 2
      * - Hit right -> case 3
-     * @param creatureAction
+     * @param creatureAction int
      * @return int spriteAmount
      */
     public abstract int getSpriteAmount(int creatureAction);
@@ -60,5 +61,12 @@ public abstract class Attack {
      * @return BufferedImage currentImage
      */
     public abstract BufferedImage getCurrentImage();
+
+    /**
+     * Draws creature's attack radius on the gameplay screen. This method is only used for debugging the attack methods.
+     * For actual gameplay, this method is not used.
+     * @param g
+     */
+    public abstract void drawAttackRadius(Graphics g);
 
 }

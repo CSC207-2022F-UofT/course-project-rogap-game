@@ -215,9 +215,9 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         // player VISUAL goes here
         //TODO: Abu - Access player through an interface using CLEAN way
         g.drawImage(playerMovementController.getCurrAnimation(), 616, 326, 48,48, null);
-        g.drawImage(attackController.getPlayerAttackHitAnimation(), 616, 326, 48, 48, null);
-        g.drawImage(attackController.getMeleeAttackHitAnimation(), 616, 326, 48, 48, null);
-        g.drawImage(attackController.getRangedAttackHitAnimation(), 616, 326, 48, 48, null);
+//        g.drawImage(attackController.getPlayerAttackHitAnimation(), 616, 326, 48, 48, null);
+//        g.drawImage(attackController.getMeleeAttackHitAnimation(), 616, 326, 48, 48, null);
+//        g.drawImage(attackController.getRangedAttackHitAnimation(), 616, 326, 48, 48, null);
 
         //Enemy visual goes here
         //TODO: Abu - Access player and enemy through an interface using CLEAN way
@@ -276,6 +276,9 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 /*
         gameShop.checkLocation();
 */
+        // for debugginh attack methods!!!
+//        attackController.drawPlayerHitRadius(g);
+
 
     }
 

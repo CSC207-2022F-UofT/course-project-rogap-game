@@ -1,42 +1,41 @@
 package Use_Cases;
 
+import Entities.MeleeEnemy;
+
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class EnemyMovement extends Movement{
-    private int spawnX, spawnY;
-    private int xEnemy, yEnemy;
-    private double distance;
-    private Rectangle hitBox;
-    private int velX = 0, velY = 0;
-    public EnemyMovement(int xEnemy, int yEnemy, int spawnX, int spawnY) {
-        this.spawnY = spawnY;
-        this.spawnX = spawnX;
-        this.xEnemy = xEnemy;
-        this.yEnemy = yEnemy;
+    private MeleeEnemy meleeEnemy;
+    public EnemyMovement(MeleeEnemy meleeEnemy) {
+        this.meleeEnemy = meleeEnemy;
     }
     public void updateX(int playerX) {
-
     }
     public void updateY(int playerY) {
-
     }
 
     public int getVelX(int playerX) {
-        velX = enemyMoveHelper(xEnemy - 616 - 1280,playerX - spawnX);
+        int velX;
+        velX = enemyMoveHelper(meleeEnemy.getVisualX() - 616 - 1280,playerX - meleeEnemy.getHelperX());
         return velX;
     }
     public int getVelY(int playerY) {
-        velY = enemyMoveHelper(yEnemy - 326 - 720,playerY - spawnY);
+        int velY;
+        velY = enemyMoveHelper(meleeEnemy.getVisualY()- 326 - 720,playerY - meleeEnemy.getHelperY());
         return velY;
     }
     public void changeX(int velX) {
-        xEnemy -= velX;
-        spawnX -= velX;
+        meleeEnemy.setHelperX(velX);
+        meleeEnemy.setVisualX(velX);
     }
     public void changeY(int velY) {
-        yEnemy -= velY;
-        spawnY -= velY;
+        meleeEnemy.setHelperY(velY);
+        meleeEnemy.setVisualY(velY);
+    }
+    public Rectangle getHitBox() {
+        return meleeEnemy.getHitBox();
     }
     private int enemyMoveHelper(int c, int targetC) {
         if (c < targetC) {
@@ -48,31 +47,32 @@ public class EnemyMovement extends Movement{
         }
     }
     public double getDistance(int targetX, int targetY) {
-        return distance = Math.sqrt((Math.pow((targetX - xEnemy - spawnX + 1896),2)
-                + Math.pow((targetY - yEnemy - spawnY + 1046), 2)));
+        double distance;
+        return distance = Math.sqrt((Math.pow((targetX - meleeEnemy.getVisualX() - meleeEnemy.getHelperX() + 1896),2)
+                + Math.pow((targetY - meleeEnemy.getVisualY() - meleeEnemy.getHelperY() + 1046), 2)));
     }
-    public Rectangle getHitBox() {
-        hitBox = new Rectangle(spawnX - 1280 + 4, spawnY - 720 + 4, 24, 24);
-        return hitBox;
-    }
-
     @Override
     public int getVisualX() {
-        return xEnemy;
+        return meleeEnemy.getVisualX();
     }
-
     @Override
     public int getVisualY() {
-        return yEnemy;
+        return meleeEnemy.getVisualY();
     }
-
     @Override
     public int getHelperX() {
-        return spawnX;
+        return meleeEnemy.getHelperX();
     }
-
     @Override
     public int getHelperY() {
-        return spawnY;
+        return meleeEnemy.getHelperY();
+    }
+    @Override
+    public void setAnimations(BufferedImage[][] animations) {
+        meleeEnemy.setAnimations(animations);
+    }
+    @Override
+    public BufferedImage[][] getAnimations() {
+        return meleeEnemy.getAnimations();
     }
 }

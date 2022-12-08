@@ -1,7 +1,9 @@
 package Entities;
 
-public class Player {
+import java.awt.image.BufferedImage;
 
+public class Player {
+    public  BufferedImage[][] animations;
     public int gold = 100;
     final private int STARTING_DMG = 10;
     final private int STARTING_HP = 100;
@@ -43,6 +45,12 @@ public class Player {
     }
     public void removeGold(int amount){
         this.gold -= amount;
+    }
+    public void setAnimations(BufferedImage[][] animations) {
+        this.animations = animations;
+    }
+    public BufferedImage[][] getAnimations() {
+        return this.animations;
     }
 
 }

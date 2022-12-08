@@ -69,8 +69,8 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
      */
     public void setUp(PauseGameController pauseGameController, ShowMapController showMapController,
                       StatBarsPresenterBoundary statBarsPresenterBoundary, ShowStatsController showStatsController, 
-                      PlayerMovementController playerMovementController, CreateEnemyController createEnemyController,
-                      AttackController attackController, CreateEnemyController createEnemyController){
+                      PlayerMovementController playerMovementController, AttackController attackController,
+                      CreateEnemyController createEnemyController){
 
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
@@ -217,10 +217,10 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 
 */
         // for debugginh attack methods!!!
-        attackController.drawPlayerAttackRadius(g);
-        attackController.drawPlayerHitRadius(g);
-        attackController.drawMonstersHitRadius(g);
-        attackController.drawMonstersAttackRadius(g);
+//        attackController.drawPlayerAttackRadius(g);
+//        attackController.drawPlayerHitRadius(g);
+//        attackController.drawMonstersHitRadius(g);
+//        attackController.drawMonstersAttackRadius(g);
 
     }
 

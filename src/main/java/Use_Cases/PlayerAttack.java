@@ -39,7 +39,7 @@ public class PlayerAttack extends Attack{
     }
 
     public void setAttacking(boolean value) {
-        this.attacking = value;
+        player.setAttacking(value);
     }
 
     public void setHit(boolean value) {

@@ -76,9 +76,11 @@ public class MainClass {
         MonsterAttackInputBoundary monsterAttackInteractor = new MonsterAttackInteractor(enemyManagerInteractor.getEnemies(), playerAttack);
         AttackController attackController = new AttackController(playerAttackInteractor, monsterAttackInteractor);
 
+        new AttackDamageAnimationsImportController(playerAnimationImport.getPlayerAnimations(), attackController);
+
 
         screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary,
-                showStatsController, playerMovementController, createEnemyController, attackController, createEnemyController);
+                showStatsController, playerMovementController,attackController, createEnemyController);
         gameManager.start();
     }
 }

@@ -21,9 +21,6 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     final int CURRENT_HEALTH = 1;
     final int STRENGTH = 2;
     final int SPEED = 3;
-    //TODO: Abu
-    //  - Can't directly have access to Player
-    public Player player;
 
 
     // TODO: Kevin
@@ -103,8 +100,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 
         // TODO: Pass in KeyboardInputController instead of GamePanel
         addKeyListener(new KeyboardInputs(pauseGameController, showMapController,
-                playerMovementController, attackController));
-                showStatsController, playerMovementController));
+                showStatsController, playerMovementController, attackController));
         addMouseListener(new MouseInputs(this));
     }
 

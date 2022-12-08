@@ -60,6 +60,7 @@ public class KeyboardInputs implements KeyListener {
                 showMapController.updateMap();
             }
             case KeyEvent.VK_ESCAPE -> {
+                System.out.println("hello");
                 pauseGameController.pause();
             }
             case KeyEvent.VK_O-> {

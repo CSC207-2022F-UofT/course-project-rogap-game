@@ -109,6 +109,14 @@ public class MonsterAttack extends Attack{
     public void drawAttackRadius(Graphics g) {
     }
 
+    @Override
+    public void updatePlayer() {
+    }
+
+    @Override
+    public void updateMonsters() {
+    }
+
     public void setAttacking(boolean value) {
         this.attacking = value;
     }

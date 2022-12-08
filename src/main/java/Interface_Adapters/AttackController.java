@@ -40,4 +40,9 @@ public class AttackController {
         playerAttackInputBoundary.drawPlayerHitRadius(g);
     }
 
+    public void update() {
+        playerAttackInputBoundary.updateMonsters();
+        playerAttackInputBoundary.updatePlayer();
+    }
+
 }

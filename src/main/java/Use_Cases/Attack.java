@@ -69,4 +69,14 @@ public abstract class Attack {
      */
     public abstract void drawAttackRadius(Graphics g);
 
+    /**
+     * Updates Player
+     */
+    public abstract void updatePlayer();
+
+    /**
+     * Updates monsters
+     */
+    public abstract void updateMonsters();
+
 }

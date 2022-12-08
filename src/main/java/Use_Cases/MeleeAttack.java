@@ -10,4 +10,15 @@ public class MeleeAttack extends MonsterAttack{
     public MeleeAttack(BufferedImage[][] monsterAttackHitAnimations) {
         super(monsterAttackHitAnimations);
     }
+
+    @Override
+    public void updatePlayer() {
+
+    }
+
+    @Override
+    public void updateMonsters() {
+
+    }
+
 }

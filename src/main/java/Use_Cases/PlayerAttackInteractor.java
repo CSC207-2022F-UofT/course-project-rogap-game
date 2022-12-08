@@ -56,4 +56,14 @@ public class PlayerAttackInteractor implements PlayerAttackInputBoundary{
         playerAttack.drawAttackRadius(g);
     }
 
+    @Override
+    public void updatePlayer() {
+        playerAttack.updatePlayer();
+    }
+
+    @Override
+    public void updateMonsters() {
+        playerAttack.updateMonsters();
+    }
+
 }

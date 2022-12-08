@@ -10,8 +10,8 @@ public class MeleeEnemy extends Enemy{
     private double distance;
 
     private Rectangle hitBox;
-    public MeleeEnemy(GamePanel gamePanel, int x, int y, int spawnX, int spawnY) {
-        super(gamePanel, x, y, spawnX, spawnY);
+    public MeleeEnemy(int x, int y, int spawnX, int spawnY) {
+        super(x, y, spawnX, spawnY);
 
     }
 /*    public void update() {

@@ -28,8 +28,7 @@ public class Enemy{
     protected int enemyState;
     public int PLAYER_ATTACK_DAMAGE;  // TODO: make this an attribute of player class
 
-    public Enemy(GamePanel gamePanel, int x, int y, int spawnX, int spawnY) {
-        this.gamePanel = gamePanel;
+    public Enemy(int x, int y, int spawnX, int spawnY) {
         this.spawnY = spawnY;
         this.spawnX = spawnX;
         this.xEnemy = x + this.spawnX;
@@ -37,7 +36,6 @@ public class Enemy{
 
         // added for attack methods
         maxHealth = 50;  // set enemy's max health
-        initHitBoxAttack();
     }
 
     // change hitbox shape to an ellipse
@@ -63,13 +61,9 @@ public class Enemy{
 
 
 
-    private void initHitBoxAttack() {
-        attackHitBox = new Ellipse2D.Float(xEnemy, yEnemy, 29, 29);
-    }
-
-    protected void updateHitBoxAttack() {
-        attackHitBox.x = xEnemy;
-        attackHitBox.y = yEnemy;
+    public Ellipse2D.Float getEnemyHitbox() {
+        hitBox = new Ellipse2D.Float(xEnemy, yEnemy, 29, 29);
+        return hitBox;
     }
 
     public void drawMonsterHitBox(Graphics g) {

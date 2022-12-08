@@ -28,8 +28,10 @@ public class EnemyManagerInteractor {
 
 
 
-    private HashMap<String, MeleeEnemy> meleeEnemies;
-    private HashMap<String, RangedEnemy> rangedEnemies;
+//    private HashMap<String, MeleeEnemy> meleeEnemies;
+    public HashMap<String, MeleeEnemy> meleeEnemies;
+//    private HashMap<String, RangedEnemy> rangedEnemies;
+    public HashMap<String, RangedEnemy> rangedEnemies;
 
     public EnemyManagerInteractor(GamePanel gamePanel) {
         //TODO: Need to remove this later
@@ -44,8 +46,8 @@ public class EnemyManagerInteractor {
      * Creates new enemies, spawns them on the map, and adds each one to their respective array list.
      */
     private void createEnemies() {  // TODO: update with monster spawn methods
-        MeleeEnemy meleeOne = new MeleeEnemy(gamePanel, xDelta, yDelta, 3780, 3220);
-        RangedEnemy rangedOne = new RangedEnemy(gamePanel, xDelta, yDelta, 4000, 4000);
+        MeleeEnemy meleeOne = new MeleeEnemy(xDelta, yDelta, 3780, 3220);
+        RangedEnemy rangedOne = new RangedEnemy(xDelta, yDelta, 4000, 4000);
 
         meleeEnemies = new HashMap<>();
         rangedEnemies = new HashMap<>();

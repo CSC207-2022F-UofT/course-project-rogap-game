@@ -23,4 +23,14 @@ public class RangedAttack extends MonsterAttack{
         g.setColor(Color.red);
         g.drawOval((int) attackRadius.x, (int) attackRadius.y, (int) attackRadius.width, (int) attackRadius.height);
     }
+
+    @Override
+    public void updatePlayer() {
+
+    }
+
+    @Override
+    public void updateMonsters() {
+
+    }
 }

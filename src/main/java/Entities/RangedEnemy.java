@@ -10,8 +10,8 @@ public class RangedEnemy extends Enemy{
     private double distance;
 
     private Rectangle hitBox;
-    public RangedEnemy(GamePanel gamePanel, int x, int y, int spawnX, int spawnY) {
-        super(gamePanel, x, y, spawnX, spawnY);
+    public RangedEnemy(int x, int y, int spawnX, int spawnY) {
+        super(x, y, spawnX, spawnY);
 
     }
 /*    public void update() {

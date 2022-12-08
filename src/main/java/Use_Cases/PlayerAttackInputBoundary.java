@@ -8,4 +8,7 @@ public interface PlayerAttackInputBoundary {
     BufferedImage getCurrAttackHitAnimation();
 
     void drawPlayerHitRadius(Graphics g);
+
+    void updatePlayer();
+    void updateMonsters();
 }

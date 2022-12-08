@@ -129,4 +129,14 @@ public class PlayerAttack extends Attack{
         g.drawOval((int) attackRadius.x, (int) attackRadius.y, (int) attackRadius.width, (int) attackRadius.height);
     }
 
+    @Override
+    public void updatePlayer() {
+
+    }
+
+    @Override
+    public void updateMonsters() {
+
+    }
+
 }

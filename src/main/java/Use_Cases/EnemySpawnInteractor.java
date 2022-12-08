@@ -6,7 +6,6 @@ import Entities.RangedEnemy;
 
 public class EnemySpawnInteractor {
 
-
     public static MeleeEnemy spawnMelee(String name, int xDelta, int yDelta){
         return new MeleeEnemy(name, xDelta, yDelta, 3780, 3220);
     }

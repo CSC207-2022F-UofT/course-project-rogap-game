@@ -35,16 +35,28 @@ public class MeleeEnemy {
     public int getHelperY() {
         return spawnY;
     }
-    public void setVisualX(int x) {
+    public void setVisualX(int xDelta) {
+        this.xEnemy = xDelta + getHelperX();
+    }
+    public void setVisualY(int yDelta) {
+        this.yEnemy = yDelta + getHelperY();
+    }
+    public void setHelperX(int xDelta) {
+        this.spawnX = xDelta;
+    }
+    public void setHelperY(int yDelta) {
+        this.spawnY = yDelta;
+    }
+    public void changeVisualX(int x) {
         this.xEnemy -= x;
     }
-    public void setVisualY(int y) {
+    public void changeVisualY(int y) {
         this.yEnemy -= y;
     }
-    public void setHelperX(int x) {
+    public void changeHelperX(int x) {
         this.spawnX -= x;
     }
-    public void setHelperY(int y) {
+    public void changeHelperY(int y) {
         this.spawnY -= y;
     }
     public Rectangle getHitBox() {

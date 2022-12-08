@@ -1,5 +1,7 @@
 package Use_Cases;
 
+import java.awt.*;
+
 public class EnemeyMovementInteractor implements EnemyMovementInputBoundary{
     EnemyMovement enemyMovement;
     public EnemeyMovementInteractor(EnemyMovement enemyMovement) {
@@ -26,12 +28,42 @@ public class EnemeyMovementInteractor implements EnemyMovementInputBoundary{
     }
 
     @Override
-    public void updateX() {
-        enemyMovement.updateX();
+    public void updateX(int playerX) {
+        enemyMovement.updateX(playerX);
     }
 
     @Override
-    public void updateY() {
-        enemyMovement.updateY();
+    public void updateY(int playerY) {
+        enemyMovement.updateY(playerY);
+    }
+
+    @Override
+    public int getVelX(int playerX) {
+        return enemyMovement.getVelX(playerX);
+    }
+
+    @Override
+    public int getVelY(int playerY) {
+        return enemyMovement.getVelY(playerY);
+    }
+
+    @Override
+    public void changeX(int velX) {
+        enemyMovement.changeX(velX);
+    }
+
+    @Override
+    public void changeY(int velY) {
+        enemyMovement.changeY(velY);
+    }
+
+    @Override
+    public Rectangle getHitbox() {
+        return enemyMovement.getHitBox();
+    }
+
+    @Override
+    public double getDistance(int targetX, int targetY) {
+        return enemyMovement.getDistance(targetX, targetY);
     }
 }

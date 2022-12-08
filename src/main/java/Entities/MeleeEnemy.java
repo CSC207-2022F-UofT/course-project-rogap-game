@@ -1,47 +1,79 @@
 package Entities;
 
-import Frameworks.GamePanel;
-
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class MeleeEnemy extends Enemy{
-
-    private double distance;
-
+public class MeleeEnemy {
+    public  BufferedImage[][] animations;
+    private int spawnX, spawnY;
+    private int xEnemy, yEnemy;
     private Rectangle hitBox;
-    public MeleeEnemy(GamePanel gamePanel, int x, int y, int spawnX, int spawnY) {
-        super(gamePanel, x, y, spawnX, spawnY);
+    private String name;
 
+    public MeleeEnemy(String name, int x, int y, int spawnX, int spawnY) {
+        /**
+         * Spawn the enemy at a x,y location and saves it.
+         * xEnemy and yEnemy: is used for the visual aspect of enemy
+         * spawnX and spawnY: is used for finding enemy relative to walls and players
+         */
+        this.name = name;
+        this.xEnemy = x + spawnX;
+        this.yEnemy = y + spawnY;
+        this.spawnX = spawnX;
+        this.spawnY = spawnY;
     }
-/*    public void update() {
-        if (!getHitBox().intersects(gamePanel.player.getHitBox())){
-            enemyMovement();
-        }
-    }*/
-
-/*
-    private void enemyMovement() { //In order to update current enemy location must update absXenemy.
-        distance = Math.sqrt((Math.pow((gamePanel.player.getAbsXPlayer() - xEnemy - spawnX + 1896),2) + Math.pow((gamePanel.player.getAbsYPlayer() - yEnemy -spawnY + 1046), 2)));
-        if (distance < 600 & distance > 110) {
-            System.out.println(yEnemy);
-            velX = enemyMoveHelper(xEnemy - 616 - 1280,gamePanel.player.getAbsXPlayer() - spawnX);
-            velY = enemyMoveHelper(yEnemy - 326 - 720,gamePanel.player.getAbsYPlayer() - spawnY);
-            ArrayList wall = currMoveCollision(velX, velY);
-            if ((Boolean) wall.get(0)) {
-                xEnemy -= velX;
-                spawnX -= velX;
-                yEnemy -= velY;
-                spawnY -= velY;
-            } else {
-                //TODO: make enemies move randomly while it is touching the border.
-            }
-        } else if (distance < 110) {
-            //TODO: add a function that calls the attack for enemy.
-        } else {
-            //TODO: make enemies move randomly while player is not close
-        }
+    public int getVisualX() {
+        return xEnemy;
     }
-*/
+    public int getVisualY() {
+        return yEnemy;
+    }
+    public int getHelperX() {
+        return spawnX;
+    }
+    public int getHelperY() {
+        return spawnY;
+    }
+    public void setVisualX(int xDelta) {
+        this.xEnemy = xDelta + getHelperX();
+    }
+    public void setVisualY(int yDelta) {
+        this.yEnemy = yDelta + getHelperY();
+    }
+    public void setHelperX(int xDelta) {
+        this.spawnX = xDelta;
+    }
+    public void setHelperY(int yDelta) {
+        this.spawnY = yDelta;
+    }
+    public void changeVisualX(int x) {
+        this.xEnemy -= x;
+    }
+    public void changeVisualY(int y) {
+        this.yEnemy -= y;
+    }
+    public void changeHelperX(int x) {
+        this.spawnX -= x;
+    }
+    public void changeHelperY(int y) {
+        this.spawnY -= y;
+    }
+    public Rectangle getHitBox() {
+        /**
+         * Generates a rectangle around the enemy that can be used for collision and attacks
+         */
+        hitBox = new Rectangle(spawnX - 1280 + 4, spawnY - 720 + 4, 24, 24);
+        return hitBox;
+    }
+    public void setAnimations(BufferedImage[][] animations) {
+        /**
+         * Sets the current animations depending on which way the enemy is moving
+         */
+        this.animations = animations;
+    }
+    public BufferedImage[][] getAnimations() {
+        return this.animations;
+    }
 
 }

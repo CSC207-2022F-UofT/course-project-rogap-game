@@ -26,7 +26,6 @@ public class MainClass {
 
         //Player movement and collisions
         Player player = new Player("hello");
-        PlayerMovement playerMovement = new PlayerMovement(player);
 
         Collision collision = new Collision();
         CollisionInputBoundary collisionInteractor = new CollisionInteractor(collision);
@@ -34,9 +33,7 @@ public class MainClass {
 
         //Player animation and movement setup
         //TODO: Player takes parameters ABUUUU -> Don't forget to add player username
-        Player player = new Player();
-        PlayerAnimationImport playerAnimationImport = new PlayerAnimationImport();
-        PlayerMovement playerMovement = new PlayerMovement(playerAnimationImport.getPlayerAnimations());
+        PlayerMovement playerMovement = new PlayerMovement(player);
         PlayerMovementInputBoundary playerMovementInteractor = new PlayerMovementInteractor(playerMovement);
         PlayerMovementController playerMovementController = new PlayerMovementController(playerMovementInteractor, collisionController);
 

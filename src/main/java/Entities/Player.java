@@ -16,7 +16,6 @@ public class Player {
     // VARIABLES FOR SHOP SYSTEM
     private int maxHealth = STARTING_HP;
     private int currentHealth = maxHealth;
-    private int gold = 0;
 
     public int getMaxHealth() { return this.maxHealth; }
     public int getCurrentHealth() {

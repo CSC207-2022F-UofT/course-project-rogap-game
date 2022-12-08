@@ -1,4 +1,5 @@
-# Rogap Game
+# RoGap Game
+
 ## Introduction
 This is a template repository for CSC 207 projects. 
 This repository contains starter code for a gradle project.
@@ -25,4 +26,11 @@ Below is a graphical representation of the design patterns we have used in our p
 ## Clean Architecture
 
 
-## SOLID
+## Where to get help
+
+
+## Important links and docs
+
+
+## Clean Architecture
+

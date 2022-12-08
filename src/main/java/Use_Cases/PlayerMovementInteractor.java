@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 
 public class PlayerMovementInteractor implements PlayerMovementInputBoundary {
     private PlayerMovement playerMovement;
-
     public PlayerMovementInteractor(PlayerMovement playerMovement) {
         this.playerMovement = playerMovement;
     }
@@ -74,7 +73,6 @@ public class PlayerMovementInteractor implements PlayerMovementInputBoundary {
     }
     @Override
     public BufferedImage getCurrAnimation() {
-
         return playerMovement.getCurrentImage();
     }
     @Override
@@ -88,6 +86,21 @@ public class PlayerMovementInteractor implements PlayerMovementInputBoundary {
     @Override
     public void setIdleDirection(int dir) {
         playerMovement.setIdleDirection(dir);
+    }
+
+    @Override
+    public void setAnimations(BufferedImage[][] animations) {
+        playerMovement.setAnimations(animations);
+    }
+
+    @Override
+    public BufferedImage[][] getAnimations() {
+        return playerMovement.getAnimations();
+    }
+
+    @Override
+    public void updateSpeed() {
+        playerMovement.updateSpeed();
     }
 
 }

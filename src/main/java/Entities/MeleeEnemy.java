@@ -11,12 +11,19 @@ public class MeleeEnemy {
     private int spawnX, spawnY;
     private int xEnemy, yEnemy;
     private Rectangle hitBox;
+    private String name;
 
-    public MeleeEnemy(int x, int y) {
-        this.xEnemy = x;
-        this.yEnemy = y;
-        this.spawnX = x;
-        this.spawnY = y;
+    public MeleeEnemy(String name, int x, int y, int spawnX, int spawnY) {
+        /**
+         * Spawn the enemy at a x,y location and saves it.
+         * xEnemy and yEnemy: is used for the visual aspect of enemy
+         * spawnX and spawnY: is used for finding enemy relative to walls and players
+         */
+        this.name = name;
+        this.xEnemy = x + spawnX;
+        this.yEnemy = y + spawnY;
+        this.spawnX = spawnX;
+        this.spawnY = spawnY;
     }
     public int getVisualX() {
         return xEnemy;
@@ -43,10 +50,16 @@ public class MeleeEnemy {
         this.spawnY -= y;
     }
     public Rectangle getHitBox() {
+        /**
+         * Generates a rectangle around the enemy that can be used for collision and attacks
+         */
         hitBox = new Rectangle(spawnX - 1280 + 4, spawnY - 720 + 4, 24, 24);
         return hitBox;
     }
     public void setAnimations(BufferedImage[][] animations) {
+        /**
+         * Sets the current animations depending on which way the enemy is moving
+         */
         this.animations = animations;
     }
     public BufferedImage[][] getAnimations() {

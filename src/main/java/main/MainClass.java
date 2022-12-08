@@ -21,18 +21,21 @@ public class MainClass {
 
         //Creating player sprites in blue layer, maybe controller needed?
         PlayerAnimationImport playerAnimationImport = new PlayerAnimationImport();
+
         //Player movement and collisions
-        PlayerMovement playerMovement = new PlayerMovement();
+        Player player = new Player("hello");
+        PlayerMovement playerMovement = new PlayerMovement(player);
         Collision collision = new Collision();
         CollisionInputBoundary collisionInteractor = new CollisionInteractor(collision);
         CollisionController collisionController = new CollisionController(collisionInteractor);
         PlayerMovementInputBoundary playerMovementInteractor = new PlayerMovementInteractor(playerMovement);
         PlayerMovementController playerMovementController = new PlayerMovementController(playerMovementInteractor, collisionController);
-
+        AnimationsImportController animationsImportController = new AnimationsImportController(playerAnimationImport.getPlayerAnimations(),
+                playerMovementController);
         GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter, playerMovementController);
 
         // Stat Bars Use Case
-        Player player = new Player();
+
         StatBarsInputBoundary statBarsInputBoundary = new StatBarsInteractor(player);
         StatBarsPresenterBoundary statBarsPresenterBoundary = new StatBarsPresenter(statBarsInputBoundary);
 

@@ -4,16 +4,17 @@ import Entities.Player;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Use case for player movement
+ */
 public class PlayerMovement extends Movement{
     public Player player;
     private boolean right, left, up, down;
     private int idleDir = 0;
-
-    private int velX = 0, velY = 0;
     private int aniTick, aniIndex, aniSpeed= 10;
     private int playerAction = 0;
     private boolean moving = false;
-    private int speed = 2;
+    private int speed;
     public PlayerMovement(Player player) {
         this.player = player;
     }
@@ -36,25 +37,29 @@ public class PlayerMovement extends Movement{
             return 0;
         }
     }
+    public void updateSpeed() {
+        this.speed = player.getSpeed();
+    }
     public void updateX() {
         if (left) {
-            this.currLocationX += speed;
-            this.helperX -= speed;
+            player.changeVisualX(speed);
+            player.changeHelperX(speed);
         } else if (right) {
-            this.currLocationX += -speed;
-            this.helperX -= -speed;
+            player.changeVisualX(-speed);
+            player.changeHelperX(-speed);
+        }
+    }
+    public void updateY() {
+        if (up) {
+            player.changeHelperY(speed);
+            player.changeVisualY(speed);
+        } else if (down) {
+            player.changeHelperY(-speed);
+            player.changeVisualY(-speed);
         }
     }
 
-    public void updateY() {
-        if (up) {
-            this.currLocationY += speed;
-            this.helperY -= speed;
-        } else if (down) {
-            this.currLocationY += -speed;
-            this.helperY -= -speed;
-        }
-    }
+
     public void rightActivator() {
         this.right = true;
         this.setMoving();
@@ -156,6 +161,6 @@ public class PlayerMovement extends Movement{
     public BufferedImage getCurrentImage () {
         updateAnimationTick();
         updateAnimation();
-        return this.animations[playerAction][aniIndex];
+        return player.getAnimations()[playerAction][aniIndex];
     }
 }

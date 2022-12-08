@@ -4,12 +4,14 @@ import java.awt.image.BufferedImage;
 
 public class Player {
     private   BufferedImage[][] animations;
+    private int speed = 10;
     private int currLocationX = -2546, currLocationY = -2132;
     private int helperX = 1882, helperY = 1738;
-    public int gold = 100;
+    private int gold = 100;
     final private int STARTING_DMG = 10;
     final private int STARTING_HP = 100;
     private int attack = STARTING_DMG;
+    private String name;
     
     // VARIABLES FOR SHOP SYSTEM
     private int maxHealth = STARTING_HP;
@@ -21,12 +23,15 @@ public class Player {
     }
     public int getAttack() { return attack; }
 
-    public Player
-    /**
-     * Returns the speed of the player
-     */
-/*    public int getSpeed() { return velX + velY; }*/
-
+    public Player(String name) {
+        this.name = name;
+    }
+    public int getSpeed() {
+        return this.speed;
+    }
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
     /**
      * Heals the player
      * @param amount How much health we regen
@@ -68,11 +73,16 @@ public class Player {
         return helperY;
     }
     public void changeHelperX(int x) {
-        this.helperX += x;
+        this.helperX -= x;
     }
     public void changeHelperY(int y) {
-        this.helperY += y;
+        this.helperY -= y;
     }
-
+    public void changeVisualX(int x) {
+        this.currLocationX += x;
+    }
+    public void changeVisualY(int y) {
+        this.currLocationY += y;
+    }
 
 }

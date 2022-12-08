@@ -3,6 +3,7 @@ package Frameworks;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
 import Interface_Adapters.*;
+import Use_Cases.ShopAnimationInputBoundary;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +33,6 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 
     // Variables for shop system GUI
     private BufferedImage shopKeeper;
-    private BufferedImage healthPotion;
     private BufferedImage statsBar;
     private BufferedImage healthBar;
     private BufferedImage timerPill;
@@ -45,8 +45,8 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     PauseGameController pauseGameController;
     PlayerMovementController playerMovementController;
     StatBarsPresenterBoundary statBarsPresenterBoundary;
-
     CreateEnemyController createEnemyController;
+    ShopAnimationController shopAnimationController;
 
 
     public GamePanel(){
@@ -64,13 +64,16 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
      */
     public void setUp(PauseGameController pauseGameController, ShowMapController showMapController,
                       StatBarsPresenterBoundary statBarsPresenterBoundary, ShowStatsController showStatsController, 
-                      PlayerMovementController playerMovementController, CreateEnemyController createEnemyController){
+                      PlayerMovementController playerMovementController, CreateEnemyController createEnemyController,
+                      ShopAnimationController shopAnimationController){
+
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
         this.showStatsController = showStatsController;
         this.statBarsPresenterBoundary = statBarsPresenterBoundary;
         this.playerMovementController = playerMovementController;
         this.createEnemyController = createEnemyController;
+        this.shopAnimationController = shopAnimationController;
         
         addKeyListener(new KeyboardInputs(pauseGameController, showMapController,
                 showStatsController, playerMovementController));
@@ -172,6 +175,8 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         }
 */
         g.drawImage(shopKeeper, playerMovementController.getVisualX() + 1857, playerMovementController.getVisualY() + 1676, null);
+
+        g.drawImage(shopAnimationController.getCurrAnimation(), playerMovementController.getVisualX() + 100, playerMovementController.getVisualY() + 100, 32, 45,  null);
 
         g.drawImage(bushes, playerMovementController.getVisualX(), playerMovementController.getVisualY(), null);
 

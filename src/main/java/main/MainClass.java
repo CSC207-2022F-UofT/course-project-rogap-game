@@ -1,7 +1,8 @@
 package main;
 
+import Entities.HealthPotion;
 import Entities.Player;
-import Frameworks.GamePanel;
+import Frameworks.*;
 import Frameworks.PlayerAnimationImport;
 import Interface_Adapters.*;
 import Use_Cases.*;
@@ -35,6 +36,18 @@ public class MainClass {
         PlayerMovementController playerMovementController = new PlayerMovementController(playerMovementInteractor, collisionController);
         new AnimationsImportController(playerAnimationImport.getPlayerAnimations(), playerMovementController);
 
+        //Initialize Potions
+        HealthPotion healthPotion = new HealthPotion();
+        ShopAnimation shopAnimation = new ShopAnimation(healthPotion);
+        ShopAnimationInputBoundary shopAnimationInteractor = new ShopAnimationInteractor(shopAnimation);
+        ShopAnimationController shopAnimationController = new ShopAnimationController(shopAnimationInteractor);
+
+        ShopAnimationsImport shopAnimationsImport = new ShopAnimationsImport(shopAnimationController);
+        // TODO: THIS IS THE GOOD STUFF
+        ShopAnimationsImportController shopAnimationsImportController = new ShopAnimationsImportController(shopAnimationsImport.getItemAnimations(), shopAnimationController);
+
+
+
         //Create Enemies use-case
         CreateEnemyInputBoundary enemyManagerInteractor = new EnemyManagerHandler();
         CreateEnemyController createEnemyController = new CreateEnemyController(enemyManagerInteractor,
@@ -61,7 +74,7 @@ public class MainClass {
 
 
         screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary,
-                showStatsController, playerMovementController, createEnemyController);
+                showStatsController, playerMovementController, createEnemyController, shopAnimationController);
         gameManager.start();
     }
 }

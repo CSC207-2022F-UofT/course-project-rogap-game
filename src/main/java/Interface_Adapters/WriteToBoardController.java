@@ -6,7 +6,7 @@ import java.io.*;
 
 public class WriteToBoardController {
 
-    WriteToBoardInputBoundary writeToBoardInteractor;
+    final WriteToBoardInputBoundary writeToBoardInteractor;
     public WriteToBoardController(WriteToBoardInputBoundary writeToBoardInputBoundary) {
         this.writeToBoardInteractor = writeToBoardInputBoundary;
     }

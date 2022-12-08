@@ -5,24 +5,37 @@ import Entities.Player;
 import java.awt.image.BufferedImage;
 
 public class PlayerMovement extends Movement{
+    public Player player;
+    private boolean right, left, up, down;
+    private int idleDir = 0;
 
     private int velX = 0, velY = 0;
     private int aniTick, aniIndex, aniSpeed= 10;
     private int playerAction = 0;
     private boolean moving = false;
     private int speed = 2;
-    private int idleDir = 0;
-
-    private int currLocationX = -2546, currLocationY = -2132;
-    private int helperX = 1882, helperY = 1738;
-    private boolean right, left, up, down;
-    private BufferedImage[][] animations;
-    public Player player;
     public PlayerMovement(Player player) {
-        this.animations = animations;
         this.player = player;
     }
 
+    public int getVelX () {
+        if (left) {
+            return speed;
+        } else if (right) {
+            return -speed;
+        } else {
+            return 0;
+        }
+    }
+    public int getVelY () {
+        if (down) {
+            return -speed;
+        } else if (up) {
+            return speed;
+        } else {
+            return 0;
+        }
+    }
     public void updateX() {
         if (left) {
             this.currLocationX += speed;
@@ -40,25 +53,6 @@ public class PlayerMovement extends Movement{
         } else if (down) {
             this.currLocationY += -speed;
             this.helperY -= -speed;
-        }
-    }
-    //Potential bug fixes
-    public int getVelX () {
-        if (left) {
-            return speed;
-        } else if (right) {
-            return -speed;
-        } else {
-            return 0;
-        }
-    }
-    public int getVelY () {
-        if (down) {
-            return -speed;
-        } else if (up) {
-            return speed;
-        } else {
-            return 0;
         }
     }
     public void rightActivator() {
@@ -98,19 +92,18 @@ public class PlayerMovement extends Movement{
             moving = true;
         } else {moving = false;}
     }
-
     //Getting locations
     public int getVisualX() {
-        return currLocationX;
+        return player.getVisualX();
     }
     public int getVisualY() {
-        return currLocationY;
+        return player.getVisualY();
     }
     public int getHelperX() {
-        return helperX;
+        return player.getHelperX();
     }
     public int getHelperY() {
-        return helperY;
+        return player.getHelperY();
     }
 
     public void setAnimations(BufferedImage[][] animations) {

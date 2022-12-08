@@ -22,7 +22,7 @@ public class MainClass {
         //Creating player sprites in blue layer, maybe controller needed?
         PlayerAnimationImport playerAnimationImport = new PlayerAnimationImport();
         //Player movement and collisions
-        PlayerMovement playerMovement = new PlayerMovement(playerAnimationImport.getPlayerAnimations());
+        PlayerMovement playerMovement = new PlayerMovement();
         Collision collision = new Collision();
         CollisionInputBoundary collisionInteractor = new CollisionInteractor(collision);
         CollisionController collisionController = new CollisionController(collisionInteractor);

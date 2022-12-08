@@ -5,7 +5,6 @@ import java.nio.Buffer;
 
 public class AnimationsImportController {
     PlayerMovementController playerMovementController;
-
     public AnimationsImportController(BufferedImage[][] playerAnimations, PlayerMovementController playerMovementController) {
         this.playerMovementController = playerMovementController;
 

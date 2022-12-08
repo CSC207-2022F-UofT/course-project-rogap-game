@@ -3,7 +3,9 @@ package Entities;
 import java.awt.image.BufferedImage;
 
 public class Player {
-    public  BufferedImage[][] animations;
+    private   BufferedImage[][] animations;
+    private int currLocationX = -2546, currLocationY = -2132;
+    private int helperX = 1882, helperY = 1738;
     public int gold = 100;
     final private int STARTING_DMG = 10;
     final private int STARTING_HP = 100;
@@ -19,6 +21,7 @@ public class Player {
     }
     public int getAttack() { return attack; }
 
+    public Player
     /**
      * Returns the speed of the player
      */
@@ -52,5 +55,24 @@ public class Player {
     public BufferedImage[][] getAnimations() {
         return this.animations;
     }
+    public int getVisualX() {
+        return currLocationX;
+    }
+    public int getVisualY() {
+        return currLocationY;
+    }
+    public int getHelperX() {
+        return helperX;
+    }
+    public int getHelperY() {
+        return helperY;
+    }
+    public void changeHelperX(int x) {
+        this.helperX += x;
+    }
+    public void changeHelperY(int y) {
+        this.helperY += y;
+    }
+
 
 }

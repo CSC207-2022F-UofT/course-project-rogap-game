@@ -36,9 +36,6 @@ public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReferenc
         screenModel = gameScreenPresenter.create();
         new GameWindow(screenModel);
         screenModel.requestFocus();
-
-
-
     }
 
     public void start(){

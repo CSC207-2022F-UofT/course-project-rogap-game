@@ -2,6 +2,7 @@ package main;
 
 import Entities.Player;
 import Frameworks.GamePanel;
+import Frameworks.MonsterAnimationImport;
 import Frameworks.PlayerAnimationImport;
 import Interface_Adapters.*;
 import Use_Cases.*;
@@ -29,6 +30,23 @@ public class MainClass {
         PlayerMovementInputBoundary playerMovementInteractor = new PlayerMovementInteractor(playerMovement);
         PlayerMovementController playerMovementController = new PlayerMovementController(playerMovementInteractor, collisionController);
 
+        //Player & Monster attack/hit
+        MonsterAnimationImport monsterAnimationImport = new MonsterAnimationImport();
+        PlayerAttack playerAttack = new PlayerAttack(playerAnimationImport.getPlayerAttackHitAnimations());
+        MeleeAttack meleeAttack = new MeleeAttack(monsterAnimationImport.getPlayerAttackHitAnimations());
+        RangedAttack rangedAttack = new RangedAttack(monsterAnimationImport.getPlayerAttackHitAnimations());
+        MeleeAttack[] meleeAttacks = new MeleeAttack[1]; // TODO: change to arrays from Enemy Manager class
+        meleeAttacks[0] = meleeAttack;
+        RangedAttack[] rangedAttacks = new RangedAttack[1];
+        rangedAttacks[0] = rangedAttack;
+        PlayerAttackInputBoundary playerAttackInputBoundary = new PlayerAttackInteractor(playerAttack,
+                meleeAttacks, rangedAttacks);
+        MonsterAttackInputBoundary monsterAttackInputBoundary = new MonsterAttackInteractor(meleeAttacks, rangedAttacks,
+                playerAttack);
+        AttackController attackController = new AttackController(playerAttackInputBoundary, monsterAttackInputBoundary);
+
+
+
         GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter, playerMovementController);
 
         // Stat Bars Use Case
@@ -45,8 +63,9 @@ public class MainClass {
 
         PauseGameController pauseGameController = new PauseGameController(pauseGameInteractor, gameManager);
         ShowMapController showMapController = new ShowMapController(showMapInteractor, gameManager);
-
-        screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary, showStatsController, playerMovementController);
+        
+        screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary, showStatsController, 
+        playerMovementController, attackController);
         gameManager.start();
     }
 }

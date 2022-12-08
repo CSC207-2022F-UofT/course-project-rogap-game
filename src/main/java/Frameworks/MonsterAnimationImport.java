@@ -5,7 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class PlayerAnimationImport {
+// TODO!!!!!!! update with new spritesss
+public class MonsterAnimationImport {
     private BufferedImage[][] animations;
     private BufferedImage[] sprites = new BufferedImage[4];
     // attack animations
@@ -58,7 +59,7 @@ public class PlayerAnimationImport {
             }
         }
     }
-    public BufferedImage[][] getPlayerAnimations() {
+    public BufferedImage[][] getMonsterAnimations() {
         importImage();
         loadAnimation();
         return animations;
@@ -77,5 +78,4 @@ public class PlayerAnimationImport {
         loadAttackHitAnimation();
         return attackHitAnimations;
     }
-
 }

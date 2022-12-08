@@ -9,6 +9,4 @@ public abstract class Movement {
     public abstract void updateY();
     public abstract int getVisualX();
     public abstract int getVisualY();
-    public abstract int getHelperX();
-    public abstract int getHelperY();
 }

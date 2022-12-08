@@ -1,7 +1,6 @@
 package Frameworks;
 
 import Entities.MeleeEnemy;
-import Entities.Player;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
 import Interface_Adapters.*;
@@ -70,6 +69,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     PauseGameController pauseGameController;
     ShowMapController showMapController;
     PlayerMovementController playerMovementController;
+    AttackController attackController;
     ShowStatsController showStatsController;
 
     public GamePanel(){
@@ -91,18 +91,19 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 
     }
 
-
     public void setUp(PauseGameController pauseGameController, ShowMapController showMapController,
                       StatBarsPresenterBoundary statBarsPresenterBoundary, ShowStatsController showStatsController, 
-                      PlayerMovementController playerMovementController){
+                      PlayerMovementController playerMovementController, AttackController attackController){
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
         this.showStatsController = showStatsController;
         this.statBarsPresenterBoundary = statBarsPresenterBoundary;
         this.playerMovementController = playerMovementController;
+        this.attackController = attackController;
 
         // TODO: Pass in KeyboardInputController instead of GamePanel
         addKeyListener(new KeyboardInputs(pauseGameController, showMapController,
+                playerMovementController, attackController));
                 showStatsController, playerMovementController));
         addMouseListener(new MouseInputs(this));
     }
@@ -180,6 +181,9 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         // player VISUAL goes here
         //TODO: Abu - Access player through an interface using CLEAN way
         g.drawImage(playerMovementController.getCurrAnimation(), 616, 326, 48,48, null);
+//        g.drawImage(attackController.getPlayerAttackHitAnimation(), 616, 326, 48, 48, null);
+//        g.drawImage(attackController.getMeleeAttackHitAnimation(), 616, 326, 48, 48, null);
+//        g.drawImage(attackController.getRangedAttackHitAnimation(), 616, 326, 48, 48, null);
 
         //Enemy visual goes here
         //TODO: Abu - Access player and enemy through an interface using CLEAN way
@@ -232,6 +236,9 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 /*
         gameShop.checkLocation();
 */
+        // for debugginh attack methods!!!
+//        attackController.drawPlayerHitRadius(g);
+
 
     }
 

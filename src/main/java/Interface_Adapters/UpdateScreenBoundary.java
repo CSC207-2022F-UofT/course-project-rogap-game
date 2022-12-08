@@ -9,6 +9,5 @@ public interface UpdateScreenBoundary {
     void setUp(PauseGameController pauseGameController, ShowMapController showMapController,
                StatBarsPresenterBoundary statBarsPresenterBoundary, ShowStatsController showStatsController,
                PlayerMovementController playerMovementController, CreateEnemyController createEnemyController,
-               AttackController attackController);
-
+               AttackController attackController, CreateEnemyController createEnemyController);
 }

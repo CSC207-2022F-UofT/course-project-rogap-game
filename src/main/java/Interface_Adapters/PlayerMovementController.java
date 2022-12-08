@@ -1,6 +1,8 @@
 package Interface_Adapters;
 
+import java.lang.Math.*;
 import Use_Cases.PlayerMovementInputBoundary;
+
 import java.awt.image.BufferedImage;
 /**
  * This packs all the information for movement and passes it onto the interactor

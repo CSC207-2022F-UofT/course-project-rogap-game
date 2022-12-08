@@ -3,18 +3,21 @@ package main;
 import Entities.Player;
 import Frameworks.GamePanel;
 import Frameworks.PlayerAnimationImport;
+import Frameworks.WriteToBoardGateway;
 import Interface_Adapters.*;
 import Use_Cases.*;
+
+import java.util.Scanner;
 
 public class MainClass {
     public static void main(String[] args) {
         //TODO: Use the username
 
-//        Scanner myObj = new Scanner(System.in);
-//        System.out.println("Enter username");
-//
-//        String userName = myObj.nextLine();  // Read user input
-//        System.out.println("Welcome " + userName + "!");  // Output user input
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("Enter username");
+
+        String userName = myObj.nextLine();  // Read user input
+        System.out.println("Welcome " + userName + "!");  // Output user input
 
         UpdateScreenBoundary screenModel = new GamePanel();
         GameScreenPresenter presenter = new GameScreenPresenter(screenModel);
@@ -55,12 +58,17 @@ public class MainClass {
         ShowStatsInputBoundary showStatsInputBoundary = new ShowStatsInteractor();
         ShowStatsController showStatsController = new ShowStatsController(gameManager, showStatsInputBoundary);
 
+        // Write to Leaderboard Use Case
+        WriteToBoardGatewayBoundary writeToBoardGateway = new WriteToBoardGateway();
+        WriteToBoardInputBoundary writeToBoardInputBoundary = new WriteToBoardInteractor(userName, writeToBoardGateway);
+        WriteToBoardController writeToBoardController = new WriteToBoardController(writeToBoardInputBoundary);
+
         // Pause game Use Case
         PauseGameInputBoundary pauseGameInteractor = new PauseGameInteractor();
         ShowMapInputBoundary showMapInteractor = new ShowMapInteractor();
         PauseGameController pauseGameController = new PauseGameController(pauseGameInteractor, gameManager);
         ShowMapController showMapController = new ShowMapController(showMapInteractor, gameManager);
-
+        
         // Attack Use Case
         PlayerAttack playerAttack = new PlayerAttack(player);
         MonsterAttack monsterAttack = new MonsterAttack();
@@ -70,7 +78,7 @@ public class MainClass {
 
 
         screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary,
-                showStatsController, playerMovementController, createEnemyController, attackController);
+                showStatsController, playerMovementController, createEnemyController, attackController, createEnemyController);
         gameManager.start();
     }
 }

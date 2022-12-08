@@ -56,7 +56,7 @@ public class PlayerMovementController {
      * @return The player's speed
      */
     public int getCurrentVelocity() {
-        return Math.abs(saveVelX) + Math.abs(saveVelY);
+        return Math.max(Math.abs(saveVelX), Math.abs(saveVelY));
     }
 
 }

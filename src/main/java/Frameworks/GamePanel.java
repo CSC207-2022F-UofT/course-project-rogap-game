@@ -35,6 +35,8 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 
     StatBarsPresenterBoundary statBarsPresenterBoundary;
 
+    private WriteToBoardController writeToBoardController;
+
     private boolean showStatBar = true;
 
     private ArrayList<Leaf> leafList = new ArrayList<>();
@@ -94,12 +96,13 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 
     public void setUp(PauseGameController pauseGameController, ShowMapController showMapController,
                       StatBarsPresenterBoundary statBarsPresenterBoundary, ShowStatsController showStatsController, 
-                      PlayerMovementController playerMovementController){
+                      PlayerMovementController playerMovementController, WriteToBoardController writeToBoardController){
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
         this.showStatsController = showStatsController;
         this.statBarsPresenterBoundary = statBarsPresenterBoundary;
         this.playerMovementController = playerMovementController;
+        this.writeToBoardController = writeToBoardController;
 
         // TODO: Pass in KeyboardInputController instead of GamePanel
         addKeyListener(new KeyboardInputs(pauseGameController, showMapController,

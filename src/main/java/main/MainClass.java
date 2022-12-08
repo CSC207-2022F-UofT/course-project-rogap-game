@@ -3,17 +3,20 @@ package main;
 import Entities.Player;
 import Frameworks.GamePanel;
 import Frameworks.PlayerAnimationImport;
+import Frameworks.WriteToBoardGateway;
 import Interface_Adapters.*;
 import Use_Cases.*;
+
+import java.util.Scanner;
 
 public class MainClass {
     public static void main(String[] args) {
 
-//        Scanner myObj = new Scanner(System.in);
-//        System.out.println("Enter username");
-//
-//        String userName = myObj.nextLine();  // Read user input
-//        System.out.println("Welcome " + userName + "!");  // Output user input
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("Enter username");
+
+        String userName = myObj.nextLine();  // Read user input
+        System.out.println("Welcome " + userName + "!");  // Output user input
 
         UpdateScreenBoundary screenModel = new GamePanel();
         GameScreenPresenter presenter = new GameScreenPresenter(screenModel);
@@ -40,13 +43,19 @@ public class MainClass {
         ShowStatsInputBoundary showStatsInputBoundary = new ShowStatsInteractor();
         ShowStatsController showStatsController = new ShowStatsController(gameManager, showStatsInputBoundary);
 
+        // Write to Leaderboard Use Case
+        WriteToBoardGatewayBoundary writeToBoardGateway = new WriteToBoardGateway();
+        WriteToBoardInputBoundary writeToBoardInputBoundary = new WriteToBoardInteractor(userName, writeToBoardGateway);
+        WriteToBoardController writeToBoardController = new WriteToBoardController(writeToBoardInputBoundary);
+
         PauseGameInputBoundary pauseGameInteractor = new PauseGameInteractor();
         ShowMapInputBoundary showMapInteractor = new ShowMapInteractor();
 
         PauseGameController pauseGameController = new PauseGameController(pauseGameInteractor, gameManager);
         ShowMapController showMapController = new ShowMapController(showMapInteractor, gameManager);
 
-        screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary, showStatsController, playerMovementController);
+        screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary,
+                showStatsController, playerMovementController, writeToBoardController);
         gameManager.start();
     }
 }

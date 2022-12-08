@@ -24,6 +24,7 @@ public class MainClass {
 
 
 
+
         //Collisions set up
         Collision collision = new Collision();
         CollisionInputBoundary collisionInteractor = new CollisionInteractor(collision);

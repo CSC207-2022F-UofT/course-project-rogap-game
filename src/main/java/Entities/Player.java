@@ -22,7 +22,6 @@ public class Player {
         return this.currentHealth;
     }
     public int getAttack() { return attack; }
-
     public Player(String name) {
         this.name = name;
     }

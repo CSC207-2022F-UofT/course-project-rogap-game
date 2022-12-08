@@ -221,7 +221,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
      */
     private void drawStats(Graphics g) {
         if (!GameLoopManagerLoop.getMinimapVisible() && !GameLoopManagerLoop.getIsPaused()) {
-            int[] playerStats = statBarsPresenterBoundary.getStats(playerMovementController);
+            int[] playerStats = statBarsPresenterBoundary.getStats();
             // Drawing the outside of the health bar
             g.drawImage(healthBar, 17, 14, null);
             // Drawing the health bar

@@ -21,9 +21,9 @@ public class StatBarsPresenter implements StatBarsPresenterBoundary {
      *      array[2] is the player's strength
      *      array[3] is the player's speed
      */
-    public int[] getStats(PlayerMovementController playerMovementController) {
+    public int[] getStats() {
         StatBarsResponseModel statData = statBarsInteractor.getStats();
         return new int[] {statData.getMaxHealth(), statData.getCurrentHealth(),
-                statData.getAttack(), playerMovementController.getCurrentVelocity()};
+                statData.getAttack(), statData.getSpeed()};
     }
 }

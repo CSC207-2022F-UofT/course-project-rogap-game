@@ -7,11 +7,13 @@ public class StatBarsResponseModel {
     int maxHealth;
     int currentHealth;
     int attack;
+    int speed;
 
-    public StatBarsResponseModel(int maxHealth, int currentHealth, int attack) {
+    public StatBarsResponseModel(int maxHealth, int currentHealth, int attack, int speed) {
         this.maxHealth = maxHealth;
         this.currentHealth = currentHealth;
         this.attack = attack;
+        this.speed = speed;
     }
 
     public int getMaxHealth() {
@@ -20,8 +22,8 @@ public class StatBarsResponseModel {
     public int getCurrentHealth() {
         return currentHealth;
     }
-
     public int getAttack() {
         return attack;
     }
+    public int getSpeed() { return speed; }
 }

@@ -9,6 +9,9 @@ public class PlayerAnimationImport {
     private BufferedImage[][] animations;
     private BufferedImage[] sprites = new BufferedImage[4];
 
+    /**
+     * This class is designated to import all the player animation
+     */
     private void importImage() {
         InputStream lI = getClass().getResourceAsStream("/leftIdle.png");
         InputStream rI = getClass().getResourceAsStream("/rightIdle.png");
@@ -33,6 +36,9 @@ public class PlayerAnimationImport {
             }
         }
     }
+    /**
+     * This class loads the player animation to a BufferedImage[][]
+     */
     private void loadAnimation() {
         animations = new BufferedImage[4][6];
         for (int j = 0; j < animations.length; j++){
@@ -45,6 +51,11 @@ public class PlayerAnimationImport {
             }
         }
     }
+
+    /**
+     * This class returns the loaded player animation
+     * @return BufferedImage[][]
+     */
     public BufferedImage[][] getPlayerAnimations() {
         importImage();
         loadAnimation();

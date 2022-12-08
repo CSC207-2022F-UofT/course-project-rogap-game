@@ -10,9 +10,7 @@ import java.util.HashMap;
  * This class manages all enemies of the game. It contains array lists of all Ranged monsters and Melee monsters,
  * allowing for all monsters to be accessed updated at once.
  */
-public class EnemyManagerInteractor implements CreateEnemyInputBoundary{
-
-    private int xDelta = -2546, yDelta = -2132;
+public class EnemyManagerHandler implements CreateEnemyInputBoundary{
 
     private HashMap<String, MeleeEnemy> meleeEnemies;
     private HashMap<String, RangedEnemy> rangedEnemies;
@@ -21,7 +19,7 @@ public class EnemyManagerInteractor implements CreateEnemyInputBoundary{
     /**
      * Creates new enemies, spawns them on the map, and adds each one to their respective array list.
      */
-    public void createEnemies() {
+    public void createEnemies(int xDelta, int yDelta) {
         meleeEnemies = new HashMap<>();
         meleeEnemies.put("MeleeEnemy1", EnemySpawnInteractor.spawnMelee("meleeEnemy1", xDelta, yDelta));
 
@@ -74,7 +72,21 @@ public class EnemyManagerInteractor implements CreateEnemyInputBoundary{
 
         return enemyInfoList;
     }
+    public void updateEnemies(int velX, int velY) {
+        for (MeleeEnemy m : meleeEnemies.values()){
+            m.changeHelperX(-velX);
+            m.changeVisualX(-velX);
+            m.changeHelperY(-velY);
+            m.changeVisualY(-velY);
+        }
 
+/*        for (RangedEnemy r : rangedEnemies.values()){
+            r.changeHelperX(velX);
+            r.changeHelperX(velX);
+            r.changeVisualX(velY);
+            r.changeVisualY(velY);
+        }*/
+    }
     public ArrayList<String> getEnemyID(){
         ArrayList<String> enemyNameList = new ArrayList<>();
 

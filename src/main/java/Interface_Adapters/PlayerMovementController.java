@@ -22,6 +22,7 @@ public class PlayerMovementController {
      * It checks for collision by calling the collision controller, and then sets a velocity
      */
     public void update() {
+
         playerMovementInputBoundary.updateSpeed();
         if (getMoveableWall(getVisualX(), getVisualY(), -playerMovementInputBoundary.getVelX(), 0)) {
             playerMovementInputBoundary.updateX();
@@ -74,7 +75,12 @@ public class PlayerMovementController {
     public int getHelperY() {
         return playerMovementInputBoundary.getHelperY();
     }
-
+    public int getVelX() {
+        return playerMovementInputBoundary.getVelX();
+    }
+    public int getVelY() {
+        return playerMovementInputBoundary.getVelY();
+    }
     /**
      * @return the current sprite image that is on display
      */

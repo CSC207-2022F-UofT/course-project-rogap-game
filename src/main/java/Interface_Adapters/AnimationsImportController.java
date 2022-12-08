@@ -1,16 +1,17 @@
 package Interface_Adapters;
 
 import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 
 public class AnimationsImportController {
     PlayerMovementController playerMovementController;
 
-    public AnimationsImportController(PlayerMovementController playerMovementController) {
+    public AnimationsImportController(BufferedImage[][] playerAnimations, PlayerMovementController playerMovementController) {
         this.playerMovementController = playerMovementController;
 
-        autoImport(BufferedImage[][] playerAnimations);
+        playerAutoImport(playerAnimations);
     }
-    public void autoImport(BufferedImage[][] playerAnimations) {
-        playerMovementController.
+    public void playerAutoImport(BufferedImage[][] playerAnimations) {
+        playerMovementController.setAnimations(playerAnimations);
     }
 }

@@ -43,7 +43,12 @@ public class PlayerMovementController {
     public BufferedImage getCurrAnimation() {
         return playerMovementInputBoundary.getCurrAnimation();
     }
-
+    public void setAnimations(BufferedImage[][] animations) {
+        playerMovementInputBoundary.setAnimations(animations);
+    }
+    public BufferedImage[][] getAnimations() {
+        return playerMovementInputBoundary.getAnimations();
+    }
     public void setIdleDirection(int dir) {
         playerMovementInputBoundary.setIdleDirection(dir);
     }

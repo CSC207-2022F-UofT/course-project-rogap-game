@@ -21,4 +21,6 @@ public interface PlayerMovementInputBoundary {
     void updateX();
     void updateY();
     void setIdleDirection(int dir);
+    void setAnimations(BufferedImage[][] animations);
+    BufferedImage[][] getAnimations();
 }

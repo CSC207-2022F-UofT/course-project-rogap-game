@@ -1,5 +1,7 @@
 package Use_Cases;
 
+import Entities.Player;
+
 import java.awt.image.BufferedImage;
 
 public class PlayerMovement extends Movement{
@@ -15,8 +17,10 @@ public class PlayerMovement extends Movement{
     private int helperX = 1882, helperY = 1738;
     private boolean right, left, up, down;
     private BufferedImage[][] animations;
-    public PlayerMovement(BufferedImage[][] animations) {
+    public Player player;
+    public PlayerMovement(Player player) {
         this.animations = animations;
+        this.player = player;
     }
 
     public void updateX() {
@@ -109,7 +113,13 @@ public class PlayerMovement extends Movement{
         return helperY;
     }
 
-    private void setAnimation() {
+    public void setAnimations(BufferedImage[][] animations) {
+        player.setAnimations(animations);
+    }
+    public BufferedImage[][] getAnimations() {
+        return player.getAnimations();
+    }
+    private void updateAnimation() {
         if (moving) {
             if ((right & up) || (right & down) || (right)) {
                 playerAction = 3;
@@ -152,7 +162,7 @@ public class PlayerMovement extends Movement{
     }
     public BufferedImage getCurrentImage () {
         updateAnimationTick();
-        setAnimation();
+        updateAnimation();
         return this.animations[playerAction][aniIndex];
     }
 }

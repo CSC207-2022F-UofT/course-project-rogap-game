@@ -22,9 +22,6 @@ public class MainClass {
         UpdateScreenBoundary screenModel = new GamePanel();
         GameScreenPresenter presenter = new GameScreenPresenter(screenModel);
 
-
-
-
         //Collisions set up
         Collision collision = new Collision();
         CollisionInputBoundary collisionInteractor = new CollisionInteractor(collision);
@@ -38,12 +35,16 @@ public class MainClass {
         PlayerMovementInputBoundary playerMovementInteractor = new PlayerMovementInteractor(playerMovement);
         PlayerMovementController playerMovementController = new PlayerMovementController(playerMovementInteractor, collisionController);
         new AnimationsImportController(playerAnimationImport.getPlayerAnimations(), playerMovementController);
-
+        //Enemy stuff
+        EnemyMovement enemyMovement = new EnemyMovement();
+        EnemyMovementInputBoundary enemyMovementInteractor = new EnemeyMovementInteractor(enemyMovement);
+        EnemyMovementController enemyMovementController = new EnemyMovementController(enemyMovementInteractor, playerMovementController, collisionController);
         //Create Enemies use-case
         CreateEnemyInputBoundary enemyManagerInteractor = new EnemyManagerHandler();
         CreateEnemyController createEnemyController = new CreateEnemyController(enemyManagerInteractor,
-                playerMovementController);
+                playerMovementController, enemyMovementController);
         createEnemyController.create();
+
 
         // GameManager (Takes in all the controller and presenters needed for use-cases)
         GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter, playerMovementController,
@@ -67,9 +68,17 @@ public class MainClass {
         ShowMapInputBoundary showMapInteractor = new ShowMapInteractor();
         PauseGameController pauseGameController = new PauseGameController(pauseGameInteractor, gameManager);
         ShowMapController showMapController = new ShowMapController(showMapInteractor, gameManager);
+        
+        // Attack Use Case
+        PlayerAttack playerAttack = new PlayerAttack(player);
+        MonsterAttack monsterAttack = new MonsterAttack();
+        PlayerAttackInputBoundary playerAttackInteractor = new PlayerAttackInteractor(playerAttack, enemyManagerInteractor.getEnemies());
+        MonsterAttackInputBoundary monsterAttackInteractor = new MonsterAttackInteractor(enemyManagerInteractor.getEnemies(), playerAttack);
+        AttackController attackController = new AttackController(playerAttackInteractor, monsterAttackInteractor);
+
 
         screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary,
-                showStatsController, playerMovementController, writeToBoardController, createEnemyController);
+                showStatsController, playerMovementController, createEnemyController, attackController, createEnemyController);
         gameManager.start();
     }
 }

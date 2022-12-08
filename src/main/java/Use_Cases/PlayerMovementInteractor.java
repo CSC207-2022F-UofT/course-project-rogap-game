@@ -8,6 +8,7 @@ public class PlayerMovementInteractor implements PlayerMovementInputBoundary {
         this.playerMovement = playerMovement;
     }
 
+
     @Override
     public void rightActivator() {
         playerMovement.rightActivator();
@@ -99,8 +100,8 @@ public class PlayerMovementInteractor implements PlayerMovementInputBoundary {
     }
 
     @Override
-    public void updateSpeed() {
-        playerMovement.updateSpeed();
+    public void updateHelper() {
+        playerMovement.updateHelper();
     }
 
 }

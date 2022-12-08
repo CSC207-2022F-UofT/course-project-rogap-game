@@ -8,6 +8,7 @@ public class PlayerMovementInteractor implements PlayerMovementInputBoundary {
         this.playerMovement = playerMovement;
     }
 
+
     @Override
     public void rightActivator() {
         playerMovement.rightActivator();
@@ -83,7 +84,6 @@ public class PlayerMovementInteractor implements PlayerMovementInputBoundary {
     public void updateY() {
         playerMovement.updateY();
     }
-
     @Override
     public void setIdleDirection(int dir) {
         playerMovement.setIdleDirection(dir);

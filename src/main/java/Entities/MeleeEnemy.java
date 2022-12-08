@@ -39,13 +39,11 @@ public class MeleeEnemy extends Enemy {
     public int getHelperY() {
         return spawnY;
     }
-    @Override
-    public void changeVisualX(int x) {
-        this.xEnemy -= x;
+    public void setVisualX(int xDelta) {
+        this.xEnemy = xDelta + getHelperX();
     }
-    @Override
-    public void changeVisualY(int y) {
-        this.yEnemy -= y;
+    public void setVisualY(int yDelta) {
+        this.yEnemy = yDelta + getHelperY();
     }
     @Override
     public void changeHelperX(int x) {

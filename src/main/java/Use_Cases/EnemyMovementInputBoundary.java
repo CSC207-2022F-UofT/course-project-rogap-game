@@ -3,17 +3,8 @@ package Use_Cases;
 import java.awt.*;
 
 public interface EnemyMovementInputBoundary {
-    int getHelperX();
-    int getHelperY();
-    int getVisualX();
-    int getVisualY();
-    void updateX(int playerX);
-    void updateY(int playerY);
-    int getVelX(int playerX);
-    int getVelY(int playerY);
-    void changeX(int velX);
-    void changeY(int velY);
-    Rectangle getHitbox();
-    double getDistance(int targetX, int targetY);
+    int getVelX(int enemyHelperX, int playerX);
+    int getVelY(int enemyHelperY, int playerY);
+    double getDistance(int enemyHelperX, int enemyHelperY, int targetX, int targetY);
 
 }

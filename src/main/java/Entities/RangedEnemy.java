@@ -23,6 +23,12 @@ public class RangedEnemy extends Enemy{
         this.spawnY = spawnY;
 
     }
+    public void setVisualX(int xDelta) {
+        this.xEnemy = xDelta + getHelperX();
+    }
+    public void setVisualY(int yDelta) {
+        this.yEnemy = yDelta + getHelperY();
+    }
     @Override
     public int getVisualX() {
         return xEnemy;
@@ -38,14 +44,6 @@ public class RangedEnemy extends Enemy{
     @Override
     public int getHelperY() {
         return spawnY;
-    }
-    @Override
-    public void changeVisualX(int x) {
-        this.xEnemy -= x;
-    }
-    @Override
-    public void changeVisualY(int y) {
-        this.yEnemy -= y;
     }
     @Override
     public void changeHelperX(int x) {

@@ -6,27 +6,16 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class EnemyMovement extends Movement{
-    public EnemyMovement() {
-    }
-    public void updateX(int playerX) {
-    }
-    public void updateY(int playerY) {
-    }
-
-    public int getVelX(int enemyVisualX, int playerX) {
+public class EnemyMovement{
+    public int getVelX(int enemyHelperX, int playerX) {
         int velX;
-        velX = enemyMoveHelper(enemyVisualX - 616 - 1280,playerX - meleeEnemy.getHelperX());
+        velX = enemyMoveHelper(enemyHelperX - 1280,playerX);
         return velX;
     }
-    public int getVelY(int enemyVisualX, int playerY) {
+    public int getVelY(int enemyHelperY, int playerY) {
         int velY;
-        velY = enemyMoveHelper(enemyVisualX - 326 - 720,playerY - meleeEnemy.getHelperY());
+        velY = enemyMoveHelper(enemyHelperY - 720,playerY);
         return velY;
-    }
-
-    public Rectangle getHitBox() {
-        return meleeEnemy.getHitBox();
     }
     private int enemyMoveHelper(int c, int targetC) {
         if (c < targetC) {
@@ -37,33 +26,8 @@ public class EnemyMovement extends Movement{
             return 1;
         }
     }
-    public double getDistance(int targetX, int targetY) {
-        double distance;
-        return distance = Math.sqrt((Math.pow((targetX - meleeEnemy.getVisualX() - meleeEnemy.getHelperX() + 1896),2)
-                + Math.pow((targetY - meleeEnemy.getVisualY() - meleeEnemy.getHelperY() + 1046), 2)));
-    }
-    @Override
-    public int getVisualX() {
-        return meleeEnemy.getVisualX();
-    }
-    @Override
-    public int getVisualY() {
-        return meleeEnemy.getVisualY();
-    }
-    @Override
-    public int getHelperX() {
-        return meleeEnemy.getHelperX();
-    }
-    @Override
-    public int getHelperY() {
-        return meleeEnemy.getHelperY();
-    }
-    @Override
-    public void setAnimations(BufferedImage[][] animations) {
-        meleeEnemy.setAnimations(animations);
-    }
-    @Override
-    public BufferedImage[][] getAnimations() {
-        return meleeEnemy.getAnimations();
+    public double getDistance(int enemyHelperX, int enemyHelperY, int targetX, int targetY) {
+        return Math.sqrt((Math.pow((targetX  - enemyHelperX + 1287),2)
+                + Math.pow((targetY - enemyHelperY + 720 ), 2)));
     }
 }

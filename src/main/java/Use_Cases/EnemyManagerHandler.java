@@ -57,13 +57,11 @@ public class EnemyManagerHandler implements CreateEnemyInputBoundary{
             enemyInfo.add(m.getAnimations());
             enemyInfo.add(m.getVisualX());
             enemyInfo.add(m.getVisualY());
-
             enemyInfoList.add(enemyInfo);
         }
 
         for (RangedEnemy r : rangedEnemies.values()){
             ArrayList enemyInfo = new ArrayList<>();
-
             enemyInfo.add(r.getAnimations());
             enemyInfo.add(r.getVisualX());
             enemyInfo.add(r.getVisualY());
@@ -76,26 +74,19 @@ public class EnemyManagerHandler implements CreateEnemyInputBoundary{
 
     public ArrayList<Enemy> getEnemies(){
         ArrayList<Enemy> enemyList = new ArrayList<>();
-
         enemyList.addAll(meleeEnemies.values());
         enemyList.addAll(rangedEnemies.values());
-
         return enemyList;
     }
-    public void updateEnemies(int velX, int velY) {
+    public void updateEnemies(int xDelta, int yDelta) {
         for (MeleeEnemy m : meleeEnemies.values()){
-            m.changeHelperX(-velX);
-            m.changeVisualX(-velX);
-            m.changeHelperY(-velY);
-            m.changeVisualY(-velY);
+            m.setVisualX(xDelta);
+            m.setVisualY(yDelta);
         }
-
-/*        for (RangedEnemy r : rangedEnemies.values()){
-            r.changeHelperX(velX);
-            r.changeHelperX(velX);
-            r.changeVisualX(velY);
-            r.changeVisualY(velY);
-        }*/
+        for (RangedEnemy r : rangedEnemies.values()){
+            r.setVisualX(xDelta);
+            r.setVisualY(yDelta);
+        }
     }
     public ArrayList<String> getEnemyID(){
         ArrayList<String> enemyNameList = new ArrayList<>();

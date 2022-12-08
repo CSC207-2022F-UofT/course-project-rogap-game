@@ -1,5 +1,7 @@
 package Use_Cases;
 
+import Entities.Enemy;
+
 import java.util.ArrayList;
 
 public interface CreateEnemyInputBoundary {
@@ -8,4 +10,5 @@ public interface CreateEnemyInputBoundary {
 
     ArrayList<ArrayList> getEnemiesInfo();
     void updateEnemies(int velX, int velY);
+    ArrayList<Enemy> getEnemies();
 }

@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 public class PlayerMovementController {
     PlayerMovementInputBoundary playerMovementInputBoundary;
     CollisionController collisionController;
+    private boolean collide = false;
     /**
      * Connects the player movement controller to collision controller and all the enemy controller
      * Because we are working with those controllers

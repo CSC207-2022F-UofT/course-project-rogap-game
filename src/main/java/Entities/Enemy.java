@@ -36,6 +36,7 @@ public abstract class Enemy {
     public abstract Ellipse2D.Float getAttackHitRadius();
     public abstract Ellipse2D.Float getAttackRadius();
     public abstract void drawMonsterHitRadius(Graphics g);
+    public abstract void updateAttackHitRadius();
     public abstract void drawMonsterAttackRadius(Graphics g);
 
 }

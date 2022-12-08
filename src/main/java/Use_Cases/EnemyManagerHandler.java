@@ -4,7 +4,6 @@ import Entities.Enemy;
 import Entities.MeleeEnemy;
 import Entities.RangedEnemy;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -84,12 +83,12 @@ public class EnemyManagerHandler implements CreateEnemyInputBoundary{
         for (MeleeEnemy m : meleeEnemies.values()){
             m.setVisualX(xDelta);
             m.setVisualY(yDelta);
-            m.updateAttackHitBox();
+            m.updateAttackHitRadius();
         }
         for (RangedEnemy r : rangedEnemies.values()){
             r.setVisualX(xDelta);
             r.setVisualY(yDelta);
-            r.updateAttackHitBox();
+            r.updateAttackHitRadius();
         }
     }
     public ArrayList<String> getEnemyID(){

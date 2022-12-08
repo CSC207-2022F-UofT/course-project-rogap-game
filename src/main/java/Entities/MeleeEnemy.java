@@ -3,8 +3,6 @@ package Entities;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.EventListener;
 
 public class MeleeEnemy extends Enemy {
     public  BufferedImage[][] animations;
@@ -84,7 +82,8 @@ public class MeleeEnemy extends Enemy {
         attackHitRadius = new Ellipse2D.Float(getHelperX(), getHelperY(), 28, 28);
     }
 
-    public void updateAttackHitBox() {
+    @Override
+    public void updateAttackHitRadius() {
         attackHitRadius.x = getHelperX();
         attackHitRadius.y = getHelperY();
     }

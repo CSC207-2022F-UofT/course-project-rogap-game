@@ -95,7 +95,8 @@ public class RangedEnemy extends Enemy{
                 attackHitRadius.width + 10, attackHitRadius.height + 10);
     }
 
-    public void updateAttackHitBox() {
+    @Override
+    public void updateAttackHitRadius() {
         attackHitRadius.x = getHelperX();
         attackHitRadius.y = getHelperY();
     }

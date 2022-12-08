@@ -1,7 +1,10 @@
 package Use_Cases;
 
+import Entities.Enemy;
 import Entities.MeleeEnemy;
 import Entities.RangedEnemy;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -47,7 +50,7 @@ public class EnemyManagerHandler implements CreateEnemyInputBoundary{
     /**
      * Returns a list of "spawned" enemies or null if no enemies were spawned.
      */
-    public ArrayList<ArrayList> getEnemies() {
+    public ArrayList<ArrayList> getEnemiesInfo() {
 
         ArrayList<ArrayList> enemyInfoList = new ArrayList<>();
 
@@ -56,13 +59,11 @@ public class EnemyManagerHandler implements CreateEnemyInputBoundary{
             enemyInfo.add(m.getAnimations());
             enemyInfo.add(m.getVisualX());
             enemyInfo.add(m.getVisualY());
-
             enemyInfoList.add(enemyInfo);
         }
 
         for (RangedEnemy r : rangedEnemies.values()){
             ArrayList enemyInfo = new ArrayList<>();
-
             enemyInfo.add(r.getAnimations());
             enemyInfo.add(r.getVisualX());
             enemyInfo.add(r.getVisualY());
@@ -72,20 +73,24 @@ public class EnemyManagerHandler implements CreateEnemyInputBoundary{
 
         return enemyInfoList;
     }
-    public void updateEnemies(int velX, int velY) {
-        for (MeleeEnemy m : meleeEnemies.values()){
-            m.changeHelperX(-velX);
-            m.changeVisualX(-velX);
-            m.changeHelperY(-velY);
-            m.changeVisualY(-velY);
-        }
 
-/*        for (RangedEnemy r : rangedEnemies.values()){
-            r.changeHelperX(velX);
-            r.changeHelperX(velX);
-            r.changeVisualX(velY);
-            r.changeVisualY(velY);
-        }*/
+    public ArrayList<Enemy> getEnemies(){
+        ArrayList<Enemy> enemyList = new ArrayList<>();
+        enemyList.addAll(meleeEnemies.values());
+        enemyList.addAll(rangedEnemies.values());
+        return enemyList;
+    }
+    public void updateEnemies(int xDelta, int yDelta) {
+        for (MeleeEnemy m : meleeEnemies.values()){
+            m.setVisualX(xDelta);
+            m.setVisualY(yDelta);
+            m.updateAttackHitBox();
+        }
+        for (RangedEnemy r : rangedEnemies.values()){
+            r.setVisualX(xDelta);
+            r.setVisualY(yDelta);
+            r.updateAttackHitBox();
+        }
     }
     public ArrayList<String> getEnemyID(){
         ArrayList<String> enemyNameList = new ArrayList<>();

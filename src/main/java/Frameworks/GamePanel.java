@@ -47,6 +47,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     StatBarsPresenterBoundary statBarsPresenterBoundary;
 
     CreateEnemyController createEnemyController;
+    AttackController attackController;
 
 
     public GamePanel(){
@@ -64,16 +65,18 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
      */
     public void setUp(PauseGameController pauseGameController, ShowMapController showMapController,
                       StatBarsPresenterBoundary statBarsPresenterBoundary, ShowStatsController showStatsController, 
-                      PlayerMovementController playerMovementController, CreateEnemyController createEnemyController){
+                      PlayerMovementController playerMovementController, CreateEnemyController createEnemyController,
+                      AttackController attackController){
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
         this.showStatsController = showStatsController;
         this.statBarsPresenterBoundary = statBarsPresenterBoundary;
         this.playerMovementController = playerMovementController;
         this.createEnemyController = createEnemyController;
+        this.attackController = attackController;
         
         addKeyListener(new KeyboardInputs(pauseGameController, showMapController,
-                showStatsController, playerMovementController));
+                showStatsController, playerMovementController, attackController));
 
         addMouseListener(new MouseInputs(this));
     }
@@ -204,7 +207,13 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         //  - Don't directly call a method from gameShop.
 /*
         gameShop.checkLocation();
+
 */
+        // for debugginh attack methods!!!
+        attackController.drawPlayerAttackRadius(g);
+        attackController.drawPlayerHitRadius(g);
+        attackController.drawMonstersHitRadius(g);
+        attackController.drawMonstersAttackRadius(g);
 
     }
 

@@ -50,8 +50,8 @@ public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReferenc
      */
     public void update(){
         playerMovementController.update();
-        createEnemyController.updateEnemies(playerMovementController.getVelX(),
-                playerMovementController.getVelY());
+        createEnemyController.updateMapLocation(playerMovementController.getVisualX(),
+                playerMovementController.getVisualY());
 
     }
 

@@ -49,7 +49,6 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     ShowStatsController showStatsController;
     PauseGameController pauseGameController;
     PlayerMovementController playerMovementController;
-    StatBarsPresenterBoundary statBarsPresenterBoundary;
 
     CreateEnemyController createEnemyController;
 

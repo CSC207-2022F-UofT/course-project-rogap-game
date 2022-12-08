@@ -71,9 +71,10 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         this.statBarsPresenterBoundary = statBarsPresenterBoundary;
         this.playerMovementController = playerMovementController;
         this.createEnemyController = createEnemyController;
-
+        
         addKeyListener(new KeyboardInputs(pauseGameController, showMapController,
                 showStatsController, playerMovementController));
+
         addMouseListener(new MouseInputs(this));
     }
 
@@ -169,11 +170,12 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 
         // SHOP VISUAL GOES HERE
 /*
-        g.drawImage(shopKeeper, xDelta + 1857, yDelta + 1676, null);
+
         if (gameShop.getItemList().contains("Health Potion")){
             g.drawImage(healthPotion, xDelta + 1857, yDelta + 1726, null);
         }
 */
+        g.drawImage(shopKeeper, playerMovementController.getVisualX() + 1857, playerMovementController.getVisualY() + 1676, null);
 
         g.drawImage(bushes, playerMovementController.getVisualX(), playerMovementController.getVisualY(), null);
 

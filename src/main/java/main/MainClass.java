@@ -21,7 +21,13 @@ public class MainClass {
         GameScreenPresenter presenter = new GameScreenPresenter(screenModel);
 
 
-        //Collision Set up
+        //Creating player sprites in blue layer, maybe controller needed?
+        PlayerAnimationImport playerAnimationImport = new PlayerAnimationImport();
+
+        //Player movement and collisions
+        Player player = new Player("hello");
+        PlayerMovement playerMovement = new PlayerMovement(player);
+
         Collision collision = new Collision();
         CollisionInputBoundary collisionInteractor = new CollisionInteractor(collision);
         CollisionController collisionController = new CollisionController(collisionInteractor);
@@ -34,11 +40,13 @@ public class MainClass {
         PlayerMovementInputBoundary playerMovementInteractor = new PlayerMovementInteractor(playerMovement);
         PlayerMovementController playerMovementController = new PlayerMovementController(playerMovementInteractor, collisionController);
 
-
-        // GameManager (Takes in all the controller and presenters needed for use-cases)
+        AnimationsImportController animationsImportController = new AnimationsImportController(playerAnimationImport.getPlayerAnimations(),
+                playerMovementController);
         GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter, playerMovementController);
 
         // Stat Bars Use Case
+
+
         StatBarsInputBoundary statBarsInputBoundary = new StatBarsInteractor(player);
         StatBarsPresenterBoundary statBarsPresenterBoundary = new StatBarsPresenter(statBarsInputBoundary);
 

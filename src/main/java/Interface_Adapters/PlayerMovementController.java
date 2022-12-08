@@ -23,7 +23,7 @@ public class PlayerMovementController {
      */
     public void update() {
 
-        playerMovementInputBoundary.updateSpeed();
+        playerMovementInputBoundary.updateHelper();
         if (getMoveableWall(getVisualX(), getVisualY(), -playerMovementInputBoundary.getVelX(), 0)) {
             playerMovementInputBoundary.updateX();
         }

@@ -18,7 +18,6 @@ public class PlayerMovement extends Movement{
     public PlayerMovement(Player player) {
         this.player = player;
     }
-
     public int getVelX () {
         if (left) {
             return speed;
@@ -37,8 +36,9 @@ public class PlayerMovement extends Movement{
             return 0;
         }
     }
-    public void updateSpeed() {
+    public void updateHelper() {
         this.speed = player.getSpeed();
+        this.moving = player.getMoving();
     }
     public void updateX() {
         if (left) {
@@ -58,8 +58,6 @@ public class PlayerMovement extends Movement{
             player.changeVisualY(-speed);
         }
     }
-
-
     public void rightActivator() {
         this.right = true;
         this.setMoving();
@@ -94,8 +92,8 @@ public class PlayerMovement extends Movement{
     }
     public void setMoving () {
         if (right || left || up || down) {
-            moving = true;
-        } else {moving = false;}
+            player.setMoving(true);
+        } else {player.setMoving(false);}
     }
     //Getting locations
     public int getVisualX() {
@@ -110,7 +108,6 @@ public class PlayerMovement extends Movement{
     public int getHelperY() {
         return player.getHelperY();
     }
-
     public void setAnimations(BufferedImage[][] animations) {
         player.setAnimations(animations);
     }

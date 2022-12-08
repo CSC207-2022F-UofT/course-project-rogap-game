@@ -16,6 +16,7 @@ public class Player {
     // VARIABLES FOR SHOP SYSTEM
     private int maxHealth = STARTING_HP;
     private int currentHealth = maxHealth;
+    private boolean moving = false;
 
     public int getMaxHealth() { return this.maxHealth; }
     public int getCurrentHealth() {
@@ -44,7 +45,12 @@ public class Player {
         }
         System.out.println("Health After: " + getCurrentHealth());
     }
-
+    public boolean getMoving() {
+        return moving;
+    }
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
     public int getGold(){
         return this.gold;
     }

@@ -7,33 +7,24 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class EnemyMovement extends Movement{
-    private MeleeEnemy meleeEnemy;
-    public EnemyMovement(MeleeEnemy meleeEnemy) {
-        this.meleeEnemy = meleeEnemy;
+    public EnemyMovement() {
     }
     public void updateX(int playerX) {
     }
     public void updateY(int playerY) {
     }
 
-    public int getVelX(int playerX) {
+    public int getVelX(int enemyVisualX, int playerX) {
         int velX;
-        velX = enemyMoveHelper(meleeEnemy.getVisualX() - 616 - 1280,playerX - meleeEnemy.getHelperX());
+        velX = enemyMoveHelper(enemyVisualX - 616 - 1280,playerX - meleeEnemy.getHelperX());
         return velX;
     }
-    public int getVelY(int playerY) {
+    public int getVelY(int enemyVisualX, int playerY) {
         int velY;
-        velY = enemyMoveHelper(meleeEnemy.getVisualY()- 326 - 720,playerY - meleeEnemy.getHelperY());
+        velY = enemyMoveHelper(enemyVisualX - 326 - 720,playerY - meleeEnemy.getHelperY());
         return velY;
     }
-    public void changeX(int velX) {
-        meleeEnemy.setHelperX(velX);
-        meleeEnemy.setVisualX(velX);
-    }
-    public void changeY(int velY) {
-        meleeEnemy.setHelperY(velY);
-        meleeEnemy.setVisualY(velY);
-    }
+
     public Rectangle getHitBox() {
         return meleeEnemy.getHitBox();
     }

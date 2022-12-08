@@ -1,9 +1,78 @@
 package Entities;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 public class RangedEnemy extends Enemy{
+    public  BufferedImage[][] animations;
+    private int spawnX, spawnY;
+    private int xEnemy, yEnemy;
+    private Rectangle hitBox;
+    private String name;
 
     public RangedEnemy(String name, int x, int y, int spawnX, int spawnY) {
-        super(name, x, y, spawnX, spawnY);
+        /**
+         * Spawn the enemy at a x,y location and saves it.
+         * xEnemy and yEnemy: is used for the visual aspect of enemy
+         * spawnX and spawnY: is used for finding enemy relative to walls and players
+         */
+        this.name = name;
+        this.xEnemy = x + spawnX;
+        this.yEnemy = y + spawnY;
+        this.spawnX = spawnX;
+        this.spawnY = spawnY;
 
     }
+    @Override
+    public int getVisualX() {
+        return xEnemy;
+    }
+    @Override
+    public int getVisualY() {
+        return yEnemy;
+    }
+    @Override
+    public int getHelperX() {
+        return spawnX;
+    }
+    @Override
+    public int getHelperY() {
+        return spawnY;
+    }
+    @Override
+    public void changeVisualX(int x) {
+        this.xEnemy -= x;
+    }
+    @Override
+    public void changeVisualY(int y) {
+        this.yEnemy -= y;
+    }
+    @Override
+    public void changeHelperX(int x) {
+        this.spawnX -= x;
+    }
+    @Override
+    public void changeHelperY(int y) {
+        this.spawnY -= y;
+    }
+    @Override
+    public Rectangle getHitBox() {
+        /**
+         * Generates a rectangle around the enemy that can be used for collision and attacks
+         */
+        hitBox = new Rectangle(spawnX - 1280 + 4, spawnY - 720 + 4, 24, 24);
+        return hitBox;
+    }
+    @Override
+    public void setAnimations(BufferedImage[][] animations) {
+        /**
+         * Sets the current animations depending on which way the enemy is moving
+         */
+        this.animations = animations;
+    }
+    @Override
+    public BufferedImage[][] getAnimations() {
+        return this.animations;
+    }
+
 }

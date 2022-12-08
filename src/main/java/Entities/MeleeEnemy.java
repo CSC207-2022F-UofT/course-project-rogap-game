@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class MeleeEnemy {
+public class MeleeEnemy extends Enemy {
     public  BufferedImage[][] animations;
     private int spawnX, spawnY;
     private int xEnemy, yEnemy;
@@ -23,42 +23,39 @@ public class MeleeEnemy {
         this.spawnX = spawnX;
         this.spawnY = spawnY;
     }
+    @Override
     public int getVisualX() {
         return xEnemy;
     }
+    @Override
     public int getVisualY() {
         return yEnemy;
     }
+    @Override
     public int getHelperX() {
         return spawnX;
     }
+    @Override
     public int getHelperY() {
         return spawnY;
     }
-    public void setVisualX(int xDelta) {
-        this.xEnemy = xDelta + getHelperX();
-    }
-    public void setVisualY(int yDelta) {
-        this.yEnemy = yDelta + getHelperY();
-    }
-    public void setHelperX(int xDelta) {
-        this.spawnX = xDelta;
-    }
-    public void setHelperY(int yDelta) {
-        this.spawnY = yDelta;
-    }
+    @Override
     public void changeVisualX(int x) {
         this.xEnemy -= x;
     }
+    @Override
     public void changeVisualY(int y) {
         this.yEnemy -= y;
     }
+    @Override
     public void changeHelperX(int x) {
         this.spawnX -= x;
     }
+    @Override
     public void changeHelperY(int y) {
         this.spawnY -= y;
     }
+    @Override
     public Rectangle getHitBox() {
         /**
          * Generates a rectangle around the enemy that can be used for collision and attacks
@@ -66,12 +63,14 @@ public class MeleeEnemy {
         hitBox = new Rectangle(spawnX - 1280 + 4, spawnY - 720 + 4, 24, 24);
         return hitBox;
     }
+    @Override
     public void setAnimations(BufferedImage[][] animations) {
         /**
          * Sets the current animations depending on which way the enemy is moving
          */
         this.animations = animations;
     }
+    @Override
     public BufferedImage[][] getAnimations() {
         return this.animations;
     }

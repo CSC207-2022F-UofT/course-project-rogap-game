@@ -8,13 +8,16 @@ public class CreateEnemyController {
 
     private CreateEnemyInputBoundary createEnemyInputBoundary;
     private PlayerMovementController playerMovementController;
+    private EnemyMovementController enemyMovementController;
 
     public CreateEnemyController(CreateEnemyInputBoundary createEnemyInputBoundary,
-                                 PlayerMovementController playerMovementController){
+                                 PlayerMovementController playerMovementController,
+                                 EnemyMovementController enemyMovementController){
         this.createEnemyInputBoundary = createEnemyInputBoundary;
         this.playerMovementController = playerMovementController;
+        this.enemyMovementController = enemyMovementController;
     }
-    public void updateEnemies(int xDelta, int yDelta) {
+    public void updateMapLocation(int xDelta, int yDelta) {
         createEnemyInputBoundary.updateEnemies(xDelta, yDelta);
     }
     public void create(){
@@ -25,6 +28,7 @@ public class CreateEnemyController {
     public ArrayList<ArrayList> getEnemyInfo(){
         return createEnemyInputBoundary.getEnemiesInfo();
     }
+    public void update() {
 
-
+    }
 }

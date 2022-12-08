@@ -83,6 +83,7 @@ public class PlayerMovementInteractor implements PlayerMovementInputBoundary {
     public void updateY() {
         playerMovement.updateY();
     }
+
     @Override
     public void setIdleDirection(int dir) {
         playerMovement.setIdleDirection(dir);
@@ -99,8 +100,8 @@ public class PlayerMovementInteractor implements PlayerMovementInputBoundary {
     }
 
     @Override
-    public void updateSpeed() {
-        playerMovement.updateSpeed();
+    public void updateHelper() {
+        playerMovement.updateHelper();
     }
 
 }

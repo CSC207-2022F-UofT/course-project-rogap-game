@@ -49,6 +49,6 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        this.gamePanel.setPointerLocation(e.getX(), e.getY());
+/*        this.gamePanel.setPointerLocation(e.getX(), e.getY());*/
     }
 }

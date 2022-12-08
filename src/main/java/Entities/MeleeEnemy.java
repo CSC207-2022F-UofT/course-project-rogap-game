@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 public class MeleeEnemy extends Enemy {
     public  BufferedImage[][] animations;
     private int spawnX, spawnY;
+    private final int DMG = 10;
     private int xEnemy, yEnemy;
     private Rectangle hitBox;
     private String name;
@@ -44,6 +45,7 @@ public class MeleeEnemy extends Enemy {
     public int getHelperY() {
         return spawnY;
     }
+    public int getDMG() { return DMG; }
     public void setVisualX(int xDelta) {
         this.xEnemy = xDelta + getHelperX();
     }

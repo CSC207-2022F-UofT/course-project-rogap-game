@@ -22,6 +22,7 @@ public class Player {
     public int getCurrentHealth() {
         return this.currentHealth;
     }
+    public void setCurrentHealth(int currentHealth) {this.currentHealth = currentHealth; }
     public int getAttack() { return attack; }
     public Player(String name) {
         this.name = name;

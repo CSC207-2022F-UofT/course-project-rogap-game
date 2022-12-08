@@ -1,9 +1,7 @@
 package main;
 
-import Entities.Player;
-import Frameworks.GamePanel;
-import Frameworks.PlayerAnimationImport;
-import Frameworks.WriteToBoardGateway;
+import Entities.*;
+import Frameworks.*;
 import Interface_Adapters.*;
 import Use_Cases.*;
 
@@ -78,7 +76,7 @@ public class MainClass {
 
 
         screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary,
-                showStatsController, playerMovementController, createEnemyController, attackController, createEnemyController);
+                showStatsController, playerMovementController, attackController, createEnemyController);
         gameManager.start();
     }
 }

@@ -32,7 +32,7 @@ public class MonsterAttackInteractor implements MonsterAttackInputBoundary{
             if (!enemyAttackRadius.isEmpty()) {  // player attack box and monster hitbox do intersect
 //                r.setAttacking(true);
                 playerAttack.setHit(true);
-//                playerAttack.takeDamage();
+                playerAttack.takeDamage(e.getDMG());
                 // takes damage and updates animation (HIT or DEAD)
                 return;
             }

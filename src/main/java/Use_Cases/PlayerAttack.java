@@ -45,10 +45,10 @@ public class PlayerAttack extends Attack{
     public void setHit(boolean value) {
         this.hit = value;
     }
-//
-//    public void takeDamage(){
-//        // decrease health
-//    }
+
+    public void takeDamage(int damage){
+        player.setCurrentHealth(player.getCurrentHealth() - damage);
+    }
 
     public void drawAttackRadius(Graphics g) {
         g.setColor(Color.red);

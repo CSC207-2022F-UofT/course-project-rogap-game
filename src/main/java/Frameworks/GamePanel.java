@@ -69,7 +69,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
      */
     public void setUp(PauseGameController pauseGameController, ShowMapController showMapController,
                       StatBarsPresenterBoundary statBarsPresenterBoundary, ShowStatsController showStatsController, 
-                      PlayerMovementController playerMovementController, AttackController attackController, 
+                      PlayerMovementController playerMovementController, AttackController attackController,
                       CreateEnemyController createEnemyController){
 
         this.pauseGameController = pauseGameController;

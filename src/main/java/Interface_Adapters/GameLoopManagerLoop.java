@@ -67,6 +67,7 @@ public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReferenc
         gameThread.start();
     }
 
+    // returns game time
     public static int getGameTimerSeconds(){
         return (int) ((int)(gameTimerSeconds - startTime) / 1000F);
     }

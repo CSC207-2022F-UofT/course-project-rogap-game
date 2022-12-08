@@ -19,6 +19,11 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     final int SPEED = 3;
 
     private JLabel timerGui;
+
+
+    StatBarsPresenterBoundary statBarsPresenterBoundary;
+
+    private WriteToBoardController writeToBoardController;
     private boolean showStatBar = true;
     private ArrayList<Leaf> leafList = new ArrayList<>();
 
@@ -64,14 +69,17 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
      */
     public void setUp(PauseGameController pauseGameController, ShowMapController showMapController,
                       StatBarsPresenterBoundary statBarsPresenterBoundary, ShowStatsController showStatsController, 
-                      PlayerMovementController playerMovementController, CreateEnemyController createEnemyController){
+                      PlayerMovementController playerMovementController, WriteToBoardController writeToBoardController, 
+                      CreateEnemyController createEnemyController){
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
         this.showStatsController = showStatsController;
         this.statBarsPresenterBoundary = statBarsPresenterBoundary;
         this.playerMovementController = playerMovementController;
+
+        this.writeToBoardController = writeToBoardController;
         this.createEnemyController = createEnemyController;
-        
+
         addKeyListener(new KeyboardInputs(pauseGameController, showMapController,
                 showStatsController, playerMovementController));
 

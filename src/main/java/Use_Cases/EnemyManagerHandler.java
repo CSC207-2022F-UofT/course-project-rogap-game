@@ -1,5 +1,6 @@
 package Use_Cases;
 
+import Entities.Enemy;
 import Entities.MeleeEnemy;
 import Entities.RangedEnemy;
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class EnemyManagerHandler implements CreateEnemyInputBoundary{
     /**
      * Returns a list of "spawned" enemies or null if no enemies were spawned.
      */
-    public ArrayList<ArrayList> getEnemies() {
+    public ArrayList<ArrayList> getEnemiesInfo() {
 
         ArrayList<ArrayList> enemyInfoList = new ArrayList<>();
 
@@ -71,6 +72,15 @@ public class EnemyManagerHandler implements CreateEnemyInputBoundary{
         }
 
         return enemyInfoList;
+    }
+
+    public ArrayList<Enemy> getEnemies(){
+        ArrayList<Enemy> enemyList = new ArrayList<>();
+
+        enemyList.addAll(meleeEnemies.values());
+        enemyList.addAll(rangedEnemies.values());
+
+        return enemyList;
     }
     public void updateEnemies(int velX, int velY) {
         for (MeleeEnemy m : meleeEnemies.values()){

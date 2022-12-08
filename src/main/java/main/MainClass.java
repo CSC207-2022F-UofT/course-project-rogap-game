@@ -19,8 +19,6 @@ public class MainClass {
         UpdateScreenBoundary screenModel = new GamePanel();
         GameScreenPresenter presenter = new GameScreenPresenter(screenModel);
 
-
-
         //Collisions set up
         Collision collision = new Collision();
         CollisionInputBoundary collisionInteractor = new CollisionInteractor(collision);
@@ -34,12 +32,16 @@ public class MainClass {
         PlayerMovementInputBoundary playerMovementInteractor = new PlayerMovementInteractor(playerMovement);
         PlayerMovementController playerMovementController = new PlayerMovementController(playerMovementInteractor, collisionController);
         new AnimationsImportController(playerAnimationImport.getPlayerAnimations(), playerMovementController);
+        //Enemy stuff
 
         //Create Enemies use-case
         CreateEnemyInputBoundary enemyManagerInteractor = new EnemyManagerHandler();
         CreateEnemyController createEnemyController = new CreateEnemyController(enemyManagerInteractor,
                 playerMovementController);
         createEnemyController.create();
+
+        //EnemyMovement enemyMovement = new EnemyMovement();
+        //EnemyMovementInputBoundary enemyMovementInteractor = new EnemeyMovementInteractor();
 
         // GameManager (Takes in all the controller and presenters needed for use-cases)
         GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter, playerMovementController,

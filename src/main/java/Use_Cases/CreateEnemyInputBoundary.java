@@ -6,6 +6,6 @@ public interface CreateEnemyInputBoundary {
     // TODO CHANGE NAME
     void createEnemies(int xDelta, int yDelta);
 
-    ArrayList<ArrayList> getEnemies();
+    ArrayList<ArrayList> getEnemiesInfo();
     void updateEnemies(int velX, int velY);
 }

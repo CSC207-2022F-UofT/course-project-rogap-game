@@ -23,7 +23,7 @@ public class CreateEnemyController {
     }
 
     public ArrayList<ArrayList> getEnemyInfo(){
-        return createEnemyInputBoundary.getEnemies();
+        return createEnemyInputBoundary.getEnemiesInfo();
     }
 
 

@@ -18,11 +18,14 @@ public class Player {
     private int currentHealth = maxHealth;
 
     public int getMaxHealth() { return this.maxHealth; }
+
+    public void setMaxHealth(int maxHealth) { this.maxHealth = maxHealth; }
     public int getCurrentHealth() {
         return this.currentHealth;
     }
+    public void setCurrentHealth(int currentHealth) { this.currentHealth = currentHealth; }
     public int getAttack() { return attack; }
-
+    public void setAttack(int attack) { this.attack = attack; }
     public Player(String name) {
         this.name = name;
     }
@@ -37,22 +40,17 @@ public class Player {
      * @param amount How much health we regen
      */
     public void regenHealth(int amount){
-        System.out.println("Health Before: " + getCurrentHealth());
         this.currentHealth += amount;
         if (getCurrentHealth() > 100){
             this.currentHealth = 100;
         }
-        System.out.println("Health After: " + getCurrentHealth());
     }
 
     public int getGold(){
         return this.gold;
     }
-    public void addGold(int gold){
-        this.gold += gold;
-    }
-    public void removeGold(int amount){
-        this.gold -= amount;
+    public void setGold(int gold) {
+        this.gold = gold;
     }
     public void setAnimations(BufferedImage[][] animations) {
         this.animations = animations;

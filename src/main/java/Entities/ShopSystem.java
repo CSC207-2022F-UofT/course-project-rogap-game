@@ -39,7 +39,8 @@ public class ShopSystem{
     public void purchase(String itemName) {
         // TODO: More on items goes here
         if (player.getGold() >= itemList.get(itemName)){
-            player.removeGold(itemList.get(itemName));
+            // We first set the gold to
+            player.setGold(itemList.get(itemName));
             player.regenHealth(20);
             itemList.remove(itemName);
 

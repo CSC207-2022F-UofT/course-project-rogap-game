@@ -83,6 +83,11 @@ public class RangedEnemy extends Enemy{
         this.animations = animations;
     }
     @Override
+    public BufferedImage getCurrImage() {
+        return animations[0][0];
+    }
+
+    @Override
     public BufferedImage[][] getAnimations() {
         return this.animations;
     }

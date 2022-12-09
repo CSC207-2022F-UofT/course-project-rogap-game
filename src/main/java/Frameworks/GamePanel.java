@@ -172,7 +172,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         //Enemy visual goes here
         ArrayList<ArrayList> enemyInfo = this.createEnemyController.getEnemyInfo();
         for (ArrayList i : enemyInfo){
-            g.drawImage(playerMovementController.getCurrAnimation(), (int)i.get(1), (int) i.get(2), 36,36, null);
+            g.drawImage((Image) i.get(0), (int)i.get(1), (int) i.get(2), 36,36, null);
         }
 
         // SHOP VISUAL GOES HERE
@@ -220,6 +220,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 
 */
         // for debugginh attack methods!!!
+/*
         attackController.drawPlayerAttackRadius(g);
         attackController.drawPlayerHitRadius(g);
         attackController.drawMonstersHitRadius(g);
@@ -232,6 +233,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         g.drawOval(e2.getVisualX(), e2.getVisualY(), 36, 36);
 
         g.drawOval(e1.getVisualX(), e1.getVisualY(), 36, 36);  // Melee enemy
+*/
 
     }
 

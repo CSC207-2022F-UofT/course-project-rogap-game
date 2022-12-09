@@ -28,7 +28,7 @@ public class MainClass {
         //Player animation and movement setup
         //TODO: Player takes parameters ABUUUU -> Don't forget to add player username
         Player player = new Player("hello");
-        PlayerAnimationImport playerAnimationImport = new PlayerAnimationImport();
+        AnimationImport animationImport = new AnimationImport();
         PlayerMovement playerMovement = new PlayerMovement(player);
         PlayerMovementInputBoundary playerMovementInteractor = new PlayerMovementInteractor(playerMovement);
         PlayerMovementController playerMovementController = new PlayerMovementController(playerMovementInteractor, collisionController);
@@ -43,6 +43,7 @@ public class MainClass {
         ShopAnimationsImport shopAnimationsImport = new ShopAnimationsImport(shopAnimationController);
         // TODO: THIS IS THE GOOD STUFF
         ShopAnimationsImportController shopAnimationsImportController = new ShopAnimationsImportController(shopAnimationsImport.getItemAnimation(), shopAnimationController);
+
         //Enemy stuff
         EnemyMovement enemyMovement = new EnemyMovement();
         EnemyMovementInputBoundary enemyMovementInteractor = new EnemeyMovementInteractor(enemyMovement);
@@ -52,7 +53,8 @@ public class MainClass {
         CreateEnemyController createEnemyController = new CreateEnemyController(enemyManagerInteractor,
                 playerMovementController, enemyMovementController);
         createEnemyController.create();
-
+        new AnimationsImportController(animationImport.getPlayerAnimations(), animationImport.getEnemyAnimations(), createEnemyController,
+                playerMovementController);
         // Attack Use Case
         PlayerAttack playerAttack = new PlayerAttack(player);
         MonsterAttack monsterAttack = new MonsterAttack(player);
@@ -84,7 +86,7 @@ public class MainClass {
         PauseGameController pauseGameController = new PauseGameController(pauseGameInteractor, gameManager);
         ShowMapController showMapController = new ShowMapController(showMapInteractor, gameManager);
 
-        new AttackDamageAnimationsImportController(playerAnimationImport.getPlayerAnimations(), attackController);
+        new AttackDamageAnimationsImportController(animationImport.getPlayerAnimations(), attackController);
 
 
         screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary, showStatsController, 

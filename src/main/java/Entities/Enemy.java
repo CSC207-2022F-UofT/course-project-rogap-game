@@ -20,6 +20,7 @@ public abstract class Enemy {
     public abstract Rectangle getHitBox();
     public abstract void setAnimations(BufferedImage[][] animations);
     public abstract BufferedImage[][] getAnimations();
+    public abstract BufferedImage getCurrImage();
 
     public boolean attacking = false, hit = false;
 

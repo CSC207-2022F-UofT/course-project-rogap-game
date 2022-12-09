@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 public class MeleeEnemy extends Enemy {
     public  BufferedImage[][] animations;
     private int spawnX, spawnY;
-    private final int DMG = 10;
+    private final int DMG = 2;
     private final int INITIAL_HP = 50;
     private int health = INITIAL_HP;
     private int xEnemy, yEnemy;

@@ -39,8 +39,6 @@ public class Player {
     public int getSpeed() {
         return this.speed;
     }
-    public boolean getHit() { return this.hit; }
-    public void setHit(boolean value) { this.hit = value; }
     public void setSpeed(int speed) {
         this.speed = speed;
     }

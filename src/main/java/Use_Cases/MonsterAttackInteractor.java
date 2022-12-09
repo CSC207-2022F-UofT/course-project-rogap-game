@@ -28,10 +28,10 @@ public class MonsterAttackInteractor implements MonsterAttackInputBoundary {
 
     @Override
     public void attack() {
-        Ellipse2D.Float p = playerAttack.getHitRadius();
+        Ellipse2D.Float p = player.getHitRadius();
         if (p.intersects(e1.getVisualX(), e1.getVisualY(), 55, 55)) {
             e1.setAttacking(true);
-            playerAttack.setHit(true);
+            player.setHit(true);
             monsterAttack.takeDamage(e1);
         }
 
@@ -46,10 +46,6 @@ public class MonsterAttackInteractor implements MonsterAttackInputBoundary {
     public BufferedImage getCurrAttackHitAnimation() {
         return monsterAttack.getCurrentImage();
     }
-
-//    public BufferedImage getMonsterAttackAnimation() {
-//        return monsterAttack.getCurrentImage();  // TODO this should be called on all melee enemies
-//    }
 
     @Override
     public void drawMonstersHitRadius(Graphics g) {

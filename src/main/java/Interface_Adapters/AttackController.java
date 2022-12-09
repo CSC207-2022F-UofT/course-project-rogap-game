@@ -21,6 +21,7 @@ public class AttackController {
     }
 
     public void monsterAttack() {  // called on game loop (every loop)
+        System.out.println("sdfghjhgfdsasdf");
         monsterAttackInputBoundary.attack();
     }  // TODO: make game loop call this
 

@@ -34,6 +34,7 @@ public class Player {
     public int getAttack() { return attack; }
     public Player(String name) {
         this.name = name;
+        initHitRadius();
     }
     public int getSpeed() {
         return this.speed;

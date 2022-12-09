@@ -37,10 +37,10 @@ public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReferenc
         this.gameScreenPresenter = gameScreenPresenter;
         this.playerMovementController = playerMovementController;
         this.createEnemyController = createEnemyController;
-        this.attackController = attackController;
         screenModel = gameScreenPresenter.create();
         new GameWindow(screenModel);
         screenModel.requestFocus();
+        this.attackController = attackController;
     }
 
     public void start(){

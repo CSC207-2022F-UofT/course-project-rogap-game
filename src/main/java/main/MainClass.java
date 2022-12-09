@@ -45,7 +45,7 @@ public class MainClass {
 
         // Attack Use Case
         PlayerAttack playerAttack = new PlayerAttack(player);
-        MonsterAttack monsterAttack = new MonsterAttack();
+        MonsterAttack monsterAttack = new MonsterAttack(player);
         PlayerAttackInputBoundary playerAttackInteractor = new PlayerAttackInteractor(playerAttack, enemyManagerInteractor.getEnemies());
         MonsterAttackInputBoundary monsterAttackInteractor =
                 new MonsterAttackInteractor(enemyManagerInteractor.getEnemies(), monsterAttack, player);

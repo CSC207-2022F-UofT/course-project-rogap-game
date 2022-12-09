@@ -31,9 +31,8 @@ public class CollisionController {
      * @return true iff the object can move to the new location
      */
     public boolean movable(int visualX, int visualY, int currX, int currY, int changeX, int changeY, int width, int height) {
-
         collisionInputBoundary.updateWalls(visualX, visualY);
         return collisionInputBoundary.movable(currX, currY, changeX, changeY, width, height);
     }
-/*    public boolean moveAbleEnemies() {}*/
+    /*    public boolean moveAbleEnemies() {}*/
 }

@@ -18,56 +18,37 @@ public class EnemyMovementController {
         this.collisionController = collisionController;
         this.playerMovementController = playerMovementController;
     }
-
     /**
      * Updates the enemy location, so there are three cases.
      * First case: enemy is close to player then it will move towards the player
      * Second case: enemy is close to player however it is touching a wall, so then it will move back to original spot
      * Third case: enemy is not close to player and so it will stay still
      */
-    public void update() {
-        if (enemyMovementInputBoundary.getDistance(playerMovementController.getHelperX(),
-                playerMovementController.getHelperY()) < 600 & enemyMovementInputBoundary.getDistance(playerMovementController.getHelperX(),
-                playerMovementController.getHelperY()) > 100) {
-            if (collisionController.movable(playerMovementController.getVisualX(), playerMovementController.getVisualY(), enemyMovementInputBoundary.getHelperX(),
-                    enemyMovementInputBoundary.getHelperY(), enemyMovementInputBoundary.getVelX(playerMovementController.getHelperX()), 0, 24, 24)){
-                enemyMovementInputBoundary.changeX(enemyMovementInputBoundary.getVelX(playerMovementController.getHelperX()));
+    public int updateX(int enemyHelperX, int enemyHelperY, int enemyVisualX, int enemyVisualY) {
+        if (enemyMovementInputBoundary.getDistance(enemyHelperX, enemyHelperY, playerMovementController.getHelperX(),
+                playerMovementController.getHelperY()) < 600 ) {
+            if (collisionController.movable(playerMovementController.getVisualX(), playerMovementController.getVisualY(),  enemyHelperX + 4,
+                    enemyHelperY + 4, enemyMovementInputBoundary.getVelX(enemyHelperX, playerMovementController.getHelperX()), 0, 24, 24)){
+                return enemyMovementInputBoundary.getVelX(enemyHelperX, playerMovementController.getHelperX());
             } else {
-
-            }
-            if (collisionController.movable(playerMovementController.getVisualX(), playerMovementController.getVisualY(), enemyMovementInputBoundary.getHelperX(),
-                    enemyMovementInputBoundary.getHelperY(), 0, enemyMovementInputBoundary.getVelY(playerMovementController.getHelperY()), 24, 24)) {
-                enemyMovementInputBoundary.changeY(enemyMovementInputBoundary.getVelY(playerMovementController.getHelperY()));
-            } else {
-
+                return 0;
             }
         } else {
-
+            return 0;
         }
     }
-    /**
-     * Returns the enemy x location of enemy relative to the edge of the map
-     */
-    public int getHelperX() {
-        return enemyMovementInputBoundary.getHelperX();
-    }
-    /**
-     * Returns the enemy y location of enemy relative to the edge of the map
-     */
-    public int getHelperY(){
+    public int updateY(int enemyHelperX, int enemyHelperY, int enemyVisualX, int enemyVisualY) {
+        if (enemyMovementInputBoundary.getDistance(enemyHelperX, enemyHelperY, playerMovementController.getHelperX(),
+                playerMovementController.getHelperY()) < 600) {
+            if (collisionController.movable(playerMovementController.getVisualX(), playerMovementController.getVisualY(), enemyHelperX + 4,
+                    enemyHelperY + 4, 0, enemyMovementInputBoundary.getVelY(enemyHelperY,playerMovementController.getHelperY()), 24, 24)) {
+                return enemyMovementInputBoundary.getVelY(enemyHelperY, playerMovementController.getHelperY());
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
 
-        return enemyMovementInputBoundary.getHelperY();
-    }
-    /**
-     * Returns the enemy x location of enemy, that can be used to show it on the map properly.
-     */
-    public int getVisualX(){
-        return enemyMovementInputBoundary.getVisualX();
-    }
-    /**
-     * Returns the enemy y location of enemy, that can be used to show it on the map properly.
-     */
-    public int getVisualY(){
-        return enemyMovementInputBoundary.getVisualY();
     }
 }

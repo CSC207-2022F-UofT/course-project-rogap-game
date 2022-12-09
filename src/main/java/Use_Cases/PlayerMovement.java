@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 /**
  * Use case for player movement
  */
-public class PlayerMovement extends Movement{
+public class PlayerMovement{
     public Player player;
     private boolean right, left, up, down;
     private int idleDir = 0;
@@ -18,8 +18,7 @@ public class PlayerMovement extends Movement{
     public PlayerMovement(Player player) {
         this.player = player;
     }
-
-    public int getVelX () {
+    public int getVelX() {
         if (left) {
             return speed;
         } else if (right) {
@@ -28,7 +27,7 @@ public class PlayerMovement extends Movement{
             return 0;
         }
     }
-    public int getVelY () {
+    public int getVelY() {
         if (down) {
             return -speed;
         } else if (up) {
@@ -37,8 +36,9 @@ public class PlayerMovement extends Movement{
             return 0;
         }
     }
-    public void updateSpeed() {
+    public void updateHelper() {
         this.speed = player.getSpeed();
+        this.moving = player.getMoving();
     }
     public void updateX() {
         if (left) {
@@ -58,8 +58,6 @@ public class PlayerMovement extends Movement{
             player.changeVisualY(-speed);
         }
     }
-
-
     public void rightActivator() {
         this.right = true;
         this.setMoving();
@@ -94,8 +92,8 @@ public class PlayerMovement extends Movement{
     }
     public void setMoving () {
         if (right || left || up || down) {
-            moving = true;
-        } else {moving = false;}
+            player.setMoving(true);
+        } else {player.setMoving(false);}
     }
     //Getting locations
     public int getVisualX() {
@@ -110,7 +108,6 @@ public class PlayerMovement extends Movement{
     public int getHelperY() {
         return player.getHelperY();
     }
-
     public void setAnimations(BufferedImage[][] animations) {
         player.setAnimations(animations);
     }
@@ -131,6 +128,13 @@ public class PlayerMovement extends Movement{
                 playerAction = 1;
             }
         }
+
+//        if (player.getAttacking()) {
+//            playerAction = 4;
+//        }
+//        if (player.getHit()) {
+//            playerAction = 6;
+//        }
     }
     public void setIdleDirection(int dir) {
         this.idleDir = dir;
@@ -163,4 +167,9 @@ public class PlayerMovement extends Movement{
         updateAnimation();
         return player.getAnimations()[playerAction][aniIndex];
     }
+
+    public boolean getRight() {
+        return right;
+    }
+
 }

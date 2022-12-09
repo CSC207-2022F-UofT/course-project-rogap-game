@@ -1,6 +1,8 @@
 package Interface_Adapters;
 
+import java.lang.Math.*;
 import Use_Cases.PlayerMovementInputBoundary;
+
 import java.awt.image.BufferedImage;
 /**
  * This packs all the information for movement and passes it onto the interactor
@@ -8,6 +10,7 @@ import java.awt.image.BufferedImage;
 public class PlayerMovementController {
     PlayerMovementInputBoundary playerMovementInputBoundary;
     CollisionController collisionController;
+    private boolean collide = false;
     /**
      * Connects the player movement controller to collision controller and all the enemy controller
      * Because we are working with those controllers
@@ -23,7 +26,7 @@ public class PlayerMovementController {
      */
     public void update() {
 
-        playerMovementInputBoundary.updateSpeed();
+        playerMovementInputBoundary.updateHelper();
         if (getMoveableWall(getVisualX(), getVisualY(), -playerMovementInputBoundary.getVelX(), 0)) {
             playerMovementInputBoundary.updateX();
         }

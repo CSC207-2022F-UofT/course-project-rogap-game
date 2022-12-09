@@ -1,26 +1,24 @@
 package main;
 
-import Entities.HealthPotion;
-import Entities.Player;
+import Entities.*;
 import Frameworks.*;
-import Frameworks.PlayerAnimationImport;
 import Interface_Adapters.*;
 import Use_Cases.*;
+
+import java.util.Scanner;
 
 public class MainClass {
     public static void main(String[] args) {
         //TODO: Use the username
 
-//        Scanner myObj = new Scanner(System.in);
-//        System.out.println("Enter username");
-//
-//        String userName = myObj.nextLine();  // Read user input
-//        System.out.println("Welcome " + userName + "!");  // Output user input
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("Enter username");
+
+        String userName = myObj.nextLine();  // Read user input
+        System.out.println("Welcome " + userName + "!");  // Output user input
 
         UpdateScreenBoundary screenModel = new GamePanel();
         GameScreenPresenter presenter = new GameScreenPresenter(screenModel);
-
-
 
         //Collisions set up
         Collision collision = new Collision();
@@ -45,18 +43,27 @@ public class MainClass {
         ShopAnimationsImport shopAnimationsImport = new ShopAnimationsImport(shopAnimationController);
         // TODO: THIS IS THE GOOD STUFF
         ShopAnimationsImportController shopAnimationsImportController = new ShopAnimationsImportController(shopAnimationsImport.getItemAnimation(), shopAnimationController);
-
-
-
+        //Enemy stuff
+        EnemyMovement enemyMovement = new EnemyMovement();
+        EnemyMovementInputBoundary enemyMovementInteractor = new EnemeyMovementInteractor(enemyMovement);
+        EnemyMovementController enemyMovementController = new EnemyMovementController(enemyMovementInteractor, playerMovementController, collisionController);
         //Create Enemies use-case
         CreateEnemyInputBoundary enemyManagerInteractor = new EnemyManagerHandler();
         CreateEnemyController createEnemyController = new CreateEnemyController(enemyManagerInteractor,
-                playerMovementController);
+                playerMovementController, enemyMovementController);
         createEnemyController.create();
+
+        // Attack Use Case
+        PlayerAttack playerAttack = new PlayerAttack(player);
+        MonsterAttack monsterAttack = new MonsterAttack(player);
+        PlayerAttackInputBoundary playerAttackInteractor = new PlayerAttackInteractor(playerAttack, enemyManagerInteractor.getEnemies());
+        MonsterAttackInputBoundary monsterAttackInteractor =
+                new MonsterAttackInteractor(enemyManagerInteractor.getEnemies(), monsterAttack, player);
+        AttackController attackController = new AttackController(playerAttackInteractor, monsterAttackInteractor);
 
         // GameManager (Takes in all the controller and presenters needed for use-cases)
         GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter, playerMovementController,
-                createEnemyController);
+                createEnemyController, attackController);
 
         // Stat Bars Use Case
         StatBarsInputBoundary statBarsInputBoundary = new StatBarsInteractor(player);
@@ -66,15 +73,23 @@ public class MainClass {
         ShowStatsInputBoundary showStatsInputBoundary = new ShowStatsInteractor();
         ShowStatsController showStatsController = new ShowStatsController(gameManager, showStatsInputBoundary);
 
+        // Write to Leaderboard Use Case
+        WriteToBoardGatewayBoundary writeToBoardGateway = new WriteToBoardGateway();
+        WriteToBoardInputBoundary writeToBoardInputBoundary = new WriteToBoardInteractor(userName, writeToBoardGateway);
+        WriteToBoardController writeToBoardController = new WriteToBoardController(writeToBoardInputBoundary);
+
         // Pause game Use Case
         PauseGameInputBoundary pauseGameInteractor = new PauseGameInteractor();
         ShowMapInputBoundary showMapInteractor = new ShowMapInteractor();
         PauseGameController pauseGameController = new PauseGameController(pauseGameInteractor, gameManager);
         ShowMapController showMapController = new ShowMapController(showMapInteractor, gameManager);
 
+        new AttackDamageAnimationsImportController(playerAnimationImport.getPlayerAnimations(), attackController);
 
-        screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary,
-                showStatsController, playerMovementController, createEnemyController, shopAnimationController);
+
+        screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary, showStatsController, 
+        playerMovementController, attackController, createEnemyController, shopAnimationController);
+
         gameManager.start();
     }
 }

@@ -27,18 +27,15 @@ public class MonsterAttackInteractor implements MonsterAttackInputBoundary{
 
     @Override
     public void attack() {
-        Ellipse2D.Float enemyAttackRadius = new Ellipse2D.Float(e1.getHelperX(), e1.getHelperY(), 36, 36);
-        Area playerHitRadius = new Area(playerAttack.getHitRadius());     // find area of enemy's attack radius
-        playerHitRadius.intersect(new Area(enemyAttackRadius)); // find intersection between Player hit radius and enemy attack radius
-        if (!enemyAttackRadius.isEmpty()) {  // player attack box and monster hitbox do intersect
+        Ellipse2D.Float p = playerAttack.getHitRadius();
+        if (p.intersects(e1.getVisualX(), e1.getVisualY(), 55, 55)) {
+            System.out.println("YESSSS");
             e1.setAttacking(true);
             playerAttack.setHit(true);
         }
 
-        Ellipse2D.Float enemyAttackRadius2 = new Ellipse2D.Float(e2.getHelperX(), e2.getHelperY(), 55, 55);
-        Area playerHitRadius2 = new Area(playerAttack.getHitRadius());     // find area of enemy's attack radius
-        playerHitRadius2.intersect(new Area(enemyAttackRadius2)); // find intersection between Player hit radius and enemy attack radius
-        if (!enemyAttackRadius2.isEmpty()) {  // player attack box and monster hitbox do intersect
+        if (p.intersects(e2.getVisualX(), e2.getVisualY(), 55, 55)) {
+            System.out.println("NOOOOOO");
             e2.setAttacking(true);
             playerAttack.setHit(true);
         }

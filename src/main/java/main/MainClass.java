@@ -45,10 +45,17 @@ public class MainClass {
                 playerMovementController, enemyMovementController);
         createEnemyController.create();
 
+        // Attack Use Case
+        PlayerAttack playerAttack = new PlayerAttack(player);
+        MonsterAttack monsterAttack = new MonsterAttack();
+        PlayerAttackInputBoundary playerAttackInteractor = new PlayerAttackInteractor(playerAttack, enemyManagerInteractor.getEnemies());
+        MonsterAttackInputBoundary monsterAttackInteractor = new MonsterAttackInteractor(enemyManagerInteractor.getEnemies(), playerAttack);
+        AttackController attackController = new AttackController(playerAttackInteractor, monsterAttackInteractor);
+
 
         // GameManager (Takes in all the controller and presenters needed for use-cases)
         GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter, playerMovementController,
-                createEnemyController);
+                createEnemyController, attackController);
 
         // Stat Bars Use Case
         StatBarsInputBoundary statBarsInputBoundary = new StatBarsInteractor(player);
@@ -68,13 +75,6 @@ public class MainClass {
         ShowMapInputBoundary showMapInteractor = new ShowMapInteractor();
         PauseGameController pauseGameController = new PauseGameController(pauseGameInteractor, gameManager);
         ShowMapController showMapController = new ShowMapController(showMapInteractor, gameManager);
-        
-        // Attack Use Case
-        PlayerAttack playerAttack = new PlayerAttack(player);
-        MonsterAttack monsterAttack = new MonsterAttack();
-        PlayerAttackInputBoundary playerAttackInteractor = new PlayerAttackInteractor(playerAttack, enemyManagerInteractor.getEnemies());
-        MonsterAttackInputBoundary monsterAttackInteractor = new MonsterAttackInteractor(enemyManagerInteractor.getEnemies(), playerAttack);
-        AttackController attackController = new AttackController(playerAttackInteractor, monsterAttackInteractor);
 
         new AttackDamageAnimationsImportController(playerAnimationImport.getPlayerAnimations(), attackController);
 

@@ -22,11 +22,10 @@ public class AttackController {
 
     public void monsterAttack() {  // called on game loop (every loop)
         monsterAttackInputBoundary.attack();
-    }  // TODO: make game loop call this
+    }
 
     public void update() {
-        playerAttackInputBoundary.updateMonsters();
-        playerAttackInputBoundary.updatePlayer();
+        monsterAttack();
     }
 
     public void setAnimations(BufferedImage[][] animations) {

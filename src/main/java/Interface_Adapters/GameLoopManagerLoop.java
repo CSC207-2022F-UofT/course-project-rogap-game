@@ -28,17 +28,20 @@ public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReferenc
     PlayerMovementController playerMovementController;
     CreateEnemyController createEnemyController;
 
+    AttackController attackController;
+
     /**
      * Initializing GameLoopManager using the presenters and controller it interacts with.
      */
     public GameLoopManagerLoop(GameScreenPresenter gameScreenPresenter, PlayerMovementController playerMovementController,
-                               CreateEnemyController createEnemyController){
+                               CreateEnemyController createEnemyController, AttackController attackController){
         this.gameScreenPresenter = gameScreenPresenter;
         this.playerMovementController = playerMovementController;
         this.createEnemyController = createEnemyController;
         screenModel = gameScreenPresenter.create();
         new GameWindow(screenModel);
         screenModel.requestFocus();
+        this.attackController = attackController;
     }
 
     public void start(){
@@ -52,6 +55,7 @@ public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReferenc
         playerMovementController.update();
         createEnemyController.updateMapLocation(playerMovementController.getVisualX(),
                 playerMovementController.getVisualY());
+        attackController.update();
 
     }
 

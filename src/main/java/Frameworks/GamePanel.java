@@ -30,6 +30,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     private BufferedImage pauseIcon;
     private BufferedImage leaf;
     private BufferedImage bushes;
+    private BufferedImage healthPotion;
 
     // Variables for shop system GUI
     private BufferedImage shopKeeper;
@@ -163,10 +164,6 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
             g.drawImage(playerMovementController.getCurrAnimation(), (int)i.get(1), (int) i.get(2), 36,36, null);
         }
 
-
-        //TODO: Kevin
-        // Handle shop stuff using CLEAN way
-
         // SHOP VISUAL GOES HERE
 /*
 
@@ -174,9 +171,9 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
             g.drawImage(healthPotion, xDelta + 1857, yDelta + 1726, null);
         }
 */
-        g.drawImage(shopKeeper, playerMovementController.getVisualX() + 1857, playerMovementController.getVisualY() + 1676, null);
+        g.drawImage(shopKeeper, playerMovementController.getVisualX() + 1872, playerMovementController.getVisualY() + 1700, null);
 
-        g.drawImage(shopAnimationController.getCurrAnimation(), playerMovementController.getVisualX() + 100, playerMovementController.getVisualY() + 100, 32, 45,  null);
+        g.drawImage(shopAnimationController.getCurrAnimation(), playerMovementController.getVisualX() + 1910, playerMovementController.getVisualY() + 1793, 32, 45,  null);
 
         g.drawImage(bushes, playerMovementController.getVisualX(), playerMovementController.getVisualY(), null);
 

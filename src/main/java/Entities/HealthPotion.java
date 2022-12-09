@@ -3,13 +3,13 @@ package Entities;
 import java.awt.image.BufferedImage;
 
 public class HealthPotion extends Potion{
-    private BufferedImage[][] animations;
+    private BufferedImage[] animation;
 
-    public void setAnimations(BufferedImage[][] animations) {
-        this.animations = animations;
+    public void setAnimation(BufferedImage[] animation) {
+        this.animation = animation;
     }
-    public BufferedImage[][] getAnimations() {
-        return this.animations;
+    public BufferedImage[] getAnimation() {
+        return this.animation;
     }
 
 }

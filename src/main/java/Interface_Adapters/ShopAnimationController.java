@@ -11,24 +11,23 @@ public class ShopAnimationController {
         this.shopAnimationInputBoundary = shopAnimationInputBoundary;
     }
     /**
-     * @return the current sprite image that is on display
+     * @return the current sprite (frame of a sprite sheet) image that is on display
      */
     public BufferedImage getCurrAnimation() {
         return shopAnimationInputBoundary.getCurrAnimation();
     }
 
     /**
-     *  passes in the animations to the interactor
-     * @param animations: the sprite list for enemy movement
+     *  passes in the animation to the interactor
      */
-    public void setAnimations(BufferedImage[][] animations) {
-        shopAnimationInputBoundary.setAnimations(animations);
+    public void setAnimation(BufferedImage[] animation) {
+        shopAnimationInputBoundary.setAnimation(animation);
     }
 
     /**
-     * @return a list all the animations sprites
+     * @return a list of all the sprites (frames of a sprite sheet)
      */
-    public BufferedImage[][] getAnimations() {
-        return shopAnimationInputBoundary.getAnimations();
+    public BufferedImage[] getAnimation() {
+        return shopAnimationInputBoundary.getAnimation();
     }
 }

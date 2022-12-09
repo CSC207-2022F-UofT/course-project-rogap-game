@@ -9,11 +9,11 @@ public class ShopAnimation {
     public ShopAnimation(HealthPotion healthPotion){
         this.healthPotion = healthPotion;
     }
-    public void setAnimations(BufferedImage[][] animations) {
-        healthPotion.setAnimations(animations);
+    public void setAnimation(BufferedImage[] animation) {
+        healthPotion.setAnimation(animation);
     }
-    public BufferedImage[][] getAnimations() {
-        return healthPotion.getAnimations();
+    public BufferedImage[] getAnimation() {
+        return healthPotion.getAnimation();
     }
 
     /**
@@ -22,7 +22,7 @@ public class ShopAnimation {
      */
     public BufferedImage getCurrentImage () {
         updateAnimationTick();
-        return healthPotion.getAnimations()[0][aniIndex];
+        return healthPotion.getAnimation()[aniIndex];
     }
 
     /**

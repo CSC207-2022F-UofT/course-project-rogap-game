@@ -44,7 +44,7 @@ public class MainClass {
 
         ShopAnimationsImport shopAnimationsImport = new ShopAnimationsImport(shopAnimationController);
         // TODO: THIS IS THE GOOD STUFF
-        ShopAnimationsImportController shopAnimationsImportController = new ShopAnimationsImportController(shopAnimationsImport.getItemAnimations(), shopAnimationController);
+        ShopAnimationsImportController shopAnimationsImportController = new ShopAnimationsImportController(shopAnimationsImport.getItemAnimation(), shopAnimationController);
 
 
 

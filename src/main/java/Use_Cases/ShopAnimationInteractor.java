@@ -8,12 +8,11 @@ public class ShopAnimationInteractor implements ShopAnimationInputBoundary{
     public ShopAnimationInteractor(ShopAnimation shopAnimation){
         this.shopAnimation = shopAnimation;
     }
-    public void setAnimations(BufferedImage[][] animations) {
-        shopAnimation.setAnimations(animations);
+    public void setAnimation(BufferedImage[] animation) {
+        shopAnimation.setAnimation(animation);
     }
-
-    public BufferedImage[][] getAnimations() {
-        return shopAnimation.getAnimations();
+    public BufferedImage[] getAnimation() {
+        return shopAnimation.getAnimation();
     }
     public BufferedImage getCurrAnimation() {
         return shopAnimation.getCurrentImage();

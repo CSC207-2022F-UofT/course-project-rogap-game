@@ -29,7 +29,7 @@ public class PlayerAttackInteractor implements PlayerAttackInputBoundary{
 
         for (Enemy e : enemies) {
             Area playerAttackRadius = new Area(this.playerAttackRadius);     // find area of Player's attack box
-            Ellipse2D.Float enemyHitRadius = new Ellipse2D.Float(e.getHelperX(), e.getHelperY(), 48, 48);
+            Ellipse2D.Float enemyHitRadius = new Ellipse2D.Float(e.getHelperX(), e.getHelperY(), 36, 36);
             playerAttackRadius.intersect(new Area(enemyHitRadius));      // find intersection between Player attackbox and enemy hitbox
             if (!playerAttackRadius.isEmpty()) {  // player attack box and monster hitbox do intersect
                 e.setHit(true);

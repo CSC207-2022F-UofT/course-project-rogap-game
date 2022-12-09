@@ -128,6 +128,13 @@ public class PlayerMovement{
                 playerAction = 1;
             }
         }
+
+//        if (player.getAttacking()) {
+//            playerAction = 4;
+//        }
+//        if (player.getHit()) {
+//            playerAction = 6;
+//        }
     }
     public void setIdleDirection(int dir) {
         this.idleDir = dir;

@@ -29,6 +29,8 @@ public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReferenc
     CreateEnemyController createEnemyController;
     AttackController attackController;
 
+    AttackController attackController;
+
     /**
      * Initializing GameLoopManager using the presenters and controller it interacts with.
      */

@@ -58,12 +58,12 @@ public class PlayerAnimationImport {
                 rI.close();
                 lM.close();
 
-                lA.close();
-                rA.close();
-                lH.close();
-                rH.close();
-                lD.close();
-                rD.close();
+//                lA.close();
+//                rA.close();
+//                lH.close();
+//                rH.close();
+//                lD.close();
+//                rD.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

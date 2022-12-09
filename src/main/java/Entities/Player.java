@@ -19,7 +19,7 @@ public class Player {
     private int maxHealth = STARTING_HP;
     private int currentHealth = maxHealth;
     private boolean moving = false;
-    private boolean hit = false;
+    private boolean attacking = false, hit = false;
     public void initHitRadius() {
         hitRadius = new Ellipse2D.Float(615, 325, 48, 48);
     }
@@ -101,5 +101,19 @@ public class Player {
     public void changeVisualY(int y) {
         this.currLocationY += y;
     }
+
+    public void setAttacking(boolean value) {
+        this.attacking = value;
+    }
+    public boolean getAttacking() {
+        return attacking;
+    }
+    public void setHit(boolean value) {
+        this.hit = value;
+    }
+    public boolean getHit() {
+        return hit;
+    }
+
 
 }

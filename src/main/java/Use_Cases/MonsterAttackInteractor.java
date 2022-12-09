@@ -28,53 +28,24 @@ public class MonsterAttackInteractor implements MonsterAttackInputBoundary {
 
     @Override
     public void attack() {
-        System.out.println("a");
-        Ellipse2D.Float enemyAttackRadius = new Ellipse2D.Float(e1.getHelperX(), e1.getHelperY(), 36, 36);
-        System.out.println("a");
-        Area playerHitRadius = new Area(player.getHitRadius());     // find area of enemy's attack radius
-        System.out.println("a");
-        playerHitRadius.intersect(new Area(enemyAttackRadius)); // find intersection between Player hit radius and enemy attack radius
-        System.out.println("a");
-        if (!playerHitRadius.isEmpty()) {  // player attack box and monster hitbox do intersect
+        Ellipse2D.Float p = playerAttack.getHitRadius();
+        if (p.intersects(e1.getVisualX(), e1.getVisualY(), 55, 55)) {
             e1.setAttacking(true);
-            player.setHit(true);
+            playerAttack.setHit(true);
             monsterAttack.takeDamage(e1);
         }
 
-        Ellipse2D.Float enemyAttackRadius2 = new Ellipse2D.Float(e2.getHelperX(), e2.getHelperY(), 55, 55);
-        Area playerHitRadius2 = new Area(player.getHitRadius());     // find area of enemy's attack radius
-        playerHitRadius2.intersect(new Area(enemyAttackRadius2)); // find intersection between Player hit radius and enemy attack radius
-        if (!playerHitRadius2.isEmpty()) {  // player attack box and monster hitbox do intersect
+        if (p.intersects(e2.getVisualX(), e2.getVisualY(), 55, 55)) {
             e2.setAttacking(true);
             player.setHit(true);
             monsterAttack.takeDamage(e2);
         }
 
-//        for (MeleeEnemy m : meleeEnemies.values()) { // TODO: change this with enemy manager
-//            Ellipse2D.Float meleeAttackRadius = new Ellipse2D.Float(m.getHelperX(), m.getHelperY(), 48, 48);
-//            Area playerHitRadius = new Area(playerAttack.getHitRadius());     // find area of enemy's attack radius
-//            playerHitRadius.intersect(new Area(meleeAttackRadius)); // find intersection between Player hit radius and enemy attack radius
-//            if (!meleeAttackRadius.isEmpty()) {  // player attack box and monster hitbox do intersect
-////                m.setAttacking(true);
-//                playerAttack.setHit(true);
-////                playerAttack.takeDamage();
-//                // takes damage and updates animation (HIT or DEAD)
-//                return;
-//            }
-//        }
-//        for (RangedEnemy r : rangedEnemies.values()) {
-//            // TODO: update ranged attack radius size
-//            Ellipse2D.Float rangedAttackRadius = new Ellipse2D.Float(r.getHelperX(), r.getHelperY(), 55, 55);
-//            Area playerHitRadius = new Area(playerAttack.getHitRadius());     // find area of enemy's attack radius
-//            playerHitRadius.intersect(new Area(rangedAttackRadius)); // find intersection between Player hit radius and enemy attack radius
-//            if (!rangedAttackRadius.isEmpty()) {  // player attack box and monster hitbox do intersect
-////                r.setAttacking(true);
-//                playerAttack.setHit(true);
-////                playerAttack.takeDamage();
-//                // takes damage and updates animation (HIT or DEAD)
-//                return;
-//            }
-//        }
+        if (p.intersects(e2.getVisualX(), e2.getVisualY(), 55, 55)) {
+            System.out.println("NOOOOOO");
+            e2.setAttacking(true);
+            playerAttack.setHit(true);
+        }
     }
 
     @Override

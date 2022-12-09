@@ -74,9 +74,12 @@ public class MainClass {
         PauseGameController pauseGameController = new PauseGameController(pauseGameInteractor, gameManager);
         ShowMapController showMapController = new ShowMapController(showMapInteractor, gameManager);
 
+        new AttackDamageAnimationsImportController(playerAnimationImport.getPlayerAnimations(), attackController);
+
 
         screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary,
                 showStatsController, playerMovementController, attackController, createEnemyController);
+
         gameManager.start();
     }
 }

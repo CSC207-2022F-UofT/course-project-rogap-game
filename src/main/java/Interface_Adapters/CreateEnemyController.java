@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 public class CreateEnemyController {
 
-    private CreateEnemyInputBoundary createEnemyInputBoundary;
+//    private CreateEnemyInputBoundary createEnemyInputBoundary;
+    public CreateEnemyInputBoundary createEnemyInputBoundary;
     private PlayerMovementController playerMovementController;
     private EnemyMovementController enemyMovementController;
 

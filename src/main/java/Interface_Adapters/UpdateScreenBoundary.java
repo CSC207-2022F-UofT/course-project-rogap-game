@@ -8,6 +8,6 @@ public interface UpdateScreenBoundary {
 
     void setUp(PauseGameController pauseGameController, ShowMapController showMapController,
                StatBarsPresenterBoundary statBarsPresenterBoundary, ShowStatsController showStatsController,
-               PlayerMovementController playerMovementController, WriteToBoardController writeToBoardController);
+               PlayerMovementController playerMovementController, WriteToBoardController writeToBoardController, ReadFromBoardPresenter readFromBoardPresenter);
 
 }

@@ -15,6 +15,7 @@ public class ReadFromBoardPresenter {
     // We also write methods that call methods in the interactor class and pass in the output data object through the
     // through these methods.
     public String readFromDatabase() {
-        this.readFromBoardInteractor.readFromDatabase(new ReadFromBoardResponseModel());
+        // this.readFromBoardInteractor.readFromDatabase(new ReadFromBoardResponseModel());
+        return this.readFromBoardInteractor.readFromDatabase();
     }
 }

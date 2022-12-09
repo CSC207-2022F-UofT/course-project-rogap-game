@@ -3,6 +3,7 @@ package main;
 import Entities.Player;
 import Frameworks.GamePanel;
 import Frameworks.PlayerAnimationImport;
+import Frameworks.ReadFromBoardGateway;
 import Frameworks.WriteToBoardGateway;
 import Interface_Adapters.*;
 import Use_Cases.*;
@@ -62,7 +63,7 @@ public class MainClass {
         ShowMapController showMapController = new ShowMapController(showMapInteractor, gameManager);
 
         screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary,
-                showStatsController, playerMovementController, writeToBoardController);
+                showStatsController, playerMovementController, writeToBoardController, readFromBoardPresenter);
         gameManager.start();
     }
 }

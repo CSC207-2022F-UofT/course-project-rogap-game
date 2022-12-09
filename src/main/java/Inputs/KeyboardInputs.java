@@ -1,15 +1,12 @@
 package Inputs;
-import Interface_Adapters.PauseGameController;
-import Interface_Adapters.PlayerMovementController;
-import Interface_Adapters.ShowMapController;
-import Interface_Adapters.ShowStatsController;
+import Interface_Adapters.*;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyboardInputs implements KeyListener {
 
-//    private GamePanel gamePanel;
+    //    private GamePanel gamePanel;
 //    public KeyboardInputs(GamePanel gamePanel){
 //
 //        this.gamePanel = gamePanel;
@@ -18,13 +15,16 @@ public class KeyboardInputs implements KeyListener {
     ShowMapController showMapController;
     PlayerMovementController playerMovementController;
     ShowStatsController showStatsController;
+    ReadFromBoardPresenter readFromBoardPresenter;
 
     public KeyboardInputs(PauseGameController pauseGameController, ShowMapController showMapController,
-                          ShowStatsController showStatsController, PlayerMovementController playerMovementController){
+                          ShowStatsController showStatsController, PlayerMovementController playerMovementController,
+                          ReadFromBoardPresenter readFromBoardPresenter){
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
         this.showStatsController = showStatsController;
         this.playerMovementController = playerMovementController;
+        this.readFromBoardPresenter = readFromBoardPresenter;
     }
 
     @Override
@@ -56,6 +56,9 @@ public class KeyboardInputs implements KeyListener {
             }
             case KeyEvent.VK_O-> {
                 showStatsController.showStats();
+            }
+            case KeyEvent.VK_L-> {
+                readFromBoardPresenter.readFromDatabase();
             }
 
         }

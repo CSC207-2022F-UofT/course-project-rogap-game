@@ -2,10 +2,13 @@ package Use_Cases;
 
 public class ReadFromBoardInteractor implements ReadFromBoardOutputBoundary{
 
-    public ReadFromBoardInteractor
+    ReadFromBoardGatewayBoundary readFromBoardAccess;
+    public ReadFromBoardInteractor(ReadFromBoardGatewayBoundary readFromBoardAccess) {
+        this.readFromBoardAccess = readFromBoardAccess;
+    }
 
     @Override
-    public void readFromDatabase() {
-
+    public String readFromDatabase() {
+        return readFromBoardAccess.readFromDatabase();
     }
 }

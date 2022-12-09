@@ -11,7 +11,7 @@ public class WriteToBoardGateway implements WriteToBoardGatewayBoundary {
     public void writeToDatabase(String userName, int time) {
         try {
             //  The boolean allows us to not overwrite the file contents everytime we write to it.
-            BufferedWriter writer = new BufferedWriter(new FileWriter("Frameworks//Leaderboard_File.txt", true));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("Frameworks/Leaderboard_File.txt", true));
 
             writer.write("\n" + userName + time);
 

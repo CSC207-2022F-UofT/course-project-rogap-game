@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 
 public class RangedEnemy extends Enemy{
     private final int DMG = 25;
+    private final int INITIAL_HP = 75;
+    private int health = INITIAL_HP;
     public  BufferedImage[][] animations;
     private int spawnX, spawnY;
     private int xEnemy, yEnemy;
@@ -54,7 +56,9 @@ public class RangedEnemy extends Enemy{
     public int getHelperY() {
         return spawnY;
     }
-    public int getDMG() {return DMG; }
+    public int getDMG() { return DMG; }
+    public int getHealth() { return health; }
+    public void setHealth(int health) { this.health = health; }
     @Override
     public void changeHelperX(int x) {
         this.spawnX -= x;

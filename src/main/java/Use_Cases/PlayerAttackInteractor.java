@@ -33,7 +33,7 @@ public class PlayerAttackInteractor implements PlayerAttackInputBoundary{
             playerAttackRadius.intersect(new Area(enemyHitRadius));      // find intersection between Player attackbox and enemy hitbox
             if (!playerAttackRadius.isEmpty()) {  // player attack box and monster hitbox do intersect
                 e.setHit(true);
-//                r.takeDamage();   // TODO!!!!!!!!!!
+                playerAttack.takeDamage(e);   // TODO!!!!!!!!!!
                 return;
             }
         }

@@ -25,8 +25,7 @@ public class AttackController {
     }  // TODO: make game loop call this
 
     public void update() {
-        playerAttackInputBoundary.updateMonsters();
-        playerAttackInputBoundary.updatePlayer();
+        monsterAttack();
     }
 
     public void setAnimations(BufferedImage[][] animations) {

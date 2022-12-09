@@ -8,6 +8,8 @@ public class MeleeEnemy extends Enemy {
     public  BufferedImage[][] animations;
     private int spawnX, spawnY;
     private final int DMG = 10;
+    private final int INITIAL_HP = 50;
+    private int health = INITIAL_HP;
     private int xEnemy, yEnemy;
     private Rectangle hitBox;
     private String name;
@@ -46,6 +48,8 @@ public class MeleeEnemy extends Enemy {
         return spawnY;
     }
     public int getDMG() { return DMG; }
+    public int getHealth() { return health;}
+    public void setHealth(int health) { this.health = health; }
     public void setVisualX(int xDelta) {
         this.xEnemy = xDelta + getHelperX();
     }

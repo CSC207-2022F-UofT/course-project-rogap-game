@@ -1,6 +1,7 @@
 package Use_Cases;
 
 import Entities.Enemy;
+import Entities.Player;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -9,7 +10,7 @@ import java.awt.image.BufferedImage;
 public class MonsterAttack extends Attack{
 
     private Enemy enemy; // TODO: should I access enemy through enemy movement?
-
+    private Player player;
 
     private int aniTick, aniIndex, aniSpeed= 10;
     private boolean attacking = false, hit = false;
@@ -35,9 +36,9 @@ public class MonsterAttack extends Attack{
     public void updateMonsters() {
     }
 
-//    public void takeDamage() {
-//        // decrease health
-//    }
+    public void takeDamage() {
+        player.setCurrentHealth(player.getCurrentHealth() - enemy.getDMG());
+    }
 
     public void setAnimations(BufferedImage[][] animations) {
         enemy.setAnimations(animations);

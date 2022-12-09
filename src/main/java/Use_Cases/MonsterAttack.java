@@ -1,6 +1,7 @@
 package Use_Cases;
 
 import Entities.Enemy;
+import Entities.Player;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -8,8 +9,8 @@ import java.awt.image.BufferedImage;
 
 public class MonsterAttack extends Attack{
 
-    private Enemy enemy; // TODO: should I access enemy through enemy movement?
-
+    private Player player;
+    private Enemy enemy;
 
     private int aniTick, aniIndex, aniSpeed= 10;
     private boolean attacking = false, hit = false;
@@ -17,9 +18,9 @@ public class MonsterAttack extends Attack{
     private Ellipse2D.Float hitRadius;
     private Ellipse2D.Float attackRadius;
 
-//    public MonsterAttack(Enemy enemy) {
-//        this.enemy = enemy;
-//    }
+    public MonsterAttack(Player player) {
+        this.player = player;
+    }
 
     @Override
     public Ellipse2D.Float getHitRadius() {
@@ -35,9 +36,9 @@ public class MonsterAttack extends Attack{
     public void updateMonsters() {
     }
 
-//    public void takeDamage() {
-//        // decrease health
-//    }
+    public void takeDamage(Enemy enemy) {
+        player.setCurrentHealth(player.getCurrentHealth() - enemy.getDMG());
+    }
 
     public void setAnimations(BufferedImage[][] animations) {
         enemy.setAnimations(animations);

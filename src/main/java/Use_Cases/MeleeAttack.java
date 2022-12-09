@@ -1,19 +1,20 @@
-//package Use_Cases;
-//
-//import Entities.MeleeEnemy;
-//
-//import java.awt.*;
-//import java.awt.geom.Ellipse2D;
-//import java.awt.image.BaseMultiResolutionImage;
-//import java.awt.image.BufferedImage;
-//
+package Use_Cases;
+
+import Entities.MeleeEnemy;
+import Entities.Player;
+
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.BaseMultiResolutionImage;
+import java.awt.image.BufferedImage;
+
 //public class MeleeAttack extends MonsterAttack{
 //
-//    private MeleeEnemy meleeEnemy;
+//    private Player player;
 //    private Ellipse2D.Float attackRadius;
 //
-//    public MeleeAttack(MeleeEnemy meleeEnemy) {
-//        this.meleeEnemy = meleeEnemy;
+//    public MeleeAttack(Player player) {
+//        this.player = player;
 //    }
 //
 //    @Override

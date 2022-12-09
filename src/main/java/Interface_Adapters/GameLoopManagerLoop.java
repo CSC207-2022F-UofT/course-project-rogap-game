@@ -27,6 +27,7 @@ public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReferenc
     UpdateScreenBoundary screenModel;
     PlayerMovementController playerMovementController;
     CreateEnemyController createEnemyController;
+    AttackController attackController;
 
     AttackController attackController;
 

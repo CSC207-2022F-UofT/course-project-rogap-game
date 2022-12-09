@@ -1,9 +1,7 @@
 package main;
 
-import Entities.Player;
-import Frameworks.GamePanel;
-import Frameworks.PlayerAnimationImport;
-import Frameworks.WriteToBoardGateway;
+import Entities.*;
+import Frameworks.*;
 import Interface_Adapters.*;
 import Use_Cases.*;
 
@@ -47,11 +45,11 @@ public class MainClass {
 
         // Attack Use Case
         PlayerAttack playerAttack = new PlayerAttack(player);
-        MonsterAttack monsterAttack = new MonsterAttack();
+        MonsterAttack monsterAttack = new MonsterAttack(player);
         PlayerAttackInputBoundary playerAttackInteractor = new PlayerAttackInteractor(playerAttack, enemyManagerInteractor.getEnemies());
-        MonsterAttackInputBoundary monsterAttackInteractor = new MonsterAttackInteractor(enemyManagerInteractor.getEnemies(), playerAttack);
+        MonsterAttackInputBoundary monsterAttackInteractor =
+                new MonsterAttackInteractor(enemyManagerInteractor.getEnemies(), monsterAttack, player);
         AttackController attackController = new AttackController(playerAttackInteractor, monsterAttackInteractor);
-
 
         // GameManager (Takes in all the controller and presenters needed for use-cases)
         GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter, playerMovementController,
@@ -80,7 +78,8 @@ public class MainClass {
 
 
         screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary,
-                showStatsController, playerMovementController,attackController, createEnemyController);
+                showStatsController, playerMovementController, attackController, createEnemyController);
+
         gameManager.start();
     }
 }

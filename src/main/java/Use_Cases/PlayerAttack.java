@@ -1,6 +1,7 @@
 package Use_Cases;
 
 import Entities.Player;
+import Entities.Enemy;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -13,7 +14,6 @@ public class PlayerAttack extends Attack{
     private int aniTick, aniIndex, aniSpeed= 10;
     private int playerAction = 0; // TODO might have to change this to some other number so that it doesnt think its attacking
     private boolean attacking = false;
-    private boolean hit = false;
 
     private static Ellipse2D.Float hitRadius;
     private static Ellipse2D.Float attackRadius;
@@ -42,13 +42,9 @@ public class PlayerAttack extends Attack{
         player.setAttacking(value);
     }
 
-    public void setHit(boolean value) {
-        this.hit = value;
+    public void takeDamage(Enemy enemy){
+        enemy.setHealth(enemy.getHealth() - player.getAttack());
     }
-//
-//    public void takeDamage(){
-//        // decrease health
-//    }
 
     public void drawAttackRadius(Graphics g) {
         g.setColor(Color.red);
@@ -85,7 +81,7 @@ public class PlayerAttack extends Attack{
             } else { // playerMovement.getLeft() or up/down
                 playerAction = 1;
             } //Needs testing for up and down
-        } else if (hit){
+        } else if (player.getHit()){
             if (playerMovement.getRight()) {
                 playerAction = 2;
             } else { // playerMovement.getLeft() or up/down

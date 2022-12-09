@@ -12,6 +12,9 @@ public abstract class Enemy {
     public abstract int getVisualY();
     public abstract int getHelperX();
     public abstract int getHelperY();
+    public abstract int getHealth();
+    public abstract void setHealth(int health);
+    public abstract int getDMG();
     public abstract void changeHelperX(int x);
     public abstract void changeHelperY(int y);
     public abstract Rectangle getHitBox();

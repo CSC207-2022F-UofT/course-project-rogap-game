@@ -1,7 +1,5 @@
 package Interface_Adapters;
 
-import Use_Cases.EnemeyMovementInteractor;
-import Use_Cases.EnemyMovement;
 import Use_Cases.EnemyMovementInputBoundary;
 
 public class EnemyMovementController {

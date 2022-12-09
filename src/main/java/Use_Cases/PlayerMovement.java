@@ -108,6 +108,9 @@ public class PlayerMovement{
     public int getHelperY() {
         return player.getHelperY();
     }
+    public boolean getRight() {
+        return right;
+    }
     public void setAnimations(BufferedImage[][] animations) {
         player.setAnimations(animations);
     }
@@ -128,13 +131,6 @@ public class PlayerMovement{
                 playerAction = 1;
             }
         }
-
-//        if (player.getAttacking()) {
-//            playerAction = 4;
-//        }
-//        if (player.getHit()) {
-//            playerAction = 6;
-//        }
     }
     public void setIdleDirection(int dir) {
         this.idleDir = dir;
@@ -167,9 +163,4 @@ public class PlayerMovement{
         updateAnimation();
         return player.getAnimations()[playerAction][aniIndex];
     }
-
-    public boolean getRight() {
-        return right;
-    }
-
 }

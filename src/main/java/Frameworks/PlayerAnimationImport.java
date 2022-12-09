@@ -43,12 +43,12 @@ public class PlayerAnimationImport {
 //            sprites2[3] = ImageIO.read(rH);
 //            sprites2[4] = ImageIO.read(lD);
 //            sprites2[5] = ImageIO.read(rD);
-//            sprites[4] = ImageIO.read(lA);
-//            sprites[5] = ImageIO.read(rA);
-//            sprites[6] = ImageIO.read(lH);
-//            sprites[7] = ImageIO.read(rH);
-//            sprites[8] = ImageIO.read(lD);
-//            sprites[9] = ImageIO.read(rD);
+            sprites[4] = ImageIO.read(lA);
+            sprites[5] = ImageIO.read(rA);
+            sprites[6] = ImageIO.read(lH);
+            sprites[7] = ImageIO.read(rH);
+            sprites[8] = ImageIO.read(lD);
+            sprites[9] = ImageIO.read(rD);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

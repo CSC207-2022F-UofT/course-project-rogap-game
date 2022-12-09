@@ -1,5 +1,6 @@
 package Frameworks;
 
+import Entities.Enemy;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
 import Interface_Adapters.*;
@@ -217,10 +218,18 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 
 */
         // for debugginh attack methods!!!
-//        attackController.drawPlayerAttackRadius(g);
-//        attackController.drawPlayerHitRadius(g);
-//        attackController.drawMonstersHitRadius(g);
-//        attackController.drawMonstersAttackRadius(g);
+        attackController.drawPlayerAttackRadius(g);
+        attackController.drawPlayerHitRadius(g);
+        attackController.drawMonstersHitRadius(g);
+        attackController.drawMonstersAttackRadius(g);
+        ArrayList<Enemy> e = createEnemyController.createEnemyInputBoundary.getEnemies();
+        Enemy e1 = e.get(0);
+        Enemy e2 = e.get(1);
+
+        g.drawOval(e1.getVisualX(), e1.getVisualY(), 36, 36);
+        g.drawOval(e2.getVisualX(), e2.getVisualY(), 36, 36);
+
+        g.drawOval(e1.getVisualX(), e1.getVisualY(), 36, 36);  // Melee enemy
 
     }
 

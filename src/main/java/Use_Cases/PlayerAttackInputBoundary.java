@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 
 public interface PlayerAttackInputBoundary {
     void attack();
-
     void drawPlayerAttackRadius(Graphics g);
     void drawPlayerHitRadius(Graphics g);
 

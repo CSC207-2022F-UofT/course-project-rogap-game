@@ -79,6 +79,18 @@ public class EnemyManagerHandler implements CreateEnemyInputBoundary{
         enemyList.addAll(rangedEnemies.values());
         return enemyList;
     }
+
+    public ArrayList<Enemy> getMeleeEnemies(){
+        ArrayList<Enemy> enemyList = new ArrayList<>();
+        enemyList.addAll(meleeEnemies.values());
+        return enemyList;
+    }
+    public ArrayList<Enemy> getRangedEnemies(){
+        ArrayList<Enemy> enemyList = new ArrayList<>();
+        enemyList.addAll(rangedEnemies.values());
+        return enemyList;
+    }
+
     public void updateEnemies(int xDelta, int yDelta) {
         for (MeleeEnemy m : meleeEnemies.values()){
             m.setVisualX(xDelta);

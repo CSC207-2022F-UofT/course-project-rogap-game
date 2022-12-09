@@ -1,5 +1,5 @@
 package Use_Cases;
 
 public interface WriteToBoardInputBoundary {
-    void writeToDatabase(WriteToBoardRequestModel writeToBoardRequestModel);
+    public void writeToDatabase(WriteToBoardRequestModel writeToBoardRequestModel);
 }

@@ -57,9 +57,16 @@ public class MainClass {
         ShowStatsController showStatsController = new ShowStatsController(gameManager, showStatsInputBoundary);
 
         // Write to Leaderboard Use Case
+        // We create a database (gateway object) and pass it in to the interactor so that we can call the database's
+        // methods in the interactor class.
         WriteToBoardGatewayBoundary writeToBoardGateway = new WriteToBoardGateway();
         WriteToBoardInputBoundary writeToBoardInputBoundary = new WriteToBoardInteractor(userName, writeToBoardGateway);
         WriteToBoardController writeToBoardController = new WriteToBoardController(writeToBoardInputBoundary);
+
+        // Read from Leaderboard Use Case
+        ReadFromBoardGatewayBoundary readFromBoardGateway = new ReadFromBoardGateway();
+        ReadFromBoardOutputBoundary readFromBoardOutputBoundary = new ReadFromBoardInteractor(readFromBoardGateway);
+        ReadFromBoardPresenter readFromBoardPresenter = new ReadFromBoardPresenter(readFromBoardOutputBoundary);
 
         // Pause game Use Case
         PauseGameInputBoundary pauseGameInteractor = new PauseGameInteractor();

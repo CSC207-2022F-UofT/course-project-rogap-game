@@ -40,12 +40,6 @@ public class MonsterAttackInteractor implements MonsterAttackInputBoundary {
             player.setHit(true);
             monsterAttack.takeDamage(e2);
         }
-
-        if (p.intersects(e2.getVisualX(), e2.getVisualY(), 55, 55)) {
-            System.out.println("NOOOOOO");
-            e2.setAttacking(true);
-            playerAttack.setHit(true);
-        }
     }
 
     @Override

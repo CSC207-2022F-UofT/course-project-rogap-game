@@ -8,17 +8,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyboardInputs implements KeyListener {
-
-//    private GamePanel gamePanel;
-//    public KeyboardInputs(GamePanel gamePanel){
-//
-//        this.gamePanel = gamePanel;
-//    }
     PauseGameController pauseGameController;
     ShowMapController showMapController;
     PlayerMovementController playerMovementController;
     ShowStatsController showStatsController;
 
+    /**
+     * Passing in the controllers KeyboardInputs need to handle when key-pressed
+     * that will be used to perform various use-cases.
+     * @param pauseGameController: this is the pause game controller
+     * @param showMapController: this is the pause game controller
+     * @param showStatsController: this is the pause game controller
+     * @param playerMovementController: this is the pause game controller
+     */
 
     public KeyboardInputs(PauseGameController pauseGameController, ShowMapController showMapController,
                           ShowStatsController showStatsController, PlayerMovementController playerMovementController){
@@ -30,7 +32,6 @@ public class KeyboardInputs implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
 
     @Override
@@ -60,9 +61,6 @@ public class KeyboardInputs implements KeyListener {
 
         }
     }
-    //TODO: Abu
-    // - Remove Player from gamePanel
-    // - Implement CLEAN way of changing velocity following SOLID PRINCIPLES
 //    @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {

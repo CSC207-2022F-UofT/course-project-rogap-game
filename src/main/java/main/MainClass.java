@@ -22,8 +22,6 @@ public class MainClass {
         UpdateScreenBoundary screenModel = new GamePanel();
         GameScreenPresenter presenter = new GameScreenPresenter(screenModel);
 
-
-
         //Collisions set up
         Collision collision = new Collision();
         CollisionInputBoundary collisionInteractor = new CollisionInteractor(collision);
@@ -44,9 +42,14 @@ public class MainClass {
                 playerMovementController);
         createEnemyController.create();
 
+        // Write to Leaderboard Use Case
+        WriteToBoardGatewayBoundary writeToBoardGateway = new WriteToBoardGateway();
+        WriteToBoardInputBoundary writeToBoardInputBoundary = new WriteToBoardInteractor(userName, writeToBoardGateway);
+        WriteToBoardController writeToBoardController = new WriteToBoardController(writeToBoardInputBoundary);
+
         // GameManager (Takes in all the controller and presenters needed for use-cases)
-        GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter, playerMovementController,
-                createEnemyController);
+        GameLoopInteractorReference gameManager = new GameLoopManager(presenter, playerMovementController,
+                createEnemyController,  writeToBoardController);
 
         // Stat Bars Use Case
         StatBarsInputBoundary statBarsInputBoundary = new StatBarsInteractor(player);
@@ -56,11 +59,6 @@ public class MainClass {
         ShowStatsInputBoundary showStatsInputBoundary = new ShowStatsInteractor();
         ShowStatsController showStatsController = new ShowStatsController(gameManager, showStatsInputBoundary);
 
-        // Write to Leaderboard Use Case
-        WriteToBoardGatewayBoundary writeToBoardGateway = new WriteToBoardGateway();
-        WriteToBoardInputBoundary writeToBoardInputBoundary = new WriteToBoardInteractor(userName, writeToBoardGateway);
-        WriteToBoardController writeToBoardController = new WriteToBoardController(writeToBoardInputBoundary);
-
         // Pause game Use Case
         PauseGameInputBoundary pauseGameInteractor = new PauseGameInteractor();
         ShowMapInputBoundary showMapInteractor = new ShowMapInteractor();
@@ -68,7 +66,7 @@ public class MainClass {
         ShowMapController showMapController = new ShowMapController(showMapInteractor, gameManager);
 
         screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary,
-                showStatsController, playerMovementController, writeToBoardController, createEnemyController);
+                showStatsController, playerMovementController, createEnemyController);
         gameManager.start();
     }
 }

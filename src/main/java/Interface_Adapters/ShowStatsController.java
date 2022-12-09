@@ -11,6 +11,10 @@ public class ShowStatsController {
     GameLoopInteractorReference gameManager;
     ShowStatsInputBoundary showStatsInteractor;
 
+    /**
+     * @param showStatsInputBoundary: This is the input boundary used for this use case
+     * @param gameManager: This is a GameLoopManager reference, used to perform this use case
+     */
     public ShowStatsController(GameLoopInteractorReference gameManager, ShowStatsInputBoundary showStatsInputBoundary){
         this.gameManager = gameManager;
         this.showStatsInteractor = showStatsInputBoundary;

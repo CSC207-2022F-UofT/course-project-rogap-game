@@ -13,6 +13,14 @@ public class Enemy {
     private Rectangle hitBox;
     private String name;
 
+    /**
+     * This is the enemy class constructor
+     * @param name: This is the name of the enemy
+     * @param x: This is the current x-coordinate of the map
+     * @param y: This is the current y-coordinate of the map
+     * @param spawnX: This is the x-coord for the enemy spawn
+     * @param spawnY: This is the y-coord for the enemy spawn
+     */
     public Enemy(String name, int x, int y, int spawnX, int spawnY) {
         /**
          * Spawn the enemy at a x,y location and saves it.

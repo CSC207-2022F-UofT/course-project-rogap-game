@@ -6,7 +6,7 @@ import Use_Cases.GameLoopInteractorReference;
 /**
  * Manager class that calls various use cases and uses presenter to update view
  */
-public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReference {
+public class GameLoopManager implements Runnable, GameLoopInteractorReference {
 
     private Thread gameThread;
     private final int FPS_SET = 120;
@@ -27,15 +27,24 @@ public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReferenc
     UpdateScreenBoundary screenModel;
     PlayerMovementController playerMovementController;
     CreateEnemyController createEnemyController;
+    WriteToBoardController writeToBoardController;
 
     /**
-     * Initializing GameLoopManager using the presenters and controller it interacts with.
+     * Passing in the controllers KeyboardInputs need to handle when key-pressed
+     * that will be used to perform various use-cases.
+     * @param gameScreenPresenter: This game screen presenter is used to repaint the screen
+     * @param playerMovementController: This movement controller is used to perform movement use case
+     * @param createEnemyController: This controller is used to create enemy controller
+     * @param writeToBoardController: This controller is used to perform leaderboard writing use case
      */
-    public GameLoopManagerLoop(GameScreenPresenter gameScreenPresenter, PlayerMovementController playerMovementController,
-                               CreateEnemyController createEnemyController){
+    public GameLoopManager(GameScreenPresenter gameScreenPresenter, PlayerMovementController playerMovementController,
+                           CreateEnemyController createEnemyController, WriteToBoardController writeToBoardController){
+
         this.gameScreenPresenter = gameScreenPresenter;
         this.playerMovementController = playerMovementController;
         this.createEnemyController = createEnemyController;
+        this.writeToBoardController = writeToBoardController;
+
         screenModel = gameScreenPresenter.create();
         new GameWindow(screenModel);
         screenModel.requestFocus();
@@ -52,7 +61,6 @@ public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReferenc
         playerMovementController.update();
         createEnemyController.updateEnemies(playerMovementController.getVelX(),
                 playerMovementController.getVelY());
-
     }
 
     /**
@@ -71,7 +79,6 @@ public class GameLoopManagerLoop implements Runnable, GameLoopInteractorReferenc
     public static int getGameTimerSeconds(){
         return (int) ((int)(gameTimerSeconds - startTime) / 1000F);
     }
-
     public static boolean getIsPaused(){
         return isPaused;
     }

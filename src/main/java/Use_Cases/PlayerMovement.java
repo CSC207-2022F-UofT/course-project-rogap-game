@@ -15,6 +15,11 @@ public class PlayerMovement extends Movement{
     private int playerAction = 0;
     private boolean moving = false;
     private int speed;
+
+
+    /**
+     * @param player: This use case has a reference of Player
+     */
     public PlayerMovement(Player player) {
         this.player = player;
     }

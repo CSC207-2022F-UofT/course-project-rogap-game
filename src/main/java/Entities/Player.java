@@ -23,6 +23,10 @@ public class Player {
     }
     public int getAttack() { return attack; }
 
+    /**
+     * This is the enemy class constructor
+     * @param name: This is the name of the player
+     */
     public Player(String name) {
         this.name = name;
     }
@@ -32,6 +36,7 @@ public class Player {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
+
     /**
      * Heals the player
      * @param amount How much health we regen

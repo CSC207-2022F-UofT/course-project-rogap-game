@@ -8,10 +8,8 @@ public class EnemyMovementController {
     PlayerMovementController playerMovementController;
     CollisionController collisionController;
     EnemyMovementInputBoundary enemyMovementInputBoundary;
-    /**
-     *  Connects the enemy controller to the interactor through an input boundaru.
-     *  Also connects it to player movement controller and collision controller.
-     */
+
+
     public EnemyMovementController(EnemyMovementInputBoundary enemyMovementInputBoundary, PlayerMovementController playerMovementController,
                                    CollisionController collisionController) {
         this.enemyMovementInputBoundary = enemyMovementInputBoundary;

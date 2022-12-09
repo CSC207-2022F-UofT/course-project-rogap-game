@@ -1,7 +1,6 @@
 package Frameworks;
 
 import Inputs.KeyboardInputs;
-import Inputs.MouseInputs;
 import Interface_Adapters.*;
 
 import javax.swing.*;
@@ -63,12 +62,18 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     }
 
     /**
-     * This method is designated to initialize all the controllers and presenters that will be used to perform various
-     * use-cases.
+     * This method is designated to initialize all the controllers and presenters
+     * that will be used to perform various use-cases.
+     * @param pauseGameController: this is the pause game controller
+     * @param showMapController: this is the pause game controller
+     * @param statBarsPresenterBoundary: this is the pause game controller
+     * @param showStatsController: this is the pause game controller
+     * @param playerMovementController: this is the pause game controller
+     * @param createEnemyController: this is the pause game controller
      */
     public void setUp(PauseGameController pauseGameController, ShowMapController showMapController,
                       StatBarsPresenterBoundary statBarsPresenterBoundary, ShowStatsController showStatsController, 
-                      PlayerMovementController playerMovementController, WriteToBoardController writeToBoardController, 
+                      PlayerMovementController playerMovementController,
                       CreateEnemyController createEnemyController){
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
@@ -76,17 +81,14 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         this.statBarsPresenterBoundary = statBarsPresenterBoundary;
         this.playerMovementController = playerMovementController;
 
-        this.writeToBoardController = writeToBoardController;
         this.createEnemyController = createEnemyController;
 
         addKeyListener(new KeyboardInputs(pauseGameController, showMapController,
                 showStatsController, playerMovementController));
-
-        addMouseListener(new MouseInputs(this));
     }
 
     /**
-     * Initialize the timer GUI
+     * Initializing the timer GUI with Font - Size - Style - Color
      */
     private void setTimerGui(){
         timerGui = new JLabel(String.valueOf(120));
@@ -102,16 +104,16 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     private void changeTimerGui(){
         timerGui.setBounds(605, -19, 100, 100);
         timerGui.setHorizontalAlignment(0);
-        if (GameLoopManagerLoop.getGameTimerSeconds() % 2 == 0){
+        if (GameLoopManager.getGameTimerSeconds() % 2 == 0){
             timerGui.setForeground(new Color(150, 203, 187));
         }else{
             timerGui.setForeground(new Color(255, 81, 81, 194));
         }
-        timerGui.setText(String.valueOf(120 - GameLoopManagerLoop.getGameTimerSeconds()));
+        timerGui.setText(String.valueOf(120 - GameLoopManager.getGameTimerSeconds()));
     }
 
     /**
-     * Initialling the level image by calling
+     * Initialling the level image by calling LoadLevelImage helper class.
      */
     private void importImage() {
         BufferedImage[] imageList = LoadLevelImage.importImage();
@@ -128,19 +130,8 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         buffbar = imageList[10];
     }
 
-    // TODO: Abu
-    //  - Move this to controller and add interface for GamePanel to check when these are updated
-/*    public void setPointerLocation(int x, int y){
-        this.xDelta = x;
-        this.yDelta = y;
-    }*/
     public void update(){
         repaint();
-    }
-
-    public void changeStatsBarVisible(){
-        this.showStatBar = !this.showStatBar;
-
     }
 
     public void animateLeaf(Graphics g, ArrayList<Leaf> alist){
@@ -158,10 +149,10 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         g.drawImage(map, playerMovementController.getVisualX(), playerMovementController.getVisualY(), null);
 
         // player VISUAL goes here
-        //TODO: Abu - Access player through an interface using CLEAN way
         g.drawImage(playerMovementController.getCurrAnimation(), 616, 326, 48,48, null);
 
         //Enemy visual goes here
+        // TODO: (Image) i.get(0) for the enemy animation
         ArrayList<ArrayList> enemyInfo = this.createEnemyController.getEnemyInfo();
         for (ArrayList i : enemyInfo){
             g.drawImage(playerMovementController.getCurrAnimation(), (int)i.get(1), (int) i.get(2), 36,36, null);
@@ -194,25 +185,18 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         animateLeaf(g, leafList);
 
         // Pause menu
-        if (GameLoopManagerLoop.getIsPaused()){
+        if (GameLoopManager.getIsPaused()){
             g.setColor(new Color(162, 155, 155, 139));
             g.fillRect(0, 0, 1280, 720);
-            if (!GameLoopManagerLoop.getMinimapVisible()){
+            if (!GameLoopManager.getMinimapVisible()){
                 g.drawImage(pauseIcon, 500, 295, null);
             }
         }
         //Showing Minimap
-        if (GameLoopManagerLoop.getMinimapVisible()){
+        if (GameLoopManager.getMinimapVisible()){
             g.drawImage(minimap, -52 + playerMovementController.getVisualX()/7, -130 + playerMovementController.getVisualY()/6, null);
             g.drawImage(minimapCursor, 598, 284, null);
         }
-
-        // TODO: Kevin
-        //  - Don't directly call a method from gameShop.
-/*
-        gameShop.checkLocation();
-*/
-
     }
 
     /**
@@ -220,7 +204,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
      * @param g Graphics object used to draw
      */
     private void drawStats(Graphics g) {
-        if (!GameLoopManagerLoop.getMinimapVisible() && !GameLoopManagerLoop.getIsPaused()) {
+        if (!GameLoopManager.getMinimapVisible() && !GameLoopManager.getIsPaused()) {
             int[] playerStats = statBarsPresenterBoundary.getStats();
             // Drawing the outside of the health bar
             g.drawImage(healthBar, 17, 14, null);
@@ -230,7 +214,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
                     30, 27, 27);
             // Drawing the stats menu
             g.drawImage(buffbar, 495, 619, null);
-            if (GameLoopManagerLoop.getStatsVisible()) {
+            if (GameLoopManager.getStatsVisible()) {
                 g.drawImage(statsBar, 9, 109, null);
                 g.setColor( new Color(255, 165, 0));
                 g.fillRect(72, 156, playerStats[STRENGTH] * 10, 6);

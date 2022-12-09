@@ -8,9 +8,11 @@ import java.awt.image.BufferedImage;
 public class PlayerMovementController {
     PlayerMovementInputBoundary playerMovementInputBoundary;
     CollisionController collisionController;
+
     /**
-     * Connects the player movement controller to collision controller and all the enemy controller
-     * Because we are working with those controllers
+     * This controller is used for player movement use case.
+     * @param playerMovementInputBoundary: This input boundary is used for player movement
+     * @param collisionController: This controller is used for collisions
      */
     public PlayerMovementController(PlayerMovementInputBoundary playerMovementInputBoundary,
                                     CollisionController collisionController) {

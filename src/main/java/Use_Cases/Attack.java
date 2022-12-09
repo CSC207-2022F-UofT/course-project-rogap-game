@@ -4,12 +4,6 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 public abstract class Attack {
-//    /**
-//     * Initializes the creature's hit radius centered at the creature. The hit radius is of type Ellipse2D.Float and
-//     * outlines the shape of the creature.
-//     */
-//    public abstract void initHitRadius();
-
     /**
      * Returns the hit radius of the creature.
      * @return Ellipse2D.Float hitRadius

@@ -27,8 +27,8 @@ public class EnemyMovementController {
     public int updateX(int enemyHelperX, int enemyHelperY, int enemyVisualX, int enemyVisualY) {
         if (enemyMovementInputBoundary.getDistance(enemyHelperX, enemyHelperY, playerMovementController.getHelperX(),
                 playerMovementController.getHelperY()) < 600 ) {
-            if (collisionController.movable(playerMovementController.getVisualX(), playerMovementController.getVisualY(),  enemyHelperX + 4,
-                     enemyHelperY + 4, enemyMovementInputBoundary.getVelX(enemyHelperX, playerMovementController.getHelperX()), 0, 24, 24)){
+            if (collisionController.movable(playerMovementController.getVisualX(), playerMovementController.getVisualY(),  enemyVisualX + 4,
+                     enemyVisualY + 4, enemyMovementInputBoundary.getVelX(enemyHelperX, playerMovementController.getHelperX()), 0, 24, 24)){
                 return enemyMovementInputBoundary.getVelX(enemyHelperX, playerMovementController.getHelperX());
             } else {
                 return 0;
@@ -40,8 +40,8 @@ public class EnemyMovementController {
     public int updateY(int enemyHelperX, int enemyHelperY, int enemyVisualX, int enemyVisualY) {
         if (enemyMovementInputBoundary.getDistance(enemyHelperX, enemyHelperY, playerMovementController.getHelperX(),
                 playerMovementController.getHelperY()) < 600) {
-            if (collisionController.movable(playerMovementController.getVisualX(), playerMovementController.getVisualY(), enemyHelperX + 4,
-                    enemyHelperY + 4, 0, enemyMovementInputBoundary.getVelY(enemyHelperY,playerMovementController.getHelperY()), 24, 24)) {
+            if (collisionController.movable(playerMovementController.getVisualX(), playerMovementController.getVisualY(), enemyVisualX + 4,
+                    enemyVisualY + 4, 0, enemyMovementInputBoundary.getVelY(enemyHelperY,playerMovementController.getHelperY()), 24, 24)) {
                 return enemyMovementInputBoundary.getVelY(enemyHelperY, playerMovementController.getHelperY());
             } else {
                 return 0;

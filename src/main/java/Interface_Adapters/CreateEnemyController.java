@@ -4,6 +4,7 @@ import Entities.Enemy;
 import Entities.MeleeEnemy;
 import Use_Cases.CreateEnemyInputBoundary;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class CreateEnemyController {
@@ -26,6 +27,9 @@ public class CreateEnemyController {
     public void create(){
         createEnemyInputBoundary.createEnemies(playerMovementController.getVisualX(),
                 playerMovementController.getVisualY());
+    }
+    public void setAnimations(BufferedImage[][] enemyAnimations) {
+        createEnemyInputBoundary.setAnimations(enemyAnimations);
     }
 
     public ArrayList<ArrayList> getEnemyInfo(){

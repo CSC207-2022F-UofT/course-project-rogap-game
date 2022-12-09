@@ -72,5 +72,8 @@ public class MeleeEnemy extends Enemy {
     public BufferedImage[][] getAnimations() {
         return this.animations;
     }
+    public BufferedImage getCurrImage() {
+        return animations[0][0];
+    }
 
 }

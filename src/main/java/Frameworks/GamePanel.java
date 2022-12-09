@@ -157,7 +157,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         //Enemy visual goes here
         ArrayList<ArrayList> enemyInfo = this.createEnemyController.getEnemyInfo();
         for (ArrayList i : enemyInfo){
-            g.drawImage(playerMovementController.getCurrAnimation(), (int)i.get(1), (int) i.get(2), 36,36, null);
+            g.drawImage((Image) i.get(0), (int)i.get(1), (int) i.get(2), 36,36, null);
         }
 
 

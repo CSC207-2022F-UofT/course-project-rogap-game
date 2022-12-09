@@ -11,7 +11,7 @@ public class PlayerMovement{
     public Player player;
     private boolean right, left, up, down;
     private int idleDir = 0;
-    private int aniTick, aniIndex, aniSpeed= 10;
+    private int aniTick, aniIndex, aniSpeed= 20;
     private int playerAction = 0;
     private boolean moving = false;
     private int speed;

@@ -2,7 +2,7 @@ package main;
 
 import Entities.Player;
 import Frameworks.GamePanel;
-import Frameworks.PlayerAnimationImport;
+import Frameworks.AnimationImport;
 import Interface_Adapters.*;
 import Use_Cases.*;
 
@@ -27,11 +27,10 @@ public class MainClass {
         //Player animation and movement setup
         //TODO: Player takes parameters ABUUUU -> Don't forget to add player username
         Player player = new Player("hello");
-        PlayerAnimationImport playerAnimationImport = new PlayerAnimationImport();
+        AnimationImport animationImport = new AnimationImport();
         PlayerMovement playerMovement = new PlayerMovement(player);
         PlayerMovementInputBoundary playerMovementInteractor = new PlayerMovementInteractor(playerMovement);
         PlayerMovementController playerMovementController = new PlayerMovementController(playerMovementInteractor, collisionController);
-        new AnimationsImportController(playerAnimationImport.getPlayerAnimations(), playerMovementController);
         //Enemy stuff
         EnemyMovement enemyMovement = new EnemyMovement();
         EnemyMovementInputBoundary enemyMovementInteractor = new EnemeyMovementInteractor(enemyMovement);
@@ -41,7 +40,8 @@ public class MainClass {
         CreateEnemyController createEnemyController = new CreateEnemyController(enemyManagerInteractor,
                 playerMovementController, enemyMovementController);
         createEnemyController.create();
-
+        new AnimationsImportController(animationImport.getPlayerAnimations(), animationImport.getEnemyAnimations(), createEnemyController,
+                playerMovementController);
 
         // GameManager (Takes in all the controller and presenters needed for use-cases)
         GameLoopInteractorReference gameManager = new GameLoopManagerLoop(presenter, playerMovementController,

@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class Player {
     private   BufferedImage[][] animations;
-    private int speed = 5;
+    private int speed = 2;
     private int currLocationX = -2546, currLocationY = -2132;
     private int helperX = 1882, helperY = 1738;
     private int gold = 100;

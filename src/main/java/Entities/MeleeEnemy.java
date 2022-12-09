@@ -83,6 +83,10 @@ public class MeleeEnemy extends Enemy {
     public BufferedImage[][] getAnimations() {
         return this.animations;
     }
+    @Override
+    public BufferedImage getCurrImage() {
+        return animations[0][0];
+    }
 
     public void initAttackHitRadius() {
         attackHitRadius = new Ellipse2D.Float(getHelperX(), getHelperY(), 28, 28);

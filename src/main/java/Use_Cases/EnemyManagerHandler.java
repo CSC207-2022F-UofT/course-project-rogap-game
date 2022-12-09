@@ -4,6 +4,8 @@ import Entities.Enemy;
 import Entities.MeleeEnemy;
 import Entities.RangedEnemy;
 
+import javax.swing.plaf.basic.BasicButtonUI;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -55,7 +57,7 @@ public class EnemyManagerHandler implements CreateEnemyInputBoundary{
 
         for (MeleeEnemy m : meleeEnemies.values()){
             ArrayList enemyInfo = new ArrayList<>();
-            enemyInfo.add(m.getAnimations());
+            enemyInfo.add(m.getCurrImage());
             enemyInfo.add(m.getVisualX());
             enemyInfo.add(m.getVisualY());
             enemyInfoList.add(enemyInfo);
@@ -63,7 +65,7 @@ public class EnemyManagerHandler implements CreateEnemyInputBoundary{
 
         for (RangedEnemy r : rangedEnemies.values()){
             ArrayList enemyInfo = new ArrayList<>();
-            enemyInfo.add(r.getAnimations());
+            enemyInfo.add(r.getCurrImage());
             enemyInfo.add(r.getVisualX());
             enemyInfo.add(r.getVisualY());
 
@@ -72,35 +74,28 @@ public class EnemyManagerHandler implements CreateEnemyInputBoundary{
 
         return enemyInfoList;
     }
-
+    public void setAnimations(BufferedImage[][] enemyAnimations) {
+        for (MeleeEnemy m : meleeEnemies.values()){
+            m.setAnimations(enemyAnimations);
+        }
+        for (RangedEnemy r : rangedEnemies.values()){
+            r.setAnimations(enemyAnimations);
+        }
+    }
     public ArrayList<Enemy> getEnemies(){
         ArrayList<Enemy> enemyList = new ArrayList<>();
         enemyList.addAll(meleeEnemies.values());
         enemyList.addAll(rangedEnemies.values());
         return enemyList;
     }
-
-    public ArrayList<Enemy> getMeleeEnemies(){
-        ArrayList<Enemy> enemyList = new ArrayList<>();
-        enemyList.addAll(meleeEnemies.values());
-        return enemyList;
-    }
-    public ArrayList<Enemy> getRangedEnemies(){
-        ArrayList<Enemy> enemyList = new ArrayList<>();
-        enemyList.addAll(rangedEnemies.values());
-        return enemyList;
-    }
-
     public void updateEnemies(int xDelta, int yDelta) {
         for (MeleeEnemy m : meleeEnemies.values()){
             m.setVisualX(xDelta);
             m.setVisualY(yDelta);
-            m.updateAttackHitRadius();
         }
         for (RangedEnemy r : rangedEnemies.values()){
             r.setVisualX(xDelta);
             r.setVisualY(yDelta);
-            r.updateAttackHitRadius();
         }
     }
     public ArrayList<String> getEnemyID(){

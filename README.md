@@ -6,7 +6,7 @@ This is rogue-like game that was born with inspiration from the passion of the a
 ## How to play RoGap
 Once the game is run, the instructions are on the screen making it user-friendly and easy to understand.
 
-## The goal of the game
+## The Goal of the Game
 Explore the map and battle enemies! Defeat enemies to get money and further enhance your abilities! To enchance your abilities, visit the shopkeeper and his store. At the store, you are able to purchase various different items/potions. Each item applies a unique buff and helps you on your way to achieving your final goal! Find the key and travel to the next world!
 ## Game demo
 This is ongoing...!

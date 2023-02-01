@@ -1,13 +1,14 @@
 # RoGap Game
 
 ## Introduction
-This is rogue-like game that was born with inspiration from the passion of the aspiring software engineers (the contributors) found below.
+A rogue-like game developed by a group of University of Toronto computer science students interested in game development and eager to apply concepts learned in class. Throughout the development of this game, each student followed SOLID and Clean Architecture principles when contributing to the code base. This allowed students to practice good coding habits and ensure their code was always maintainable and easily extensible.
 
 ## How to play RoGap
 Once the game is run, the instructions are on the screen making it user-friendly and easy to understand.
 
 ## The Goal of the Game
-Explore the map and battle enemies! Defeat enemies to get money and further enhance your abilities! To enchance your abilities, visit the shopkeeper and his store. At the store, you are able to purchase various different items/potions. Each item applies a unique buff and helps you on your way to achieving your final goal! Find the key and travel to the next world!
+Explore the map and battle enemies! Defeat enemies, collect money, and search for the key! To enchance your abilities, visit the shopkeeper and his store. At his store, purchase various items and potions using the money you have collected. Each item applies a unique buff and helps you on your way to achieving your final goal!
+
 ## Game demo
 This is ongoing...!
 

@@ -1,5 +1,6 @@
 package Frameworks;
 
+import Entities.Enemy;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
 import Interface_Adapters.*;
@@ -19,6 +20,11 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     final int SPEED = 3;
 
     private JLabel timerGui;
+
+
+    StatBarsPresenterBoundary statBarsPresenterBoundary;
+
+    private WriteToBoardController writeToBoardController;
     private boolean showStatBar = true;
     private ArrayList<Leaf> leafList = new ArrayList<>();
 
@@ -44,9 +50,9 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     ShowStatsController showStatsController;
     PauseGameController pauseGameController;
     PlayerMovementController playerMovementController;
-    StatBarsPresenterBoundary statBarsPresenterBoundary;
 
     CreateEnemyController createEnemyController;
+    AttackController attackController;
 
 
     public GamePanel(){
@@ -64,16 +70,21 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
      */
     public void setUp(PauseGameController pauseGameController, ShowMapController showMapController,
                       StatBarsPresenterBoundary statBarsPresenterBoundary, ShowStatsController showStatsController, 
-                      PlayerMovementController playerMovementController, CreateEnemyController createEnemyController){
+                      PlayerMovementController playerMovementController, AttackController attackController,
+                      CreateEnemyController createEnemyController){
+
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
         this.showStatsController = showStatsController;
         this.statBarsPresenterBoundary = statBarsPresenterBoundary;
         this.playerMovementController = playerMovementController;
+
+        this.writeToBoardController = writeToBoardController;
         this.createEnemyController = createEnemyController;
-        
+        this.attackController = attackController;
+
         addKeyListener(new KeyboardInputs(pauseGameController, showMapController,
-                showStatsController, playerMovementController));
+                showStatsController, playerMovementController, attackController));
 
         addMouseListener(new MouseInputs(this));
     }
@@ -157,7 +168,7 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         //Enemy visual goes here
         ArrayList<ArrayList> enemyInfo = this.createEnemyController.getEnemyInfo();
         for (ArrayList i : enemyInfo){
-            g.drawImage(playerMovementController.getCurrAnimation(), (int)i.get(1), (int) i.get(2), 36,36, null);
+            g.drawImage((Image) i.get(0), (int)i.get(1), (int) i.get(2), 36,36, null);
         }
 
 
@@ -204,6 +215,22 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
         //  - Don't directly call a method from gameShop.
 /*
         gameShop.checkLocation();
+
+*/
+        // for debugginh attack methods!!!
+/*
+        attackController.drawPlayerAttackRadius(g);
+        attackController.drawPlayerHitRadius(g);
+        attackController.drawMonstersHitRadius(g);
+        attackController.drawMonstersAttackRadius(g);
+        ArrayList<Enemy> e = createEnemyController.createEnemyInputBoundary.getEnemies();
+        Enemy e1 = e.get(0);
+        Enemy e2 = e.get(1);
+
+        g.drawOval(e1.getVisualX(), e1.getVisualY(), 36, 36);
+        g.drawOval(e2.getVisualX(), e2.getVisualY(), 36, 36);
+
+        g.drawOval(e1.getVisualX(), e1.getVisualY(), 36, 36);  // Melee enemy
 */
 
     }

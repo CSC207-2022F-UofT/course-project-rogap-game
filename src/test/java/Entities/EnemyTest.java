@@ -2,6 +2,8 @@ package Entities;
 
 import org.junit.jupiter.api.Test;
 
+import java.awt.geom.Ellipse2D;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class EnemyTest {
@@ -32,6 +34,7 @@ class EnemyTest {
 
     @Test
     void updateHitBoxAttack() {
+
     }
 
     @Test

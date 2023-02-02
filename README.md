@@ -1,36 +1,36 @@
 # RoGap Game
 
 ## Introduction
-This is a template repository for CSC 207 projects. 
-This repository contains starter code for a gradle project.
-It also contains workflow documents that give instructions on how to manage your Github repository and how to use Github Projects for efficient collaboration.
+A rogue-like game developed by a group of University of Toronto computer science students interested in game development and eager to apply concepts learned in class. Throughout the development of this game, each student followed SOLID and Clean Architecture principles when contributing to the code base. This allowed students to practice good coding habits and ensure their code was always maintainable and easily extensible.
 
-## Design Pattern
-### Model-View-Controller (MVC) Design Pattern
-We used MVC design pattern for our game development. The different components of the MVC (the model, the view and the controller) using its own design pattern.
+## How to play RoGap
+Once the game is run, the instructions are on the screen making it user-friendly and easy to understand.
 
-#### The Observer Design Patten (Model)
-The Model represents the logic of your application. Through this pattern, the Model is able to interact with the views and controllers without knowing anything about them. This pattern makes the interaction between all classes loosely coupled.
+## The Goal of the Game
+Explore the map and battle enemies! Defeat enemies, collect money, and search for the key! To enchance your abilities, visit the shopkeeper and his store. At his store, purchase various items and potions using the money you have collected. Each item applies a unique buff and helps you on your way to achieving your final goal!
 
-#### The Composite Design Pattern (View)
-This represents all Views (main window & screens) in an application. This pattern provides a unified access point for all views to the model. The design composes more similar objects so that they can be manipulated as one object
-
-#### The strategy pattern (Controller)
-The strategy pattern helps us decouple user inputs from the game's logic (Model) and interfaces (View). This is because it separates the implementation of the class from the implementation of the algorithms
-
-Below is a graphical representation of the design patterns we have used in our project
-
-![Note Nov 21, 2022](https://user-images.githubusercontent.com/94993837/203185285-9afc5d5e-0467-4755-98a7-c743f4ef8ee1.jpg)
-
-
-## Clean Architecture
-
+## Game demo
+This is ongoing...!
 
 ## Where to get help
-
+We used Intellij for developing the game. SDK version used is Amazon Correto Version 16. The installation instructions can be found [here](https://intellij-support.jetbrains.com/hc/en-us/community/posts/360004337880-Setting-Amazon-Corretto-11-as-Project-SDK).
 
 ## Important links and docs
+The following are the links to important documentation for RoGap:
+
+Architectural Foundation → [layers](https://github.com/CSC207-2022F-UofT/course-project-rogap-game/wiki)
+
+Clear Architecture → [clean](https://github.com/CSC207-2022F-UofT/course-project-rogap-game/wiki/Clean-Architecture)
+
+Design Patterns → [design](https://github.com/CSC207-2022F-UofT/course-project-rogap-game/wiki/Design-Patterns)
+
+Future Advancement → [openness](https://github.com/CSC207-2022F-UofT/course-project-rogap-game/wiki/Future-Advancement)
 
 
-## Clean Architecture
+
+## Contributors
+These are the contributors with their responsibilities, you can directly connect with the creators using their GitHub accounts!
+
+<img width="696" alt="Screenshot 2022-12-08 at 17 38 00" src="https://user-images.githubusercontent.com/94993837/206581961-3c1152b4-2213-49d2-b795-84768539341f.png">
+
 

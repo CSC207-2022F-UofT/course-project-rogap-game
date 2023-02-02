@@ -42,8 +42,16 @@ Future Advancement → [openness](https://github.com/CSC207-2022F-UofT/course-pr
 
 
 
-## Contributors
-These are the contributors with their responsibilities, you can directly connect with the creators using their GitHub accounts!
+## Contributing Team :heart
+These are all the contributors with their responsibilities, you can directly connect with the creators using their GitHub accounts!
+- Raiyan Raad
+- Sergio Perez
+- Abu Zahed
+- Gabriela Jang
+- Kevin Shen
+- Khushil Nagda
+- Keikei Jaffar
+
 
 <img width="696" alt="Screenshot 2022-12-08 at 17 38 00" src="https://user-images.githubusercontent.com/94993837/206581961-3c1152b4-2213-49d2-b795-84768539341f.png">
 

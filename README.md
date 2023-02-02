@@ -5,7 +5,7 @@ A rogue-like game developed by a group of University of Toronto computer science
 
 ## How to play RoGap
 Once the game is run, the instructions are on the screen making it user-friendly and easy to understand.
-![the instructions screen](https://github.com/kevinzshen/course-project-rogap-game/blob/main/instructionScreen.png?raw=true)
+![the instructions screen](https://github.com/kevinzshen/course-project-rogap-game/screenshots/instructionScreen.png?raw=true)
 
 ## The Goal of the Game
 Explore the map and battle enemies! Defeat enemies, collect money, and search for the key! To enchance your abilities, visit the shopkeeper and his store. At his store, purchase various items and potions using the money you have collected. Each item applies a unique buff and helps you on your way to achieving your final goal!

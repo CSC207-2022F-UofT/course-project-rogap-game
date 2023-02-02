@@ -42,7 +42,7 @@ Future Advancement → [openness](https://github.com/CSC207-2022F-UofT/course-pr
 
 
 
-## Contributing Team :heart
+## Contributing Team ♥️
 These are all the contributors with their responsibilities, you can directly connect with the creators using their GitHub accounts!
 - Raiyan Raad
 - Sergio Perez

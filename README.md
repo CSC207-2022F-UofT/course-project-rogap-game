@@ -20,7 +20,9 @@ Visit the shopkeeper and his shop!
 The shop sells various different potions, each of which enhance the player's abilities in different ways.
 
 ![close up of the player, shopkeeper, and potion](https://github.com/CSC207-2022F-UofT/course-project-rogap-game/blob/main/screenshots/spriteCloseUp.png?raw=true)
+
 *The shopkeeper, player, and strength potion is shown above*
+
 Purchase items with gold that you collect from killing enemies.
 ## Where to get help
 We used Intellij for developing the game. SDK version used is Amazon Correto Version 16. The installation instructions can be found [here](https://intellij-support.jetbrains.com/hc/en-us/community/posts/360004337880-Setting-Amazon-Corretto-11-as-Project-SDK).

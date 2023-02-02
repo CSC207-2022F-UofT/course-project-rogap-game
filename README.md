@@ -14,6 +14,12 @@ Explore the map and battle enemies! Defeat enemies, collect money, and search fo
 ## Game demo
 This is ongoing...!
 
+## The Shop
+Visit the shopkeeper and his shop!
+
+The shop sells various different potions, each of which enhance the player's abilities in different ways.
+
+![close up of the player, shopkeeper, and potion](https://github.com/CSC207-2022F-UofT/course-project-rogap-game/blob/main/screenshots/shopCloseUp.png?raw=true)
 ## Where to get help
 We used Intellij for developing the game. SDK version used is Amazon Correto Version 16. The installation instructions can be found [here](https://intellij-support.jetbrains.com/hc/en-us/community/posts/360004337880-Setting-Amazon-Corretto-11-as-Project-SDK).
 

@@ -5,6 +5,7 @@ A rogue-like game developed by a group of University of Toronto computer science
 
 ## How to play RoGap
 Once the game is run, the instructions are on the screen making it user-friendly and easy to understand.
+
 ![the instructions screen](https://github.com/CSC207-2022F-UofT/course-project-rogap-game/blob/main/screenshots/instructionScreen.png?raw=true)
 
 ## The Goal of the Game

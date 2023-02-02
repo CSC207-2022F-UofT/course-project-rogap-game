@@ -24,6 +24,8 @@ The shop sells various different potions, each of which enhance the player's abi
 *The shopkeeper, player, and strength potion is shown above*
 
 Purchase items with gold that you collect from killing enemies.
+
+To purchase items, walk over them, if your player has sufficient gold the item will automatically be purchased and immediately applied.
 ## Where to get help
 We used Intellij for developing the game. SDK version used is Amazon Correto Version 16. The installation instructions can be found [here](https://intellij-support.jetbrains.com/hc/en-us/community/posts/360004337880-Setting-Amazon-Corretto-11-as-Project-SDK).
 

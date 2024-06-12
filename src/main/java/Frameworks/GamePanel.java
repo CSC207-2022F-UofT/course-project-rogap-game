@@ -4,6 +4,7 @@ import Entities.Enemy;
 import Inputs.KeyboardInputs;
 import Inputs.MouseInputs;
 import Interface_Adapters.*;
+import Use_Cases.ShopAnimationInputBoundary;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,10 +36,10 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     private BufferedImage pauseIcon;
     private BufferedImage leaf;
     private BufferedImage bushes;
+    private BufferedImage healthPotion;
 
     // Variables for shop system GUI
     private BufferedImage shopKeeper;
-    private BufferedImage healthPotion;
     private BufferedImage statsBar;
     private BufferedImage healthBar;
     private BufferedImage timerPill;
@@ -50,7 +51,9 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
     ShowStatsController showStatsController;
     PauseGameController pauseGameController;
     PlayerMovementController playerMovementController;
-
+    StatBarsPresenterBoundary statBarsPresenterBoundary;
+    CreateEnemyController createEnemyController;
+    ShopAnimationController shopAnimationController;
     CreateEnemyController createEnemyController;
     AttackController attackController;
 
@@ -70,8 +73,9 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
      */
     public void setUp(PauseGameController pauseGameController, ShowMapController showMapController,
                       StatBarsPresenterBoundary statBarsPresenterBoundary, ShowStatsController showStatsController, 
-                      PlayerMovementController playerMovementController, AttackController attackController,
-                      CreateEnemyController createEnemyController){
+                      PlayerMovementController playerMovementController, CreateEnemyController createEnemyController,
+                      ShopAnimationController shopAnimationController, PlayerMovementController playerMovementController,
+                      AttackController attackController, CreateEnemyController createEnemyController){
 
         this.pauseGameController = pauseGameController;
         this.showMapController = showMapController;
@@ -81,8 +85,8 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
 
         this.writeToBoardController = writeToBoardController;
         this.createEnemyController = createEnemyController;
+        this.shopAnimationController = shopAnimationController;
         this.attackController = attackController;
-
         addKeyListener(new KeyboardInputs(pauseGameController, showMapController,
                 showStatsController, playerMovementController, attackController));
 
@@ -171,10 +175,6 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
             g.drawImage((Image) i.get(0), (int)i.get(1), (int) i.get(2), 36,36, null);
         }
 
-
-        //TODO: Kevin
-        // Handle shop stuff using CLEAN way
-
         // SHOP VISUAL GOES HERE
 /*
 
@@ -182,7 +182,9 @@ public class GamePanel extends JPanel implements UpdateScreenBoundary {
             g.drawImage(healthPotion, xDelta + 1857, yDelta + 1726, null);
         }
 */
-        g.drawImage(shopKeeper, playerMovementController.getVisualX() + 1857, playerMovementController.getVisualY() + 1676, null);
+        g.drawImage(shopKeeper, playerMovementController.getVisualX() + 1872, playerMovementController.getVisualY() + 1700, null);
+
+        g.drawImage(shopAnimationController.getCurrAnimation(), playerMovementController.getVisualX() + 1910, playerMovementController.getVisualY() + 1793, 32, 45,  null);
 
         g.drawImage(bushes, playerMovementController.getVisualX(), playerMovementController.getVisualY(), null);
 

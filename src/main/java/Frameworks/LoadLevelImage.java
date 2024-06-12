@@ -19,7 +19,7 @@ public class LoadLevelImage {
         InputStream pi = LoadLevelImage.class.getResourceAsStream("/Paused.png");
         InputStream lf = LoadLevelImage.class.getResourceAsStream("/Leaf.png");
         InputStream bt = LoadLevelImage.class.getResourceAsStream("/Bushes.png");
-        InputStream sk = LoadLevelImage.class.getResourceAsStream("/ShopKeeper.png");
+        InputStream sk = LoadLevelImage.class.getResourceAsStream("/Shopkeeper.png");
         InputStream sb = LoadLevelImage.class.getResourceAsStream("/StatsBar.png");
         InputStream hb = LoadLevelImage.class.getResourceAsStream("/HealthBar.png");
         InputStream tp = LoadLevelImage.class.getResourceAsStream("/TimerPill.png");

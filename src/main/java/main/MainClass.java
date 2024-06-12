@@ -32,6 +32,17 @@ public class MainClass {
         PlayerMovement playerMovement = new PlayerMovement(player);
         PlayerMovementInputBoundary playerMovementInteractor = new PlayerMovementInteractor(playerMovement);
         PlayerMovementController playerMovementController = new PlayerMovementController(playerMovementInteractor, collisionController);
+        new AnimationsImportController(playerAnimationImport.getPlayerAnimations(), playerMovementController);
+
+        //Initialize Potions
+        HealthPotion healthPotion = new HealthPotion();
+        ShopAnimation shopAnimation = new ShopAnimation(healthPotion);
+        ShopAnimationInputBoundary shopAnimationInteractor = new ShopAnimationInteractor(shopAnimation);
+        ShopAnimationController shopAnimationController = new ShopAnimationController(shopAnimationInteractor);
+
+        ShopAnimationsImport shopAnimationsImport = new ShopAnimationsImport(shopAnimationController);
+        // TODO: THIS IS THE GOOD STUFF
+        ShopAnimationsImportController shopAnimationsImportController = new ShopAnimationsImportController(shopAnimationsImport.getItemAnimation(), shopAnimationController);
 
         //Enemy stuff
         EnemyMovement enemyMovement = new EnemyMovement();
@@ -78,8 +89,8 @@ public class MainClass {
         new AttackDamageAnimationsImportController(animationImport.getPlayerAnimations(), attackController);
 
 
-        screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary,
-                showStatsController, playerMovementController, attackController, createEnemyController);
+        screenModel.setUp(pauseGameController, showMapController, statBarsPresenterBoundary, showStatsController, 
+        playerMovementController, attackController, createEnemyController, shopAnimationController);
 
         gameManager.start();
     }
